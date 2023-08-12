@@ -1,26 +1,37 @@
 .btn {
   display: inline-flex;
-  padding: 10px 20px;
-
+  padding: 21px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 100%;
   color: $color-default-white;
 
-  background-color: $color-neon-blue;
+  background-color: $color-navy-blue;
   border: none;
   cursor: pointer;
+  user-select: none;
 
   transition: opacity $trans-default;
 
-  &--red {
-    background-color: $color-torch-red;
-  }
+  &--arrow {
 
-  &:disabled {
-    opacity: 0.5;
-
-    pointer-events: none;
   }
 
   @include hover-focus {
-    opacity: 0.8;
+    background-color: $color-default-white;
+    color: $color-resolution-blue;
+    outline-offset: 1px solid $color-resolution-blue;
+  }
+
+  @include active {
+    background-color: $color-resolution-blue;
+    color: $color-default-white;
+  }
+
+  &:disabled {
+    background-color: $color-additional-blue;
+    color: $color-default-white;
+    pointer-events: none;
   }
 }
+
