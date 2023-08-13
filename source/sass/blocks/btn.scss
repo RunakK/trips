@@ -1,26 +1,86 @@
 .btn {
   display: inline-flex;
-  padding: 10px 20px;
-
+  padding: 21px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 100%;
   color: $color-default-white;
 
-  background-color: $color-neon-blue;
+  background-color: $color-navy-blue;
   border: none;
   cursor: pointer;
+  user-select: none;
 
   transition: opacity $trans-default;
 
-  &--red {
-    background-color: $color-torch-red;
+  @include hover-focus {
+    background-color: $color-default-white;
+    color: $color-resolution-blue;
+    outline: 1px solid $color-resolution-blue;
+    outline-offset: -2px;
+  }
+
+  @include active {
+    background-color: $color-resolution-blue;
+    color: $color-default-white;
   }
 
   &:disabled {
-    opacity: 0.5;
-
+    background-color: $color-additional-blue;
+    color: $color-default-white;
     pointer-events: none;
+  }
+}
+
+.btn--arrow {
+  position: relative;
+  width: 37px;
+  height: 35px;
+  display: block;
+}
+
+.btn--show {
+  font-weight: 700;
+  letter-spacing: 0.64px;
+  text-transform: uppercase;
+  position: relative;
+  color: $color-elephant;
+  background-color: transparent;
+
+  &::before {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: solid $color-elephant;
+    border-width: 0 1px 1px 0;
+    top: calc(50% - 1px);
+    rotate: -50deg;
+    right: 5px;
+    top: 50%;
+    transform: translate(0, -7px);
+  }
+
+  @include vp-767 {
+    font-size: 14px;
+    letter-spacing: 0.56px;
   }
 
   @include hover-focus {
-    opacity: 0.8;
+    outline: transparent;
+    &::before {
+      border-color: $color-resolution-blue;
+    }
+  }
+
+  @include active{
+    color: $color-navy-blue;
+    &::before {
+      border-color: $color-navy-blue;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.1;
   }
 }
