@@ -30,12 +30,13 @@ html {
 body {
   width: 100%;
   height: 100%;
-
+  color: $color-elephant;
   background-color: $color-default-white;
 }
 
 a {
-  color: $color-default-black;
+  // color: $color-default-black;
+  color: $color-elephant;
   text-decoration: none;
 }
 
