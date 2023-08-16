@@ -22,10 +22,43 @@
 
 <body>
   <div class="wrapper">
-    <header>
-      <div class="container"></div>
+    <header class="header header-example" data-header>
+      <div class="container">
+        <div class="header-example__wrapper">
+          <a href="./index.html" class="header-example__logo">
+            <svg width="142" height="42" viewBox="0 0 142 42" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <use href="./img/sprite.svg#logotype"></use>
+            </svg>
+          </a>
+          <nav class="navigation header__navigation header-example__nav">
+            <ul class="navigation__list header-example__list">
+              <li class="navigation__item header-example__item"><a href="#" class="header-example__link">Туры</a></li>
+              <li class="navigation__item header-example__item"><a href="#" class="header-example__link">Обучение</a></li>
+              <li class="navigation__item header-example__item"><a href="#" class="header-example__link">О нас</a></li>
+              <li class="navigation__item header-example__item"><a href="#" class="header-example__link">Отзывы</a></li>
+              <li class="navigation__item header-example__item"><a href="#" class="header-example__link">Фотографии</a></li>
+              <li class="navigation__item header-example__item"><a href="#" class="header-example__link">Контакты</a></li>
+            </ul>
+          </nav>
+          <button class="navigation__toggle header-example__burger" type="button" data-burger>
+            <svg class="header-example__burger-text" width="26" height="26" viewBox="0 0 26 26" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <use href="./img/sprite.svg#menu"></use>
+            </svg>
+            <svg class="header-example__burger-icon" width="22" height="22" viewBox="0 0 22 22" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <use href="./img/sprite.svg#cross"></use>
+            </svg>
+          </button>
+          <a class="header-example__phone-link" href="tel:8-800-725-32-32">8 800 725 32 32</a>
+        </div>
+      </div>
     </header>
-    <main></main>
+    <main>
+      <section class="hero">
+        <img src="./img/hero-altay-desktop.png" alt="">
+        <div class="container">
+        </div>
+      </section>
+    </main>
     <footer>
       <div class="container"></div>
     </footer>

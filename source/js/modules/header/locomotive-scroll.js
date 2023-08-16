@@ -1,1069 +1,18 @@
-(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-"use strict";
-
-var _iosVhFix = require("./utils/ios-vh-fix");
-var _form = require("./modules/form-validate/form");
-require("./modules/header");
-// ---------------------------------
-
-window.addEventListener('DOMContentLoaded', function () {
-  // Utils
-  // ---------------------------------
-
-  (0, _iosVhFix.iosVhFix)();
-
-  // Modules
-  // ---------------------------------
-
-  // все скрипты должны быть в обработчике 'DOMContentLoaded', но не все в 'load'
-  // в load следует добавить скрипты, не участвующие в работе первого экрана
-  window.addEventListener('load', function () {
-    var form = new _form.Form();
-    window.form = form;
-    form.init();
-  });
-});
-
-// ---------------------------------
-
-// ❗❗❗ обязательно установите плагины eslint, stylelint, editorconfig в редактор кода.
-
-// привязывайте js не на классы, а на дата атрибуты (data-validate)
-
-// вместо модификаторов .block--active используем утилитарные классы
-// .is-active || .is-open || .is-invalid и прочие (обязателен нейминг в два слова)
-// .select.select--opened ❌ ---> [data-select].is-open ✅
-
-// выносим все в дата атрибуты
-// url до иконок пинов карты, настройки автопрокрутки слайдера, url к json и т.д.
-
-// для адаптивного JS используется matchMedia и addListener
-// const breakpoint = window.matchMedia(`(min-width:1024px)`);
-// const breakpointChecker = () => {
-//   if (breakpoint.matches) {
-//   } else {
-//   }
-// };
-// breakpoint.addListener(breakpointChecker);
-// breakpointChecker();
-
-// используйте .closest(el)
-
-},{"./modules/form-validate/form":3,"./modules/header":11,"./utils/ios-vh-fix":18}],2:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.callbacks = void 0;
-var baseSuccessCallback = function baseSuccessCallback(event) {
-  event.preventDefault();
-  // В данном колбеке бэкендер, либо разработчик при необходимости будет писать запрос на отправку формы на сервер и обрабатывать возможные ошибки или успешную отправку формы на сервер
-};
-
-var baseErrorCallback = function baseErrorCallback(event) {
-  event.preventDefault();
-  // Данный коллбек используется при необходимости выполнить какое-либо действие помимо показа ошибок при попытке отправить неккорректные данные, он не связан с запросами на сервер
-};
-
-var callbacks = {
-  base: {
-    // Сбросс формы
-    reset: true,
-    // Таймаут сброса формы
-    resetTimeout: 500,
-    successCallback: baseSuccessCallback,
-    errorCallback: baseErrorCallback
-  }
-};
-exports.callbacks = callbacks;
-
-},{}],3:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Form = void 0;
-var _validator = require("./validator");
-var _callback = require("./callback");
-var _initPhoneInput = require("./init-phone-input");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var Form = /*#__PURE__*/function () {
-  function Form() {
-    _classCallCheck(this, Form);
-    this._validator = new _validator.Validator();
-    this._initPhoneInput = _initPhoneInput.initPhoneInput;
-    this._callbacks = _callback.callbacks;
-  }
-  _createClass(Form, [{
-    key: "_resetSelect",
-    value: function _resetSelect(select) {
-      var nativeSelect = select.querySelector('select');
-      var activeIndex = nativeSelect.options.selectedIndex;
-      var selectedOption = nativeSelect.options[activeIndex];
-      var buttonText = select.querySelector('.custom-select__text');
-      var selectItems = select.querySelectorAll('.custom-select__item');
-      buttonText.textContent = selectedOption.textContent;
-      selectItems.forEach(function (item, index) {
-        if (index === activeIndex - 1) {
-          item.setAttribute('aria-selected', 'true');
-          return;
-        }
-        item.setAttribute('aria-selected', 'false');
-      });
-      if (!nativeSelect.value) {
-        select.classList.remove('not-empty');
-        select.classList.remove('is-valid');
-      }
-    }
-  }, {
-    key: "_resetSelects",
-    value: function _resetSelects(form) {
-      var _this = this;
-      var selects = form.querySelectorAll('[data-select]');
-      selects.forEach(function (select) {
-        _this._resetSelect(select);
-      });
-    }
-  }, {
-    key: "reset",
-    value: function reset(form) {
-      var _this2 = this;
-      form.reset();
-      form.querySelectorAll('.is-invalid').forEach(function (item) {
-        return item.classList.remove('is-invalid');
-      });
-      form.querySelectorAll('.is-valid').forEach(function (item) {
-        return item.classList.remove('is-valid');
-      });
-      form.querySelectorAll('.input-message').forEach(function (item) {
-        return item.remove();
-      });
-      setTimeout(function () {
-        _this2._resetSelects(form);
-      });
-    }
-  }, {
-    key: "initPhoneInput",
-    value: function initPhoneInput(parent) {
-      this._initPhoneInput(parent);
-    }
-  }, {
-    key: "validateForm",
-    value: function validateForm(form) {
-      return this._validator.validateForm(form);
-    }
-  }, {
-    key: "validateFormElement",
-    value: function validateFormElement(item) {
-      return this._validator.validateFormElement(item);
-    }
-  }, {
-    key: "_onFormSubmit",
-    value: function _onFormSubmit(event) {
-      var _this3 = this;
-      var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-      if (this.validateForm(event.target) && callback) {
-        this._callbacks[callback].successCallback(event);
-        if (this._callbacks[callback].reset) {
-          setTimeout(function () {
-            _this3.reset(event.target);
-          }, this._callbacks[callback].resetTimeout ? this._callbacks[callback].resetTimeout : 500);
-        }
-        return;
-      }
-      if (!this.validateForm(event.target) && callback) {
-        this._callbacks[callback].errorCallback(event);
-        return;
-      }
-    }
-  }, {
-    key: "_onFormInput",
-    value: function _onFormInput(item) {
-      this.validateFormElement(item);
-    }
-  }, {
-    key: "_initValidate",
-    value: function _initValidate(parent) {
-      var _this4 = this;
-      var form = parent.querySelector('form');
-      if (!form) {
-        return;
-      }
-      var phoneParents = form.querySelectorAll('[data-validate-type="phone"]');
-      phoneParents.forEach(function (item) {
-        return _this4._initPhoneInput(item);
-      });
-      var callback = parent.dataset.callback;
-      form.noValidate = true;
-      form.addEventListener('submit', function (event) {
-        event.preventDefault();
-        _this4._onFormSubmit(event, callback);
-      });
-      form.addEventListener('input', function (event) {
-        _this4._onFormInput(event.target);
-      });
-      form.addEventListener('reset', function (event) {
-        _this4.reset(event.target);
-      });
-    }
-  }, {
-    key: "init",
-    value: function init() {
-      var _this5 = this;
-      this._validateParent = document.querySelectorAll('[data-form-validate]');
-      if (!this._validateParent.length) {
-        return;
-      }
-      this._validateParent.forEach(function (parent) {
-        return _this5._initValidate(parent);
-      });
-    }
-  }]);
-  return Form;
-}();
-exports.Form = Form;
-
-},{"./callback":2,"./init-phone-input":4,"./validator":8}],4:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.initPhoneInput = void 0;
-var baseCountryCode = '+7';
-var baseMatrix = ' (___) ___ __ __';
-var phoneLength = baseCountryCode.length + baseMatrix.length;
-var onPhoneInputInput = function onPhoneInputInput(e) {
-  var matrix = "".concat(baseCountryCode).concat(baseMatrix);
-  var def = matrix.replace(/\D/g, '');
-  var i = 0;
-  var val = e.target.value.replace(/\D/g, '');
-  if (def.length >= val.length) {
-    val = def;
-  }
-  e.target.value = matrix.replace(/./g, function (a) {
-    if (/[_\d]/.test(a) && i < val.length) {
-      return val.charAt(i++);
-    } else if (i >= val.length) {
-      return '';
-    } else {
-      return a;
-    }
-  });
-};
-var onPhoneInputFocus = function onPhoneInputFocus(_ref) {
-  var target = _ref.target;
-  if (!target.value) {
-    target.value = baseCountryCode;
-  }
-  target.addEventListener('input', onPhoneInputInput);
-  target.addEventListener('blur', onPhoneInputBlur);
-  target.addEventListener('keydown', onPhoneInputKeydown);
-  target.addEventListener('paste', onPhoneInputPaste);
-  target.addEventListener('click', onPhoneInputClick);
-};
-var onPhoneInputClick = function onPhoneInputClick(e) {
-  if (e.target.selectionStart < 4) {
-    e.preventDefault();
-    e.target.setSelectionRange(3, 3);
-  }
-};
-var onPhoneInputPaste = function onPhoneInputPaste(e) {
-  e.target.setSelectionRange(0, 0);
-  if (!e.target.selectionStart) {
-    setTimeout(function () {
-      if (e.target.value.startsWith('+7')) {
-        return;
-      }
-      if (e.target.value.startsWith('+8')) {
-        e.target.value = "+7 ".concat(e.target.value.slice(3));
-        return;
-      }
-      e.target.value = '';
-    });
-  }
-};
-var onPhoneInputKeydown = function onPhoneInputKeydown(e) {
-  if (e.target.selectionStart < 4 && (e.keyCode === 37 || e.keyCode === 13)) {
-    e.preventDefault();
-    e.target.setSelectionRange(3, 3);
-  }
-};
-var onPhoneInputBlur = function onPhoneInputBlur(_ref2) {
-  var target = _ref2.target;
-  if (target.value === baseCountryCode) {
-    var parent = target.closest('[data-validate-type="phone"]');
-    target.value = '';
-    if (!parent.hasAttribute('data-required')) {
-      parent.classList.remove('is-valid');
-      parent.classList.remove('is-invalid');
-      var parentMessage = parent.querySelector('.input-message');
-      if (parentMessage) {
-        parentMessage.remove();
-      }
-    }
-    parent.classList.remove('not-empty');
-    target.removeEventListener('input', onPhoneInputInput);
-    target.removeEventListener('blur', onPhoneInputBlur);
-    target.removeEventListener('keydown', onPhoneInputKeydown);
-    target.removeEventListener('paste', onPhoneInputPaste);
-    target.removeEventListener('click', onPhoneInputClick);
-  }
-};
-var initPhoneInput = function initPhoneInput(parent) {
-  var input = parent.querySelector('input');
-  parent.dataset.phoneLength = phoneLength;
-  input.addEventListener('focus', onPhoneInputFocus);
-};
-exports.initPhoneInput = initPhoneInput;
-
-},{}],5:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.matrixReplace = void 0;
-var matrixReplace = function matrixReplace(item, matrix, RegEx) {
-  if (!matrix) {
-    // eslint-disable-next-line no-console
-    console.error('При валидации по матрице обязательно указывать формат матрицы: data-matrix=""');
-    item.value = '';
-    return;
-  }
-  if (!RegEx) {
-    // eslint-disable-next-line no-console
-    console.error('При валидации по матрице обязательно указывать формат ограничений: data-matrix-limitations=""');
-    item.value = '';
-    return;
-  }
-  var def = matrix.replace(RegEx, '');
-  var val = item.value.replace(RegEx, '');
-  var i = 0;
-  if (def.length >= val.length) {
-    val = def;
-  }
-  item.value = matrix.replace(/./g, function (a) {
-    if (/[_\^]/.test(a) && i < val.length) {
-      return val.charAt(i++);
-    } else if (i >= val.length) {
-      return '';
-    } else {
-      return a;
-    }
-  });
-};
-exports.matrixReplace = matrixReplace;
-
-},{}],6:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.getMatrixLimitationsRegEx = exports.getMailRegEx = exports.getLimitationsRegEx = void 0;
-var setLimitationError = function setLimitationError(limitation) {
-  // eslint-disable-next-line no-console
-  console.error("\u041F\u0435\u0440\u0435\u0434\u0430\u043D\u043D\u044B\u0439 \u0444\u043E\u0440\u043C\u0430\u0442 \u043E\u0433\u0440\u0430\u043D\u0438\u0447\u0435\u043D\u0438\u044F(data-limitation=\"".concat(limitation, "\") - \u043D\u0435 \u043F\u043E\u0434\u0434\u0435\u0440\u0436\u0438\u0432\u0430\u0435\u0442\u0441\u044F. \u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u043A\u043E\u0440\u0440\u0435\u043A\u0442\u043D\u043E\u0441\u0442\u044C \u0432\u0432\u0435\u0434\u0451\u043D\u043D\u044B\u0445 \u0437\u043D\u0430\u0447\u0435\u043D\u0438\u0439."));
-};
-var getLimitationsRegEx = function getLimitationsRegEx(limitation) {
-  switch (limitation) {
-    case 'digit':
-      return /[^\d]/g;
-    case 'name':
-      return /[^a-zA-Zа-яёА-ЯЁ\-\s]/g;
-    case 'letters':
-      return /[^a-zA-Zа-яёА-ЯЁ\s]/g;
-    case 'letters-and-digit':
-      return /[^a-zA-Zа-яёА-ЯЁ\s\d]/g;
-    case 'cyrillic':
-      return /[^а-яёА-ЯЁ\s]/g;
-    case 'latin':
-      return /[^a-zA-Z\s]/g;
-    default:
-      return setLimitationError(limitation);
-  }
-};
-exports.getLimitationsRegEx = getLimitationsRegEx;
-var getMatrixLimitationsRegEx = function getMatrixLimitationsRegEx(matrix) {
-  switch (matrix) {
-    case 'digit':
-      return /[^\d]/g;
-    case 'name':
-      return /[^\а-яё\А-ЯЁ\a-z\A-Z\-]]/g;
-    case 'letters':
-      return /[^\а-яё\А-ЯЁ\a-z\A-Z]/g;
-    case 'letters-and-digit':
-      return /[^\а-яё\А-ЯЁ\a-z\A-Z\d]/g;
-    case 'cyrillic':
-      return /[^\а-яё\А-ЯЁ]/g;
-    case 'latin':
-      return /[^\a-z\A-Z]/g;
-    default:
-      return false;
-  }
-};
-exports.getMatrixLimitationsRegEx = getMatrixLimitationsRegEx;
-var getMailRegEx = function getMailRegEx() {
-  return /[a-zA-Zа-яёА-ЯЁ0-9]{1}([a-zA-Zа-яёА-ЯЁ0-9\-_\.]{1,})?@[a-zA-Zа-яёА-ЯЁ0-9\-]{1}([a-zA-Zа-яёА-ЯЁ0-9.\-]{1,})?[a-zA-Zа-яёА-ЯЁ0-9\-]{1}\.[a-zA-Zа-яёА-ЯЁ]{2,6}/;
-};
-exports.getMailRegEx = getMailRegEx;
-
-},{}],7:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Message = void 0;
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var Message = /*#__PURE__*/function () {
-  function Message() {
-    _classCallCheck(this, Message);
-    this._baseErrorText = 'Это поле является обязательным';
-  }
-  _createClass(Message, [{
-    key: "_messageTemplate",
-    value: function _messageTemplate(message, state) {
-      var cssClass = state === 'valid' ? 'is-valid' : 'is-invalid';
-      return "<span class=\"input-message ".concat(cssClass, "\">").concat(message, "</span>");
-    }
-  }, {
-    key: "removeMessage",
-    value: function removeMessage(parent) {
-      var parentMessage = parent.querySelector('.input-message');
-      if (parentMessage) {
-        parentMessage.remove();
-      }
-    }
-  }, {
-    key: "renderMessage",
-    value: function renderMessage(parent, message, state) {
-      this.removeMessage(parent);
-      parent.insertAdjacentHTML('beforeend', this._messageTemplate(message, state));
-    }
-  }]);
-  return Message;
-}();
-exports.Message = Message;
-
-},{}],8:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Validator = void 0;
-var _regularExpression = require("./regular-expression");
-var _matrix = require("./matrix");
-var _renderMessage2 = require("./render-message");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var Validator = /*#__PURE__*/function () {
-  function Validator() {
-    _classCallCheck(this, Validator);
-    this._getLimitationsRegEx = _regularExpression.getLimitationsRegEx;
-    this._getMatrixLimitationsRegEx = _regularExpression.getMatrixLimitationsRegEx;
-    this._getMailRegEx = _regularExpression.getMailRegEx;
-    this._matrixReplace = _matrix.matrixReplace;
-    this._message = new _renderMessage2.Message();
-  }
-  _createClass(Validator, [{
-    key: "_renderMessage",
-    value: function _renderMessage(trigger, parent, input) {
-      if (!parent.hasAttribute('data-required') && !input.value) {
-        return;
-      }
-      if (!trigger) {
-        parent.classList.add('is-invalid');
-        if (parent.hasAttribute('data-message-base') && !input.value) {
-          this._message.renderMessage(parent, parent.dataset.messageBase, 'invalid');
-        } else if (parent.hasAttribute('data-message-extra') && input.value) {
-          this._message.renderMessage(parent, parent.dataset.messageExtra, 'invalid');
-        } else if (!parent.hasAttribute('data-message-extra') && parent.hasAttribute('data-message-base') && input.value) {
-          this._message.renderMessage(parent, parent.dataset.messageBase, 'invalid');
-        } else {
-          this._message.removeMessage(parent);
-        }
-      } else {
-        if (parent.hasAttribute('data-message-success')) {
-          this._message.renderMessage(parent, parent.dataset.messageSuccess, 'valid');
-        } else {
-          this._message.removeMessage(parent);
-        }
-      }
-    }
-  }, {
-    key: "_setItemValidState",
-    value: function _setItemValidState(parent, input) {
-      if (!parent.hasAttribute('data-required') && !input.value) {
-        return;
-      }
-      parent.classList.add('is-valid');
-      parent.classList.remove('is-invalid');
-      input.setAttribute('aria-invalid', 'false');
-      this._message.removeMessage(parent);
-    }
-  }, {
-    key: "_setItemInvalidState",
-    value: function _setItemInvalidState(parent, input) {
-      if (!parent.hasAttribute('data-required') && !input.value) {
-        return;
-      }
-      parent.classList.remove('is-valid');
-      input.setAttribute('aria-invalid', 'true');
-    }
-  }, {
-    key: "_simpleLimitation",
-    value: function _simpleLimitation(item, limitation) {
-      item.value = item.value.replace(this._getLimitationsRegEx(limitation), '');
-    }
-  }, {
-    key: "_matrixLimitation",
-    value: function _matrixLimitation(item, matrix, limitation) {
-      this._matrixReplace(item, matrix, limitation);
-    }
-  }, {
-    key: "_validateTextInput",
-    value: function _validateTextInput(parent, input) {
-      var flag = true;
-      if (input.value.length >= (+input.getAttribute('minlength') || 1)) {
-        this._setItemValidState(parent, input);
-      } else {
-        this._setItemInvalidState(parent, input);
-        flag = false;
-      }
-      return flag;
-    }
-  }, {
-    key: "_validateMatrixInput",
-    value: function _validateMatrixInput(parent, input) {
-      var flag = true;
-      if (input.value.length === input.closest('[data-matrix]').dataset.matrix.length) {
-        this._setItemValidState(parent, input);
-      } else {
-        this._setItemInvalidState(parent, input);
-        flag = false;
-      }
-      return flag;
-    }
-  }, {
-    key: "_validateEmailInput",
-    value: function _validateEmailInput(parent, input) {
-      var flag = true;
-      if (new RegExp(this._getMailRegEx(), '').test(input.value)) {
-        this._setItemValidState(parent, input);
-      } else {
-        this._setItemInvalidState(parent, input);
-        flag = false;
-      }
-      return flag;
-    }
-  }, {
-    key: "_validatePhoneInput",
-    value: function _validatePhoneInput(parent, input) {
-      var flag = true;
-      if (input.value.length >= +parent.dataset.phoneLength) {
-        this._setItemValidState(parent, input);
-      } else {
-        this._setItemInvalidState(parent, input);
-        flag = false;
-      }
-      return flag;
-    }
-  }, {
-    key: "_validateCheckbox",
-    value: function _validateCheckbox(parent, input) {
-      var flag = true;
-      if (input.checked) {
-        this._setItemValidState(parent, input);
-      } else {
-        this._setItemInvalidState(parent, input);
-        flag = false;
-      }
-      return flag;
-    }
-  }, {
-    key: "_findSelectedOption",
-    value: function _findSelectedOption(options) {
-      var flag = false;
-      options.forEach(function (option) {
-        if (option.value && option.selected) {
-          flag = true;
-        }
-      });
-      return flag;
-    }
-  }, {
-    key: "_validateSelect",
-    value: function _validateSelect(parent, input) {
-      var options = input.querySelectorAll('option');
-      var customSelectText = parent.querySelector('.custom-select__text');
-      input.setAttribute('aria-invalid', 'false');
-      var flag = true;
-      if (this._findSelectedOption(options)) {
-        this._setItemValidState(parent, input);
-      } else {
-        this._setItemInvalidState(parent, input);
-        parent.classList.remove('not-empty');
-        customSelectText.innerHTML = '';
-        flag = false;
-      }
-      return flag;
-    }
-  }, {
-    key: "_returnCheckedElements",
-    value: function _returnCheckedElements(inputs) {
-      var flag = false;
-      inputs.forEach(function (input) {
-        if (input.checked) {
-          flag = true;
-        }
-      });
-      return flag;
-    }
-  }, {
-    key: "_removeGroupAria",
-    value: function _removeGroupAria(inputs) {
-      inputs.forEach(function (input) {
-        if (!input.checked) {
-          input.removeAttribute('aria-required');
-          input.removeAttribute('aria-invalid');
-        } else {
-          input.setAttribute('aria-required', true);
-          input.setAttribute('aria-invalid', false);
-        }
-      });
-    }
-  }, {
-    key: "_setGroupAria",
-    value: function _setGroupAria(inputs) {
-      inputs.forEach(function (input) {
-        input.setAttribute('aria-required', true);
-        input.setAttribute('aria-invalid', true);
-      });
-    }
-  }, {
-    key: "_validateToggleGroup",
-    value: function _validateToggleGroup(parent) {
-      var formElements = parent.querySelectorAll('input');
-      var flag = true;
-      if (this._returnCheckedElements(formElements)) {
-        this._removeGroupAria(formElements);
-        parent.classList.remove('is-invalid');
-        parent.classList.add('is-valid');
-        this._message.removeMessage(parent);
-      } else {
-        this._setGroupAria(formElements);
-        parent.classList.remove('is-valid');
-        flag = false;
-      }
-      return flag;
-    }
-  }, {
-    key: "_customExample",
-    value: function _customExample(parent, input) {
-      var flag = true;
-      if (!input.value.length) {
-        parent.dataset.messageBase = 'Поле обязательно к заполнению';
-        this._setItemInvalidState(parent, input);
-        flag = false;
-      } else if (input.value.length < input.minLength) {
-        parent.dataset.messageBase = "\u041E\u0441\u0442\u0430\u043B\u043E\u0441\u044C \u0432\u0432\u0435\u0441\u0442\u0438 \u0435\u0449\u0451 ".concat(input.minLength - input.value.length, " \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432");
-        this._setItemInvalidState(parent, input);
-        flag = false;
-      } else if (input.value.length > input.minLength) {
-        parent.dataset.messageBase = "\u0412\u044B \u0432\u0432\u0435\u043B\u0438 ".concat(input.value.length - input.minLength, " \u043B\u0438\u0448\u043D\u0438\u0445 \u0441\u0438\u043C\u0432\u043E\u043B\u043E\u0432");
-        this._setItemInvalidState(parent, input);
-        flag = false;
-      } else {
-        parent.dataset.messageSuccess = 'Поле заполнено корректно';
-        this._setItemValidState(parent, input);
-        flag = true;
-      }
-      return flag;
-    }
-  }, {
-    key: "_validateFile",
-    value: function _validateFile(parent, input) {
-      var flag = true;
-      var sizeTest = parent.dataset.maxSize && input.files[0] ? input.files[0].size < +parent.dataset.maxSize : true;
-      if (input.value && sizeTest) {
-        this._setItemValidState(parent, input);
-      } else {
-        this._setItemInvalidState(parent, input);
-        flag = false;
-      }
-      return flag;
-    }
-  }, {
-    key: "_validateInput",
-    value: function _validateInput(type, parent, input) {
-      switch (type) {
-        case 'text':
-          return this._validateTextInput(parent, input);
-        case 'matrix':
-          return this._validateMatrixInput(parent, input);
-        case 'email':
-          return this._validateEmailInput(parent, input);
-        case 'phone':
-          return this._validatePhoneInput(parent, input);
-        case 'checkbox':
-          return this._validateCheckbox(parent, input);
-        case 'select':
-          return this._validateSelect(parent, input);
-        case 'toggle-group':
-          return this._validateToggleGroup(parent, input);
-        case 'file':
-          return this._validateFile(parent, input);
-        case 'custom-example':
-          return this._customExample(parent, input);
-        default:
-          return false;
-      }
-    }
-  }, {
-    key: "validateFormElement",
-    value: function validateFormElement(formElement) {
-      var fullValidate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      var parent = formElement.closest('[data-validate-type]');
-      if (!parent) {
-        return;
-      }
-      if (!parent.hasAttribute('data-required')) {
-        var removeElement = parent.querySelector('input') || parent.querySelector('select') || parent.querySelector('textarea');
-        if (!removeElement.value) {
-          parent.classList.remove('is-valid');
-          parent.classList.remove('is-invalid');
-        }
-      }
-      var onInputValidate = parent.hasAttribute('data-on-input-validate');
-      if (parent.hasAttribute('data-limitation')) {
-        this._simpleLimitation(formElement, parent.dataset.limitation);
-      }
-      if (parent.dataset.validateType === 'matrix') {
-        this._matrixLimitation(formElement, parent.dataset.matrix, this._getMatrixLimitationsRegEx(parent.dataset.matrixLimitation));
-      }
-      var isValid = this._validateInput(parent.dataset.validateType, parent, formElement);
-      if (onInputValidate || fullValidate) {
-        this._renderMessage(isValid, parent, formElement);
-      }
-    }
-  }, {
-    key: "_fullValidate",
-    value: function _fullValidate(items) {
-      var _this = this;
-      var result = true;
-      items.forEach(function (item) {
-        var formElement = item.querySelector('input') || item.querySelector('select') || item.querySelector('textarea');
-        _this.validateFormElement(formElement, true);
-        if (item.classList.contains('is-invalid')) {
-          result = false;
-        }
-      });
-      return result;
-    }
-  }, {
-    key: "validateForm",
-    value: function validateForm(form) {
-      var validateItems = form.querySelectorAll('[data-validate-type]');
-      var result = this._fullValidate(validateItems);
-      return result;
-    }
-  }]);
-  return Validator;
-}();
-exports.Validator = Validator;
-
-},{"./matrix":5,"./regular-expression":6,"./render-message":7}],9:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Burger = void 0;
-var _scrollLock = require("./scroll-lock");
-var _focusLock = require("./focus-lock");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var Burger = /*#__PURE__*/function () {
-  function Burger() {
-    _classCallCheck(this, Burger);
-    this._header = document.querySelector('[data-header]');
-    this._burger = document.querySelector('[data-burger]');
-    this._scrollLock = new _scrollLock.ScrollLock();
-    this._focusLock = new _focusLock.FocusLock();
-    this._isMenuOpen = false;
-    this._onBurgerClick = this._onBurgerClick.bind(this);
-    this._onDocumentKeydown = this._onDocumentKeydown.bind(this);
-    this._onDocumentClick = this._onDocumentClick.bind(this);
-  }
-  _createClass(Burger, [{
-    key: "init",
-    value: function init() {
-      if (!this._burger) {
-        return;
-      }
-      this._burger.addEventListener('click', this._onBurgerClick);
-    }
-  }, {
-    key: "_openMenu",
-    value: function _openMenu() {
-      this._isMenuOpen = true;
-      this._header.classList.add('is-open');
-      this._scrollLock.disableScrolling();
-      document.addEventListener('keydown', this._onDocumentKeydown);
-      document.addEventListener('click', this._onDocumentClick);
-      this._focusLock.lock('[data-header]');
-      if (window.ls) {
-        window.ls.stop();
-      }
-    }
-  }, {
-    key: "_closeMenu",
-    value: function _closeMenu() {
-      this._isMenuOpen = false;
-      this._header.classList.remove('is-open');
-      this._scrollLock.enableScrolling();
-      this._focusLock.unlock('[data-header]');
-      document.removeEventListener('keydown', this._onDocumentKeydown);
-      document.removeEventListener('click', this._onDocumentClick);
-      if (window.ls) {
-        window.ls.start();
-      }
-    }
-  }, {
-    key: "_onBurgerClick",
-    value: function _onBurgerClick() {
-      if (this._isMenuOpen) {
-        this._closeMenu();
-      } else {
-        this._openMenu();
-      }
-    }
-  }, {
-    key: "_onDocumentKeydown",
-    value: function _onDocumentKeydown(evt) {
-      if (evt.key === 'Escape') {
-        this._closeMenu();
-      }
-    }
-  }, {
-    key: "_onDocumentClick",
-    value: function _onDocumentClick(evt) {
-      if (evt.target.hasAttribute('data-close-menu')) {
-        this._closeMenu();
-      }
-    }
-  }]);
-  return Burger;
-}();
-exports.Burger = Burger;
-
-},{"./focus-lock":10,"./scroll-lock":15}],10:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.FocusLock = void 0;
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var SELECTORS = ['a[href]', 'area[href]', 'input:not([disabled]):not([type="hidden"]):not([aria-hidden])', 'select:not([disabled]):not([aria-hidden])', 'textarea:not([disabled]):not([aria-hidden])', 'button:not([disabled]):not([aria-hidden])', 'iframe', 'object', 'embed', '[contenteditable]', '[tabindex]:not([tabindex^="-"])'];
-var FocusLock = /*#__PURE__*/function () {
-  function FocusLock() {
-    _classCallCheck(this, FocusLock);
-    this._lockedSelector = null;
-    this._focusableElements = null;
-    this._endElement = null;
-    this._selectors = SELECTORS;
-    this._documentKeydownHandler = this._documentKeydownHandler.bind(this);
-  }
-  _createClass(FocusLock, [{
-    key: "_documentKeydownHandler",
-    value: function _documentKeydownHandler(evt) {
-      var activeElement = document.activeElement;
-      if (evt.key === 'Tab') {
-        if (!this._focusableElements.length) {
-          evt.preventDefault();
-          activeElement.blur();
-          return;
-        }
-        if (this._focusableElements.length === 1) {
-          evt.preventDefault();
-          this._focusableElements[0].focus();
-          return;
-        }
-        if (this._focusableElements.length > 1 && !activeElement.closest(this._lockedSelector)) {
-          evt.preventDefault();
-          this._focusableElements[0].focus();
-          return;
-        }
-      }
-      if (evt.key === 'Tab' && !evt.shiftKey && activeElement === this._focusableElements[this._focusableElements.length - 1]) {
-        evt.preventDefault();
-        this._focusableElements[0].focus();
-      }
-      if (evt.key === 'Tab' && evt.shiftKey && activeElement === this._focusableElements[0]) {
-        evt.preventDefault();
-        this._focusableElements[this._focusableElements.length - 1].focus();
-      }
-    }
-  }, {
-    key: "lock",
-    value: function lock(lockedSelector) {
-      var startFocus = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-      this.unlock();
-      this._lockedSelector = lockedSelector;
-      var lockedElement = document.querySelector(this._lockedSelector);
-      if (!lockedElement) {
-        return;
-      }
-      this._focusableElements = lockedElement.querySelectorAll(this._selectors);
-      this._endElement = document.activeElement;
-      var startElement = lockedElement.querySelector('[data-focus]') || this._focusableElements[0];
-      if (this._endElement) {
-        this._endElement.blur();
-      }
-      if (startElement && startFocus) {
-        startElement.focus();
-      }
-      document.addEventListener('keydown', this._documentKeydownHandler);
-    }
-  }, {
-    key: "unlock",
-    value: function unlock() {
-      var returnFocus = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-      if (this._endElement && returnFocus) {
-        this._endElement.focus();
-      }
-      this._lockedSelector = null;
-      this._focusableElements = null;
-      this._endElement = null;
-      document.removeEventListener('keydown', this._documentKeydownHandler);
-    }
-  }]);
-  return FocusLock;
-}();
-exports.FocusLock = FocusLock;
-window.focusLock = new FocusLock();
-
-},{}],11:[function(require,module,exports){
-"use strict";
-
-require("./locomotive-scroll");
-var _burger = require("./burger");
-var _stickyHeader = require("./sticky-header");
-var _initLocomotiveScroll = require("./init-locomotive-scroll");
-window.addEventListener('DOMContentLoaded', function () {
-  (0, _initLocomotiveScroll.initLocomotiveScroll)();
-  window.addEventListener('load', function () {
-    var burger = new _burger.Burger();
-    burger.init();
-    var stickyHeader = new _stickyHeader.StickyHeader();
-    stickyHeader.init();
-  });
-});
-
-},{"./burger":9,"./init-locomotive-scroll":12,"./locomotive-scroll":14,"./sticky-header":16}],12:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.initLocomotiveScroll = void 0;
-var locomotiveContainer = document.querySelector('[data-scroll-container]');
-var initLocomotive = function initLocomotive() {
-  var options = {
-    el: locomotiveContainer,
-    smooth: true,
-    getDirection: true,
-    multiplier: 0.7,
-    touchMultiplier: 5,
-    lerp: 0.1,
-    mobile: {
-      smooth: true
-    },
-    tablet: {
-      smooth: true
-    }
-  };
-  window.ls = new window.LocomotiveScroll(options);
-  window.addEventListener('resize', function () {
-    setTimeout(function () {
-      window.ls.update();
-    }, 500);
-  });
-};
-var initLocomotiveScroll = function initLocomotiveScroll() {
-  if (!locomotiveContainer) {
-    return;
-  }
-  initLocomotive();
-};
-exports.initLocomotiveScroll = initLocomotiveScroll;
-
-},{}],13:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.iosChecker = void 0;
-var iosChecker = function iosChecker() {
-  return ['iPad Simulator', 'iPhone Simulator', 'iPod Simulator', 'iPad', 'iPhone', 'iPod'].includes(navigator.platform)
-  // iPad on iOS 13 detection
-  || navigator.userAgent.includes('Mac') && 'ontouchend' in document;
-};
-exports.iosChecker = iosChecker;
-
-},{}],14:[function(require,module,exports){
-(function (global){(function (){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _this10 = void 0;
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 /* locomotive-scroll v4.1.3 | MIT License | https://github.com/locomotivemtl/locomotive-scroll */
 
-var LocomotiveScroll = function LocomotiveScroll() {
+const LocomotiveScroll = () => {
   (function (global, factory) {
-    (typeof exports === "undefined" ? "undefined" : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? module.exports = factory() : typeof define === 'function' && define.amd ? define(factory) : (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.LocomotiveScroll = factory());
-  })(_this10, function () {
-    'use strict';
+    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+    typeof define === 'function' && define.amd ? define(factory) :
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.LocomotiveScroll = factory());
+  }(this, (function () { 'use strict';
 
     function _classCallCheck(instance, Constructor) {
       if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
       }
     }
+
     function _defineProperties(target, props) {
       for (var i = 0; i < props.length; i++) {
         var descriptor = props[i];
@@ -1073,11 +22,13 @@ var LocomotiveScroll = function LocomotiveScroll() {
         Object.defineProperty(target, descriptor.key, descriptor);
       }
     }
+
     function _createClass(Constructor, protoProps, staticProps) {
       if (protoProps) _defineProperties(Constructor.prototype, protoProps);
       if (staticProps) _defineProperties(Constructor, staticProps);
       return Constructor;
     }
+
     function _defineProperty(obj, key, value) {
       if (key in obj) {
         Object.defineProperty(obj, key, {
@@ -1089,10 +40,13 @@ var LocomotiveScroll = function LocomotiveScroll() {
       } else {
         obj[key] = value;
       }
+
       return obj;
     }
+
     function ownKeys(object, enumerableOnly) {
       var keys = Object.keys(object);
+
       if (Object.getOwnPropertySymbols) {
         var symbols = Object.getOwnPropertySymbols(object);
         if (enumerableOnly) symbols = symbols.filter(function (sym) {
@@ -1100,11 +54,14 @@ var LocomotiveScroll = function LocomotiveScroll() {
         });
         keys.push.apply(keys, symbols);
       }
+
       return keys;
     }
+
     function _objectSpread2(target) {
       for (var i = 1; i < arguments.length; i++) {
         var source = arguments[i] != null ? arguments[i] : {};
+
         if (i % 2) {
           ownKeys(Object(source), true).forEach(function (key) {
             _defineProperty(target, key, source[key]);
@@ -1117,12 +74,15 @@ var LocomotiveScroll = function LocomotiveScroll() {
           });
         }
       }
+
       return target;
     }
+
     function _inherits(subClass, superClass) {
       if (typeof superClass !== "function" && superClass !== null) {
         throw new TypeError("Super expression must either be null or a function");
       }
+
       subClass.prototype = Object.create(superClass && superClass.prototype, {
         constructor: {
           value: subClass,
@@ -1132,23 +92,28 @@ var LocomotiveScroll = function LocomotiveScroll() {
       });
       if (superClass) _setPrototypeOf(subClass, superClass);
     }
+
     function _getPrototypeOf(o) {
       _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
         return o.__proto__ || Object.getPrototypeOf(o);
       };
       return _getPrototypeOf(o);
     }
+
     function _setPrototypeOf(o, p) {
       _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
         o.__proto__ = p;
         return o;
       };
+
       return _setPrototypeOf(o, p);
     }
+
     function _isNativeReflectConstruct() {
       if (typeof Reflect === "undefined" || !Reflect.construct) return false;
       if (Reflect.construct.sham) return false;
       if (typeof Proxy === "function") return true;
+
       try {
         Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
         return true;
@@ -1156,79 +121,103 @@ var LocomotiveScroll = function LocomotiveScroll() {
         return false;
       }
     }
+
     function _assertThisInitialized(self) {
       if (self === void 0) {
         throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
       }
+
       return self;
     }
+
     function _possibleConstructorReturn(self, call) {
-      if (call && (_typeof(call) === "object" || typeof call === "function")) {
+      if (call && (typeof call === "object" || typeof call === "function")) {
         return call;
       }
+
       return _assertThisInitialized(self);
     }
+
     function _createSuper(Derived) {
       var hasNativeReflectConstruct = _isNativeReflectConstruct();
+
       return function _createSuperInternal() {
         var Super = _getPrototypeOf(Derived),
-          result;
+            result;
+
         if (hasNativeReflectConstruct) {
           var NewTarget = _getPrototypeOf(this).constructor;
+
           result = Reflect.construct(Super, arguments, NewTarget);
         } else {
           result = Super.apply(this, arguments);
         }
+
         return _possibleConstructorReturn(this, result);
       };
     }
+
     function _superPropBase(object, property) {
       while (!Object.prototype.hasOwnProperty.call(object, property)) {
         object = _getPrototypeOf(object);
         if (object === null) break;
       }
+
       return object;
     }
+
     function _get(target, property, receiver) {
       if (typeof Reflect !== "undefined" && Reflect.get) {
         _get = Reflect.get;
       } else {
         _get = function _get(target, property, receiver) {
           var base = _superPropBase(target, property);
+
           if (!base) return;
           var desc = Object.getOwnPropertyDescriptor(base, property);
+
           if (desc.get) {
             return desc.get.call(receiver);
           }
+
           return desc.value;
         };
       }
+
       return _get(target, property, receiver || target);
     }
+
     function _slicedToArray(arr, i) {
       return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
     }
+
     function _toConsumableArray(arr) {
       return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
     }
+
     function _arrayWithoutHoles(arr) {
       if (Array.isArray(arr)) return _arrayLikeToArray(arr);
     }
+
     function _arrayWithHoles(arr) {
       if (Array.isArray(arr)) return arr;
     }
+
     function _iterableToArray(iter) {
       if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
     }
+
     function _iterableToArrayLimit(arr, i) {
       if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
       var _arr = [];
       var _n = true;
       var _d = false;
       var _e = undefined;
+
       try {
         for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
           _arr.push(_s.value);
+
           if (i && _arr.length === i) break;
         }
       } catch (err) {
@@ -1241,8 +230,10 @@ var LocomotiveScroll = function LocomotiveScroll() {
           if (_d) throw _e;
         }
       }
+
       return _arr;
     }
+
     function _unsupportedIterableToArray(o, minLen) {
       if (!o) return;
       if (typeof o === "string") return _arrayLikeToArray(o, minLen);
@@ -1251,17 +242,23 @@ var LocomotiveScroll = function LocomotiveScroll() {
       if (n === "Map" || n === "Set") return Array.from(o);
       if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
     }
+
     function _arrayLikeToArray(arr, len) {
       if (len == null || len > arr.length) len = arr.length;
+
       for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
       return arr2;
     }
+
     function _nonIterableSpread() {
       throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
     }
+
     function _nonIterableRest() {
       throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
     }
+
     var defaults = {
       el: document,
       name: 'scroll',
@@ -1302,10 +299,13 @@ var LocomotiveScroll = function LocomotiveScroll() {
         gestureDirection: 'vertical'
       }
     };
+
     var _default = /*#__PURE__*/function () {
       function _default() {
         var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
         _classCallCheck(this, _default);
+
         Object.assign(this, defaults, options);
         this.smartphone = defaults.smartphone;
         if (options.smartphone) Object.assign(this.smartphone, options.smartphone);
@@ -1338,6 +338,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
           },
           currentElements: this.currentElements
         };
+
         if (this.isMobile) {
           if (this.isTablet) {
             this.context = 'tablet';
@@ -1347,21 +348,27 @@ var LocomotiveScroll = function LocomotiveScroll() {
         } else {
           this.context = 'desktop';
         }
+
         if (this.isMobile) this.direction = this[this.context].direction;
+
         if (this.direction === 'horizontal') {
           this.directionAxis = 'x';
         } else {
           this.directionAxis = 'y';
         }
+
         if (this.getDirection) {
           this.instance.direction = null;
         }
+
         if (this.getDirection) {
           this.instance.speed = 0;
         }
+
         this.html.classList.add(this.initClass);
         window.addEventListener('resize', this.checkResize, false);
       }
+
       _createClass(_default, [{
         key: "init",
         value: function init() {
@@ -1376,10 +383,12 @@ var LocomotiveScroll = function LocomotiveScroll() {
         key: "checkResize",
         value: function checkResize() {
           var _this = this;
+
           if (!this.resizeTick) {
             this.resizeTick = true;
             requestAnimationFrame(function () {
               _this.resize();
+
               _this.resizeTick = false;
             });
           }
@@ -1394,6 +403,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
           this.isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1 || this.windowWidth < this.tablet.breakpoint;
           this.isTablet = this.isMobile && this.windowWidth >= this.tablet.breakpoint;
           var oldContext = this.context;
+
           if (this.isMobile) {
             if (this.isTablet) {
               this.context = 'tablet';
@@ -1403,6 +413,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
           } else {
             this.context = 'desktop';
           }
+
           if (oldContext != this.context) {
             var oldSmooth = oldContext == 'desktop' ? this.smooth : this[oldContext].smooth;
             var newSmooth = this.context == 'desktop' ? this.smooth : this[this.context].smooth;
@@ -1413,6 +424,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
         key: "initEvents",
         value: function initEvents() {
           var _this2 = this;
+
           this.scrollToEls = this.el.querySelectorAll("[data-".concat(this.name, "-to]"));
           this.setScrollTo = this.setScrollTo.bind(this);
           this.scrollToEls.forEach(function (el) {
@@ -1434,14 +446,16 @@ var LocomotiveScroll = function LocomotiveScroll() {
         key: "detectElements",
         value: function detectElements(hasCallEventSet) {
           var _this3 = this;
+
           var scrollTop = this.instance.scroll.y;
           var scrollBottom = scrollTop + this.windowHeight;
           var scrollLeft = this.instance.scroll.x;
           var scrollRight = scrollLeft + this.windowWidth;
           Object.entries(this.els).forEach(function (_ref) {
             var _ref2 = _slicedToArray(_ref, 2),
-              i = _ref2[0],
-              el = _ref2[1];
+                i = _ref2[0],
+                el = _ref2[1];
+
             if (el && (!el.inView || hasCallEventSet)) {
               if (_this3.direction === 'horizontal') {
                 if (scrollRight >= el.left && scrollLeft < el.right) {
@@ -1453,16 +467,19 @@ var LocomotiveScroll = function LocomotiveScroll() {
                 }
               }
             }
+
             if (el && el.inView) {
               if (_this3.direction === 'horizontal') {
                 var width = el.right - el.left;
                 el.progress = (_this3.instance.scroll.x - (el.left - _this3.windowWidth)) / (width + _this3.windowWidth);
+
                 if (scrollRight < el.left || scrollLeft > el.right) {
                   _this3.setOutOfView(el, i);
                 }
               } else {
                 var height = el.bottom - el.top;
                 el.progress = (_this3.instance.scroll.y - (el.top - _this3.windowHeight)) / (height + _this3.windowHeight);
+
                 if (scrollBottom < el.top || scrollTop > el.bottom) {
                   _this3.setOutOfView(el, i);
                 }
@@ -1480,8 +497,10 @@ var LocomotiveScroll = function LocomotiveScroll() {
           this.els[i].inView = true;
           current.el.classList.add(current["class"]);
           this.currentElements[i] = current;
+
           if (current.call && this.hasCallEventSet) {
             this.dispatchCall(current, 'enter');
+
             if (!current.repeat) {
               this.els[i].call = false;
             }
@@ -1490,6 +509,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
           //        this.els[i] = null
           //     }
           // }
+
         }
       }, {
         key: "setOutOfView",
@@ -1502,9 +522,11 @@ var LocomotiveScroll = function LocomotiveScroll() {
           Object.keys(this.currentElements).forEach(function (el) {
             el === i && delete _this4.currentElements[el];
           });
+
           if (current.call && this.hasCallEventSet) {
             this.dispatchCall(current, 'exit');
           }
+
           if (current.repeat) {
             current.el.classList.remove(current["class"]);
           }
@@ -1533,11 +555,14 @@ var LocomotiveScroll = function LocomotiveScroll() {
           if (!this.listeners[event]) {
             this.listeners[event] = [];
           }
+
           var list = this.listeners[event];
           list.push(func);
+
           if (list.length === 1) {
             this.el.addEventListener(this.namespace + event, this.checkEvent, false);
           }
+
           if (event === 'call') {
             this.hasCallEventSet = true;
             this.detectElements(true);
@@ -1551,6 +576,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
           var index = list.indexOf(func);
           if (index < 0) return;
           list.splice(index, 1);
+
           if (list.index === 0) {
             this.el.removeEventListener(this.namespace + event, this.checkEvent, false);
           }
@@ -1559,6 +585,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
         key: "checkEvent",
         value: function checkEvent(event) {
           var _this5 = this;
+
           var name = event.type.replace(this.namespace, '');
           var list = this.listeners[name];
           if (!list || list.length === 0) return;
@@ -1566,8 +593,10 @@ var LocomotiveScroll = function LocomotiveScroll() {
             switch (name) {
               case 'scroll':
                 return func(_this5.instance);
+
               case 'call':
                 return func(_this5.callValue, _this5.callWay, _this5.callObj);
+
               default:
                 return func();
             }
@@ -1591,6 +620,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
         key: "destroy",
         value: function destroy() {
           var _this6 = this;
+
           window.removeEventListener('resize', this.checkResize, false);
           Object.keys(this.listeners).forEach(function (event) {
             _this6.el.removeEventListener(_this6.namespace + event, _this6.checkEvent, false);
@@ -1602,394 +632,508 @@ var LocomotiveScroll = function LocomotiveScroll() {
           this.html.classList.remove(this.initClass);
         }
       }]);
+
       return _default;
     }();
-    var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
-    function createCommonjsModule(fn, module) {
-      return module = {
-        exports: {}
-      }, fn(module, module.exports), module.exports;
-    }
-    var smoothscroll = createCommonjsModule(function (module, exports) {
-      /* smoothscroll v0.4.4 - 2019 - Dustan Kasten, Jeremias Menichelli - MIT License */
-      (function () {
-        // polyfill
-        function polyfill() {
-          // aliases
-          var w = window;
-          var d = document;
 
-          // return if scroll behavior is supported and polyfill is not forced
-          if ('scrollBehavior' in d.documentElement.style && w.__forceSmoothScrollPolyfill__ !== true) {
+    var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+    function createCommonjsModule(fn, module) {
+      return module = { exports: {} }, fn(module, module.exports), module.exports;
+    }
+
+    var smoothscroll = createCommonjsModule(function (module, exports) {
+    /* smoothscroll v0.4.4 - 2019 - Dustan Kasten, Jeremias Menichelli - MIT License */
+    (function () {
+
+      // polyfill
+      function polyfill() {
+        // aliases
+        var w = window;
+        var d = document;
+
+        // return if scroll behavior is supported and polyfill is not forced
+        if (
+          'scrollBehavior' in d.documentElement.style &&
+          w.__forceSmoothScrollPolyfill__ !== true
+        ) {
+          return;
+        }
+
+        // globals
+        var Element = w.HTMLElement || w.Element;
+        var SCROLL_TIME = 468;
+
+        // object gathering original scroll methods
+        var original = {
+          scroll: w.scroll || w.scrollTo,
+          scrollBy: w.scrollBy,
+          elementScroll: Element.prototype.scroll || scrollElement,
+          scrollIntoView: Element.prototype.scrollIntoView
+        };
+
+        // define timing method
+        var now =
+          w.performance && w.performance.now
+            ? w.performance.now.bind(w.performance)
+            : Date.now;
+
+        /**
+         * indicates if a the current browser is made by Microsoft
+         * @method isMicrosoftBrowser
+         * @param {String} userAgent
+         * @returns {Boolean}
+         */
+        function isMicrosoftBrowser(userAgent) {
+          var userAgentPatterns = ['MSIE ', 'Trident/', 'Edge/'];
+
+          return new RegExp(userAgentPatterns.join('|')).test(userAgent);
+        }
+
+        /*
+        * IE has rounding bug rounding down clientHeight and clientWidth and
+        * rounding up scrollHeight and scrollWidth causing false positives
+        * on hasScrollableSpace
+        */
+        var ROUNDING_TOLERANCE = isMicrosoftBrowser(w.navigator.userAgent) ? 1 : 0;
+
+        /**
+         * changes scroll position inside an element
+         * @method scrollElement
+         * @param {Number} x
+         * @param {Number} y
+         * @returns {undefined}
+         */
+        function scrollElement(x, y) {
+          this.scrollLeft = x;
+          this.scrollTop = y;
+        }
+
+        /**
+         * returns result of applying ease math function to a number
+         * @method ease
+         * @param {Number} k
+         * @returns {Number}
+         */
+        function ease(k) {
+          return 0.5 * (1 - Math.cos(Math.PI * k));
+        }
+
+        /**
+         * indicates if a smooth behavior should be applied
+         * @method shouldBailOut
+         * @param {Number|Object} firstArg
+         * @returns {Boolean}
+         */
+        function shouldBailOut(firstArg) {
+          if (
+            firstArg === null ||
+            typeof firstArg !== 'object' ||
+            firstArg.behavior === undefined ||
+            firstArg.behavior === 'auto' ||
+            firstArg.behavior === 'instant'
+          ) {
+            // first argument is not an object/null
+            // or behavior is auto, instant or undefined
+            return true;
+          }
+
+          if (typeof firstArg === 'object' && firstArg.behavior === 'smooth') {
+            // first argument is an object and behavior is smooth
+            return false;
+          }
+
+          // throw error when behavior is not supported
+          throw new TypeError(
+            'behavior member of ScrollOptions ' +
+              firstArg.behavior +
+              ' is not a valid value for enumeration ScrollBehavior.'
+          );
+        }
+
+        /**
+         * indicates if an element has scrollable space in the provided axis
+         * @method hasScrollableSpace
+         * @param {Node} el
+         * @param {String} axis
+         * @returns {Boolean}
+         */
+        function hasScrollableSpace(el, axis) {
+          if (axis === 'Y') {
+            return el.clientHeight + ROUNDING_TOLERANCE < el.scrollHeight;
+          }
+
+          if (axis === 'X') {
+            return el.clientWidth + ROUNDING_TOLERANCE < el.scrollWidth;
+          }
+        }
+
+        /**
+         * indicates if an element has a scrollable overflow property in the axis
+         * @method canOverflow
+         * @param {Node} el
+         * @param {String} axis
+         * @returns {Boolean}
+         */
+        function canOverflow(el, axis) {
+          var overflowValue = w.getComputedStyle(el, null)['overflow' + axis];
+
+          return overflowValue === 'auto' || overflowValue === 'scroll';
+        }
+
+        /**
+         * indicates if an element can be scrolled in either axis
+         * @method isScrollable
+         * @param {Node} el
+         * @param {String} axis
+         * @returns {Boolean}
+         */
+        function isScrollable(el) {
+          var isScrollableY = hasScrollableSpace(el, 'Y') && canOverflow(el, 'Y');
+          var isScrollableX = hasScrollableSpace(el, 'X') && canOverflow(el, 'X');
+
+          return isScrollableY || isScrollableX;
+        }
+
+        /**
+         * finds scrollable parent of an element
+         * @method findScrollableParent
+         * @param {Node} el
+         * @returns {Node} el
+         */
+        function findScrollableParent(el) {
+          while (el !== d.body && isScrollable(el) === false) {
+            el = el.parentNode || el.host;
+          }
+
+          return el;
+        }
+
+        /**
+         * self invoked function that, given a context, steps through scrolling
+         * @method step
+         * @param {Object} context
+         * @returns {undefined}
+         */
+        function step(context) {
+          var time = now();
+          var value;
+          var currentX;
+          var currentY;
+          var elapsed = (time - context.startTime) / SCROLL_TIME;
+
+          // avoid elapsed times higher than one
+          elapsed = elapsed > 1 ? 1 : elapsed;
+
+          // apply easing to elapsed time
+          value = ease(elapsed);
+
+          currentX = context.startX + (context.x - context.startX) * value;
+          currentY = context.startY + (context.y - context.startY) * value;
+
+          context.method.call(context.scrollable, currentX, currentY);
+
+          // scroll more if we have not reached our destination
+          if (currentX !== context.x || currentY !== context.y) {
+            w.requestAnimationFrame(step.bind(w, context));
+          }
+        }
+
+        /**
+         * scrolls window or element with a smooth behavior
+         * @method smoothScroll
+         * @param {Object|Node} el
+         * @param {Number} x
+         * @param {Number} y
+         * @returns {undefined}
+         */
+        function smoothScroll(el, x, y) {
+          var scrollable;
+          var startX;
+          var startY;
+          var method;
+          var startTime = now();
+
+          // define scroll context
+          if (el === d.body) {
+            scrollable = w;
+            startX = w.scrollX || w.pageXOffset;
+            startY = w.scrollY || w.pageYOffset;
+            method = original.scroll;
+          } else {
+            scrollable = el;
+            startX = el.scrollLeft;
+            startY = el.scrollTop;
+            method = scrollElement;
+          }
+
+          // scroll looping over a frame
+          step({
+            scrollable: scrollable,
+            method: method,
+            startTime: startTime,
+            startX: startX,
+            startY: startY,
+            x: x,
+            y: y
+          });
+        }
+
+        // ORIGINAL METHODS OVERRIDES
+        // w.scroll and w.scrollTo
+        w.scroll = w.scrollTo = function() {
+          // avoid action when no arguments are passed
+          if (arguments[0] === undefined) {
             return;
           }
 
-          // globals
-          var Element = w.HTMLElement || w.Element;
-          var SCROLL_TIME = 468;
-
-          // object gathering original scroll methods
-          var original = {
-            scroll: w.scroll || w.scrollTo,
-            scrollBy: w.scrollBy,
-            elementScroll: Element.prototype.scroll || scrollElement,
-            scrollIntoView: Element.prototype.scrollIntoView
-          };
-
-          // define timing method
-          var now = w.performance && w.performance.now ? w.performance.now.bind(w.performance) : Date.now;
-
-          /**
-           * indicates if a the current browser is made by Microsoft
-           * @method isMicrosoftBrowser
-           * @param {String} userAgent
-           * @returns {Boolean}
-           */
-          function isMicrosoftBrowser(userAgent) {
-            var userAgentPatterns = ['MSIE ', 'Trident/', 'Edge/'];
-            return new RegExp(userAgentPatterns.join('|')).test(userAgent);
-          }
-
-          /*
-          * IE has rounding bug rounding down clientHeight and clientWidth and
-          * rounding up scrollHeight and scrollWidth causing false positives
-          * on hasScrollableSpace
-          */
-          var ROUNDING_TOLERANCE = isMicrosoftBrowser(w.navigator.userAgent) ? 1 : 0;
-
-          /**
-           * changes scroll position inside an element
-           * @method scrollElement
-           * @param {Number} x
-           * @param {Number} y
-           * @returns {undefined}
-           */
-          function scrollElement(x, y) {
-            this.scrollLeft = x;
-            this.scrollTop = y;
-          }
-
-          /**
-           * returns result of applying ease math function to a number
-           * @method ease
-           * @param {Number} k
-           * @returns {Number}
-           */
-          function ease(k) {
-            return 0.5 * (1 - Math.cos(Math.PI * k));
-          }
-
-          /**
-           * indicates if a smooth behavior should be applied
-           * @method shouldBailOut
-           * @param {Number|Object} firstArg
-           * @returns {Boolean}
-           */
-          function shouldBailOut(firstArg) {
-            if (firstArg === null || _typeof(firstArg) !== 'object' || firstArg.behavior === undefined || firstArg.behavior === 'auto' || firstArg.behavior === 'instant') {
-              // first argument is not an object/null
-              // or behavior is auto, instant or undefined
-              return true;
-            }
-            if (_typeof(firstArg) === 'object' && firstArg.behavior === 'smooth') {
-              // first argument is an object and behavior is smooth
-              return false;
-            }
-
-            // throw error when behavior is not supported
-            throw new TypeError('behavior member of ScrollOptions ' + firstArg.behavior + ' is not a valid value for enumeration ScrollBehavior.');
-          }
-
-          /**
-           * indicates if an element has scrollable space in the provided axis
-           * @method hasScrollableSpace
-           * @param {Node} el
-           * @param {String} axis
-           * @returns {Boolean}
-           */
-          function hasScrollableSpace(el, axis) {
-            if (axis === 'Y') {
-              return el.clientHeight + ROUNDING_TOLERANCE < el.scrollHeight;
-            }
-            if (axis === 'X') {
-              return el.clientWidth + ROUNDING_TOLERANCE < el.scrollWidth;
-            }
-          }
-
-          /**
-           * indicates if an element has a scrollable overflow property in the axis
-           * @method canOverflow
-           * @param {Node} el
-           * @param {String} axis
-           * @returns {Boolean}
-           */
-          function canOverflow(el, axis) {
-            var overflowValue = w.getComputedStyle(el, null)['overflow' + axis];
-            return overflowValue === 'auto' || overflowValue === 'scroll';
-          }
-
-          /**
-           * indicates if an element can be scrolled in either axis
-           * @method isScrollable
-           * @param {Node} el
-           * @param {String} axis
-           * @returns {Boolean}
-           */
-          function isScrollable(el) {
-            var isScrollableY = hasScrollableSpace(el, 'Y') && canOverflow(el, 'Y');
-            var isScrollableX = hasScrollableSpace(el, 'X') && canOverflow(el, 'X');
-            return isScrollableY || isScrollableX;
-          }
-
-          /**
-           * finds scrollable parent of an element
-           * @method findScrollableParent
-           * @param {Node} el
-           * @returns {Node} el
-           */
-          function findScrollableParent(el) {
-            while (el !== d.body && isScrollable(el) === false) {
-              el = el.parentNode || el.host;
-            }
-            return el;
-          }
-
-          /**
-           * self invoked function that, given a context, steps through scrolling
-           * @method step
-           * @param {Object} context
-           * @returns {undefined}
-           */
-          function step(context) {
-            var time = now();
-            var value;
-            var currentX;
-            var currentY;
-            var elapsed = (time - context.startTime) / SCROLL_TIME;
-
-            // avoid elapsed times higher than one
-            elapsed = elapsed > 1 ? 1 : elapsed;
-
-            // apply easing to elapsed time
-            value = ease(elapsed);
-            currentX = context.startX + (context.x - context.startX) * value;
-            currentY = context.startY + (context.y - context.startY) * value;
-            context.method.call(context.scrollable, currentX, currentY);
-
-            // scroll more if we have not reached our destination
-            if (currentX !== context.x || currentY !== context.y) {
-              w.requestAnimationFrame(step.bind(w, context));
-            }
-          }
-
-          /**
-           * scrolls window or element with a smooth behavior
-           * @method smoothScroll
-           * @param {Object|Node} el
-           * @param {Number} x
-           * @param {Number} y
-           * @returns {undefined}
-           */
-          function smoothScroll(el, x, y) {
-            var scrollable;
-            var startX;
-            var startY;
-            var method;
-            var startTime = now();
-
-            // define scroll context
-            if (el === d.body) {
-              scrollable = w;
-              startX = w.scrollX || w.pageXOffset;
-              startY = w.scrollY || w.pageYOffset;
-              method = original.scroll;
-            } else {
-              scrollable = el;
-              startX = el.scrollLeft;
-              startY = el.scrollTop;
-              method = scrollElement;
-            }
-
-            // scroll looping over a frame
-            step({
-              scrollable: scrollable,
-              method: method,
-              startTime: startTime,
-              startX: startX,
-              startY: startY,
-              x: x,
-              y: y
-            });
-          }
-
-          // ORIGINAL METHODS OVERRIDES
-          // w.scroll and w.scrollTo
-          w.scroll = w.scrollTo = function () {
-            // avoid action when no arguments are passed
-            if (arguments[0] === undefined) {
-              return;
-            }
-
-            // avoid smooth behavior if not required
-            if (shouldBailOut(arguments[0]) === true) {
-              original.scroll.call(w, arguments[0].left !== undefined ? arguments[0].left : _typeof(arguments[0]) !== 'object' ? arguments[0] : w.scrollX || w.pageXOffset,
+          // avoid smooth behavior if not required
+          if (shouldBailOut(arguments[0]) === true) {
+            original.scroll.call(
+              w,
+              arguments[0].left !== undefined
+                ? arguments[0].left
+                : typeof arguments[0] !== 'object'
+                  ? arguments[0]
+                  : w.scrollX || w.pageXOffset,
               // use top prop, second argument if present or fallback to scrollY
-              arguments[0].top !== undefined ? arguments[0].top : arguments[1] !== undefined ? arguments[1] : w.scrollY || w.pageYOffset);
-              return;
+              arguments[0].top !== undefined
+                ? arguments[0].top
+                : arguments[1] !== undefined
+                  ? arguments[1]
+                  : w.scrollY || w.pageYOffset
+            );
+
+            return;
+          }
+
+          // LET THE SMOOTHNESS BEGIN!
+          smoothScroll.call(
+            w,
+            d.body,
+            arguments[0].left !== undefined
+              ? ~~arguments[0].left
+              : w.scrollX || w.pageXOffset,
+            arguments[0].top !== undefined
+              ? ~~arguments[0].top
+              : w.scrollY || w.pageYOffset
+          );
+        };
+
+        // w.scrollBy
+        w.scrollBy = function() {
+          // avoid action when no arguments are passed
+          if (arguments[0] === undefined) {
+            return;
+          }
+
+          // avoid smooth behavior if not required
+          if (shouldBailOut(arguments[0])) {
+            original.scrollBy.call(
+              w,
+              arguments[0].left !== undefined
+                ? arguments[0].left
+                : typeof arguments[0] !== 'object' ? arguments[0] : 0,
+              arguments[0].top !== undefined
+                ? arguments[0].top
+                : arguments[1] !== undefined ? arguments[1] : 0
+            );
+
+            return;
+          }
+
+          // LET THE SMOOTHNESS BEGIN!
+          smoothScroll.call(
+            w,
+            d.body,
+            ~~arguments[0].left + (w.scrollX || w.pageXOffset),
+            ~~arguments[0].top + (w.scrollY || w.pageYOffset)
+          );
+        };
+
+        // Element.prototype.scroll and Element.prototype.scrollTo
+        Element.prototype.scroll = Element.prototype.scrollTo = function() {
+          // avoid action when no arguments are passed
+          if (arguments[0] === undefined) {
+            return;
+          }
+
+          // avoid smooth behavior if not required
+          if (shouldBailOut(arguments[0]) === true) {
+            // if one number is passed, throw error to match Firefox implementation
+            if (typeof arguments[0] === 'number' && arguments[1] === undefined) {
+              throw new SyntaxError('Value could not be converted');
             }
 
-            // LET THE SMOOTHNESS BEGIN!
-            smoothScroll.call(w, d.body, arguments[0].left !== undefined ? ~~arguments[0].left : w.scrollX || w.pageXOffset, arguments[0].top !== undefined ? ~~arguments[0].top : w.scrollY || w.pageYOffset);
-          };
-
-          // w.scrollBy
-          w.scrollBy = function () {
-            // avoid action when no arguments are passed
-            if (arguments[0] === undefined) {
-              return;
-            }
-
-            // avoid smooth behavior if not required
-            if (shouldBailOut(arguments[0])) {
-              original.scrollBy.call(w, arguments[0].left !== undefined ? arguments[0].left : _typeof(arguments[0]) !== 'object' ? arguments[0] : 0, arguments[0].top !== undefined ? arguments[0].top : arguments[1] !== undefined ? arguments[1] : 0);
-              return;
-            }
-
-            // LET THE SMOOTHNESS BEGIN!
-            smoothScroll.call(w, d.body, ~~arguments[0].left + (w.scrollX || w.pageXOffset), ~~arguments[0].top + (w.scrollY || w.pageYOffset));
-          };
-
-          // Element.prototype.scroll and Element.prototype.scrollTo
-          Element.prototype.scroll = Element.prototype.scrollTo = function () {
-            // avoid action when no arguments are passed
-            if (arguments[0] === undefined) {
-              return;
-            }
-
-            // avoid smooth behavior if not required
-            if (shouldBailOut(arguments[0]) === true) {
-              // if one number is passed, throw error to match Firefox implementation
-              if (typeof arguments[0] === 'number' && arguments[1] === undefined) {
-                throw new SyntaxError('Value could not be converted');
-              }
-              original.elementScroll.call(this,
+            original.elementScroll.call(
+              this,
               // use left prop, first number argument or fallback to scrollLeft
-              arguments[0].left !== undefined ? ~~arguments[0].left : _typeof(arguments[0]) !== 'object' ? ~~arguments[0] : this.scrollLeft,
+              arguments[0].left !== undefined
+                ? ~~arguments[0].left
+                : typeof arguments[0] !== 'object' ? ~~arguments[0] : this.scrollLeft,
               // use top prop, second argument or fallback to scrollTop
-              arguments[0].top !== undefined ? ~~arguments[0].top : arguments[1] !== undefined ? ~~arguments[1] : this.scrollTop);
-              return;
-            }
-            var left = arguments[0].left;
-            var top = arguments[0].top;
+              arguments[0].top !== undefined
+                ? ~~arguments[0].top
+                : arguments[1] !== undefined ? ~~arguments[1] : this.scrollTop
+            );
 
-            // LET THE SMOOTHNESS BEGIN!
-            smoothScroll.call(this, this, typeof left === 'undefined' ? this.scrollLeft : ~~left, typeof top === 'undefined' ? this.scrollTop : ~~top);
-          };
+            return;
+          }
 
-          // Element.prototype.scrollBy
-          Element.prototype.scrollBy = function () {
-            // avoid action when no arguments are passed
-            if (arguments[0] === undefined) {
-              return;
-            }
+          var left = arguments[0].left;
+          var top = arguments[0].top;
 
-            // avoid smooth behavior if not required
-            if (shouldBailOut(arguments[0]) === true) {
-              original.elementScroll.call(this, arguments[0].left !== undefined ? ~~arguments[0].left + this.scrollLeft : ~~arguments[0] + this.scrollLeft, arguments[0].top !== undefined ? ~~arguments[0].top + this.scrollTop : ~~arguments[1] + this.scrollTop);
-              return;
-            }
-            this.scroll({
-              left: ~~arguments[0].left + this.scrollLeft,
-              top: ~~arguments[0].top + this.scrollTop,
-              behavior: arguments[0].behavior
-            });
-          };
+          // LET THE SMOOTHNESS BEGIN!
+          smoothScroll.call(
+            this,
+            this,
+            typeof left === 'undefined' ? this.scrollLeft : ~~left,
+            typeof top === 'undefined' ? this.scrollTop : ~~top
+          );
+        };
 
-          // Element.prototype.scrollIntoView
-          Element.prototype.scrollIntoView = function () {
-            // avoid smooth behavior if not required
-            if (shouldBailOut(arguments[0]) === true) {
-              original.scrollIntoView.call(this, arguments[0] === undefined ? true : arguments[0]);
-              return;
-            }
+        // Element.prototype.scrollBy
+        Element.prototype.scrollBy = function() {
+          // avoid action when no arguments are passed
+          if (arguments[0] === undefined) {
+            return;
+          }
 
-            // LET THE SMOOTHNESS BEGIN!
-            var scrollableParent = findScrollableParent(this);
-            var parentRects = scrollableParent.getBoundingClientRect();
-            var clientRects = this.getBoundingClientRect();
-            if (scrollableParent !== d.body) {
-              // reveal element inside parent
-              smoothScroll.call(this, scrollableParent, scrollableParent.scrollLeft + clientRects.left - parentRects.left, scrollableParent.scrollTop + clientRects.top - parentRects.top);
+          // avoid smooth behavior if not required
+          if (shouldBailOut(arguments[0]) === true) {
+            original.elementScroll.call(
+              this,
+              arguments[0].left !== undefined
+                ? ~~arguments[0].left + this.scrollLeft
+                : ~~arguments[0] + this.scrollLeft,
+              arguments[0].top !== undefined
+                ? ~~arguments[0].top + this.scrollTop
+                : ~~arguments[1] + this.scrollTop
+            );
 
-              // reveal parent in viewport unless is fixed
-              if (w.getComputedStyle(scrollableParent).position !== 'fixed') {
-                w.scrollBy({
-                  left: parentRects.left,
-                  top: parentRects.top,
-                  behavior: 'smooth'
-                });
-              }
-            } else {
-              // reveal element in viewport
+            return;
+          }
+
+          this.scroll({
+            left: ~~arguments[0].left + this.scrollLeft,
+            top: ~~arguments[0].top + this.scrollTop,
+            behavior: arguments[0].behavior
+          });
+        };
+
+        // Element.prototype.scrollIntoView
+        Element.prototype.scrollIntoView = function() {
+          // avoid smooth behavior if not required
+          if (shouldBailOut(arguments[0]) === true) {
+            original.scrollIntoView.call(
+              this,
+              arguments[0] === undefined ? true : arguments[0]
+            );
+
+            return;
+          }
+
+          // LET THE SMOOTHNESS BEGIN!
+          var scrollableParent = findScrollableParent(this);
+          var parentRects = scrollableParent.getBoundingClientRect();
+          var clientRects = this.getBoundingClientRect();
+
+          if (scrollableParent !== d.body) {
+            // reveal element inside parent
+            smoothScroll.call(
+              this,
+              scrollableParent,
+              scrollableParent.scrollLeft + clientRects.left - parentRects.left,
+              scrollableParent.scrollTop + clientRects.top - parentRects.top
+            );
+
+            // reveal parent in viewport unless is fixed
+            if (w.getComputedStyle(scrollableParent).position !== 'fixed') {
               w.scrollBy({
-                left: clientRects.left,
-                top: clientRects.top,
+                left: parentRects.left,
+                top: parentRects.top,
                 behavior: 'smooth'
               });
             }
-          };
-        }
-        {
-          // commonjs
-          module.exports = {
-            polyfill: polyfill
-          };
-        }
-      })();
+          } else {
+            // reveal element in viewport
+            w.scrollBy({
+              left: clientRects.left,
+              top: clientRects.top,
+              behavior: 'smooth'
+            });
+          }
+        };
+      }
+
+      {
+        // commonjs
+        module.exports = { polyfill: polyfill };
+      }
+
+    }());
     });
     var smoothscroll_1 = smoothscroll.polyfill;
+
     var _default$1 = /*#__PURE__*/function (_Core) {
       _inherits(_default, _Core);
+
       var _super = _createSuper(_default);
+
       function _default() {
         var _this;
+
         var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
         _classCallCheck(this, _default);
+
         _this = _super.call(this, options);
+
         if (_this.resetNativeScroll) {
           if (history.scrollRestoration) {
             history.scrollRestoration = 'manual';
           }
+
           window.scrollTo(0, 0);
         }
+
         window.addEventListener('scroll', _this.checkScroll, false);
+
         if (window.smoothscrollPolyfill === undefined) {
           window.smoothscrollPolyfill = smoothscroll;
           window.smoothscrollPolyfill.polyfill();
         }
+
         return _this;
       }
+
       _createClass(_default, [{
         key: "init",
         value: function init() {
           this.instance.scroll.y = window.pageYOffset;
           this.addElements();
           this.detectElements();
+
           _get(_getPrototypeOf(_default.prototype), "init", this).call(this);
         }
       }, {
         key: "checkScroll",
         value: function checkScroll() {
           var _this2 = this;
+
           _get(_getPrototypeOf(_default.prototype), "checkScroll", this).call(this);
+
           if (this.getDirection) {
             this.addDirection();
           }
+
           if (this.getSpeed) {
             this.addSpeed();
             this.speedTs = Date.now();
           }
+
           this.instance.scroll.y = window.pageYOffset;
+
           if (Object.entries(this.els).length) {
             if (!this.hasScrollTicking) {
               requestAnimationFrame(function () {
@@ -2033,6 +1177,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
         key: "addElements",
         value: function addElements() {
           var _this3 = this;
+
           this.els = {};
           var els = this.el.querySelectorAll('[data-' + this.name + ']');
           els.forEach(function (el, index) {
@@ -2046,16 +1191,19 @@ var LocomotiveScroll = function LocomotiveScroll() {
             var call = el.dataset[_this3.name + 'Call'];
             var target = el.dataset[_this3.name + 'Target'];
             var targetEl;
+
             if (target !== undefined) {
               targetEl = document.querySelector("".concat(target));
             } else {
               targetEl = el;
             }
+
             var targetElBCR = targetEl.getBoundingClientRect();
             top = targetElBCR.top + _this3.instance.scroll.y;
             left = targetElBCR.left + _this3.instance.scroll.x;
             var bottom = top + targetEl.offsetHeight;
             var right = left + targetEl.offsetWidth;
+
             if (repeat == 'false') {
               repeat = false;
             } else if (repeat != undefined) {
@@ -2063,7 +1211,9 @@ var LocomotiveScroll = function LocomotiveScroll() {
             } else {
               repeat = _this3.repeat;
             }
+
             var relativeOffset = _this3.getRelativeOffset(offset);
+
             top = top + relativeOffset[0];
             bottom = bottom - relativeOffset[1];
             var mappedEl = {
@@ -2082,6 +1232,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
               call: call
             };
             _this3.els[id] = mappedEl;
+
             if (el.classList.contains(cl)) {
               _this3.setInView(_this3.els[id], id);
             }
@@ -2091,13 +1242,18 @@ var LocomotiveScroll = function LocomotiveScroll() {
         key: "updateElements",
         value: function updateElements() {
           var _this4 = this;
+
           Object.entries(this.els).forEach(function (_ref) {
             var _ref2 = _slicedToArray(_ref, 2),
-              i = _ref2[0],
-              el = _ref2[1];
+                i = _ref2[0],
+                el = _ref2[1];
+
             var top = el.targetEl.getBoundingClientRect().top + _this4.instance.scroll.y;
+
             var bottom = top + el.targetEl.offsetHeight;
+
             var relativeOffset = _this4.getRelativeOffset(el.offset);
+
             _this4.els[i].top = top + relativeOffset[0];
             _this4.els[i].bottom = bottom - relativeOffset[1];
           });
@@ -2107,6 +1263,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
         key: "getRelativeOffset",
         value: function getRelativeOffset(offset) {
           var relativeOffset = [0, 0];
+
           if (offset) {
             for (var i = 0; i < offset.length; i++) {
               if (typeof offset[i] == 'string') {
@@ -2120,6 +1277,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
               }
             }
           }
+
           return relativeOffset;
         }
         /**
@@ -2130,6 +1288,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
          *          options {object} - Options object for additionnal settings.
          * @return {void}
          */
+
       }, {
         key: "scrollTo",
         value: function scrollTo(target) {
@@ -2155,19 +1314,22 @@ var LocomotiveScroll = function LocomotiveScroll() {
           } else if (typeof target === 'number') {
             // Absolute coordinate
             target = parseInt(target);
-          } else if (target && target.tagName) ;else {
+          } else if (target && target.tagName) ; else {
             console.warn('`target` parameter is not valid');
             return;
           } // We have a target that is not a coordinate yet, get it
+
 
           if (typeof target !== 'number') {
             offset = target.getBoundingClientRect().top + offset + this.instance.scroll.y;
           } else {
             offset = target + offset;
           }
+
           var isTargetReached = function isTargetReached() {
             return parseInt(window.pageYOffset) === parseInt(offset);
           };
+
           if (callback) {
             if (isTargetReached()) {
               callback();
@@ -2179,9 +1341,11 @@ var LocomotiveScroll = function LocomotiveScroll() {
                   callback();
                 }
               };
+
               window.addEventListener('scroll', onScroll);
             }
           }
+
           window.scrollTo({
             top: offset,
             behavior: options.duration === 0 ? 'auto' : 'smooth'
@@ -2197,9 +1361,11 @@ var LocomotiveScroll = function LocomotiveScroll() {
         key: "destroy",
         value: function destroy() {
           _get(_getPrototypeOf(_default.prototype), "destroy", this).call(this);
+
           window.removeEventListener('scroll', this.checkScroll, false);
         }
       }]);
+
       return _default;
     }(_default);
 
@@ -2212,12 +1378,15 @@ var LocomotiveScroll = function LocomotiveScroll() {
     var getOwnPropertySymbols = Object.getOwnPropertySymbols;
     var hasOwnProperty = Object.prototype.hasOwnProperty;
     var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
     function toObject(val) {
       if (val === null || val === undefined) {
         throw new TypeError('Object.assign cannot be called with null or undefined');
       }
+
       return Object(val);
     }
+
     function shouldUseNative() {
       try {
         if (!Object.assign) {
@@ -2227,7 +1396,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
         // Detect buggy property enumeration order in older V8 versions.
 
         // https://bugs.chromium.org/p/v8/issues/detail?id=4118
-        var test1 = new String('abc'); // eslint-disable-line no-new-wrappers
+        var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
         test1[5] = 'de';
         if (Object.getOwnPropertyNames(test1)[0] === '5') {
           return false;
@@ -2250,26 +1419,32 @@ var LocomotiveScroll = function LocomotiveScroll() {
         'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
           test3[letter] = letter;
         });
-        if (Object.keys(Object.assign({}, test3)).join('') !== 'abcdefghijklmnopqrst') {
+        if (Object.keys(Object.assign({}, test3)).join('') !==
+            'abcdefghijklmnopqrst') {
           return false;
         }
+
         return true;
       } catch (err) {
         // We don't expect any of the above to throw, but better to be safe.
         return false;
       }
     }
+
     var objectAssign = shouldUseNative() ? Object.assign : function (target, source) {
       var from;
       var to = toObject(target);
       var symbols;
+
       for (var s = 1; s < arguments.length; s++) {
         from = Object(arguments[s]);
+
         for (var key in from) {
           if (hasOwnProperty.call(from, key)) {
             to[key] = from[key];
           }
         }
+
         if (getOwnPropertySymbols) {
           symbols = getOwnPropertySymbols(from);
           for (var i = 0; i < symbols.length; i++) {
@@ -2279,47 +1454,59 @@ var LocomotiveScroll = function LocomotiveScroll() {
           }
         }
       }
+
       return to;
     };
-    function E() {
+
+    function E () {
       // Keep this empty so it's easier to inherit from
       // (via https://github.com/lipsmack from https://github.com/scottcorgan/tiny-emitter/issues/3)
     }
+
     E.prototype = {
-      on: function on(name, callback, ctx) {
+      on: function (name, callback, ctx) {
         var e = this.e || (this.e = {});
+
         (e[name] || (e[name] = [])).push({
           fn: callback,
           ctx: ctx
         });
+
         return this;
       },
-      once: function once(name, callback, ctx) {
+
+      once: function (name, callback, ctx) {
         var self = this;
-        function listener() {
+        function listener () {
           self.off(name, listener);
           callback.apply(ctx, arguments);
         }
         listener._ = callback;
         return this.on(name, listener, ctx);
       },
-      emit: function emit(name) {
+
+      emit: function (name) {
         var data = [].slice.call(arguments, 1);
         var evtArr = ((this.e || (this.e = {}))[name] || []).slice();
         var i = 0;
         var len = evtArr.length;
+
         for (i; i < len; i++) {
           evtArr[i].fn.apply(evtArr[i].ctx, data);
         }
+
         return this;
       },
-      off: function off(name, callback) {
+
+      off: function (name, callback) {
         var e = this.e || (this.e = {});
         var evts = e[name];
         var liveEvents = [];
+
         if (evts && callback) {
           for (var i = 0, len = evts.length; i < len; i++) {
-            if (evts[i].fn !== callback && evts[i].fn._ !== callback) liveEvents.push(evts[i]);
+            if (evts[i].fn !== callback && evts[i].fn._ !== callback)
+              liveEvents.push(evts[i]);
           }
         }
 
@@ -2327,133 +1514,154 @@ var LocomotiveScroll = function LocomotiveScroll() {
         // Suggested by https://github.com/lazd
         // Ref: https://github.com/scottcorgan/tiny-emitter/commit/c6ebfaa9bc973b33d110a84a307742b7cf94c953#commitcomment-5024910
 
-        liveEvents.length ? e[name] = liveEvents : delete e[name];
+        (liveEvents.length)
+          ? e[name] = liveEvents
+          : delete e[name];
+
         return this;
       }
     };
+
     var tinyEmitter = E;
+
     var lethargy = createCommonjsModule(function (module, exports) {
-      // Generated by CoffeeScript 1.9.2
-      (function () {
-        var root;
-        root = exports !== null ? exports : this;
-        root.Lethargy = function () {
-          function Lethargy(stability, sensitivity, tolerance, delay) {
-            this.stability = stability != null ? Math.abs(stability) : 8;
-            this.sensitivity = sensitivity != null ? 1 + Math.abs(sensitivity) : 100;
-            this.tolerance = tolerance != null ? 1 + Math.abs(tolerance) : 1.1;
-            this.delay = delay != null ? delay : 150;
-            this.lastUpDeltas = function () {
-              var i, ref, results;
-              results = [];
-              for (i = 1, ref = this.stability * 2; 1 <= ref ? i <= ref : i >= ref; 1 <= ref ? i++ : i--) {
-                results.push(null);
-              }
-              return results;
-            }.call(this);
-            this.lastDownDeltas = function () {
-              var i, ref, results;
-              results = [];
-              for (i = 1, ref = this.stability * 2; 1 <= ref ? i <= ref : i >= ref; 1 <= ref ? i++ : i--) {
-                results.push(null);
-              }
-              return results;
-            }.call(this);
-            this.deltasTimestamp = function () {
-              var i, ref, results;
-              results = [];
-              for (i = 1, ref = this.stability * 2; 1 <= ref ? i <= ref : i >= ref; 1 <= ref ? i++ : i--) {
-                results.push(null);
-              }
-              return results;
-            }.call(this);
-          }
-          Lethargy.prototype.check = function (e) {
-            var lastDelta;
-            e = e.originalEvent || e;
-            if (e.wheelDelta != null) {
-              lastDelta = e.wheelDelta;
-            } else if (e.deltaY != null) {
-              lastDelta = e.deltaY * -40;
-            } else if (e.detail != null || e.detail === 0) {
-              lastDelta = e.detail * -40;
+    // Generated by CoffeeScript 1.9.2
+    (function() {
+      var root;
+
+      root =  exports !== null ? exports : this;
+
+      root.Lethargy = (function() {
+        function Lethargy(stability, sensitivity, tolerance, delay) {
+          this.stability = stability != null ? Math.abs(stability) : 8;
+          this.sensitivity = sensitivity != null ? 1 + Math.abs(sensitivity) : 100;
+          this.tolerance = tolerance != null ? 1 + Math.abs(tolerance) : 1.1;
+          this.delay = delay != null ? delay : 150;
+          this.lastUpDeltas = (function() {
+            var i, ref, results;
+            results = [];
+            for (i = 1, ref = this.stability * 2; 1 <= ref ? i <= ref : i >= ref; 1 <= ref ? i++ : i--) {
+              results.push(null);
             }
-            this.deltasTimestamp.push(Date.now());
-            this.deltasTimestamp.shift();
-            if (lastDelta > 0) {
-              this.lastUpDeltas.push(lastDelta);
-              this.lastUpDeltas.shift();
-              return this.isInertia(1);
-            } else {
-              this.lastDownDeltas.push(lastDelta);
-              this.lastDownDeltas.shift();
-              return this.isInertia(-1);
+            return results;
+          }).call(this);
+          this.lastDownDeltas = (function() {
+            var i, ref, results;
+            results = [];
+            for (i = 1, ref = this.stability * 2; 1 <= ref ? i <= ref : i >= ref; 1 <= ref ? i++ : i--) {
+              results.push(null);
             }
-          };
-          Lethargy.prototype.isInertia = function (direction) {
-            var lastDeltas, lastDeltasNew, lastDeltasOld, newAverage, newSum, oldAverage, oldSum;
-            lastDeltas = direction === -1 ? this.lastDownDeltas : this.lastUpDeltas;
-            if (lastDeltas[0] === null) {
-              return direction;
+            return results;
+          }).call(this);
+          this.deltasTimestamp = (function() {
+            var i, ref, results;
+            results = [];
+            for (i = 1, ref = this.stability * 2; 1 <= ref ? i <= ref : i >= ref; 1 <= ref ? i++ : i--) {
+              results.push(null);
             }
-            if (this.deltasTimestamp[this.stability * 2 - 2] + this.delay > Date.now() && lastDeltas[0] === lastDeltas[this.stability * 2 - 1]) {
-              return false;
-            }
-            lastDeltasOld = lastDeltas.slice(0, this.stability);
-            lastDeltasNew = lastDeltas.slice(this.stability, this.stability * 2);
-            oldSum = lastDeltasOld.reduce(function (t, s) {
-              return t + s;
-            });
-            newSum = lastDeltasNew.reduce(function (t, s) {
-              return t + s;
-            });
-            oldAverage = oldSum / lastDeltasOld.length;
-            newAverage = newSum / lastDeltasNew.length;
-            if (Math.abs(oldAverage) < Math.abs(newAverage * this.tolerance) && this.sensitivity < Math.abs(newAverage)) {
-              return direction;
-            } else {
-              return false;
-            }
-          };
-          Lethargy.prototype.showLastUpDeltas = function () {
-            return this.lastUpDeltas;
-          };
-          Lethargy.prototype.showLastDownDeltas = function () {
-            return this.lastDownDeltas;
-          };
-          return Lethargy;
-        }();
-      }).call(commonjsGlobal);
-    });
-    var support = function getSupport() {
-      return {
-        hasWheelEvent: 'onwheel' in document,
-        hasMouseWheelEvent: 'onmousewheel' in document,
-        hasTouch: 'ontouchstart' in window || window.TouchEvent || window.DocumentTouch && document instanceof DocumentTouch,
-        hasTouchWin: navigator.msMaxTouchPoints && navigator.msMaxTouchPoints > 1,
-        hasPointer: !!window.navigator.msPointerEnabled,
-        hasKeyDown: 'onkeydown' in document,
-        isFirefox: navigator.userAgent.indexOf('Firefox') > -1
-      };
-    }();
-    var toString = Object.prototype.toString,
-      hasOwnProperty$1 = Object.prototype.hasOwnProperty;
-    var bindallStandalone = function bindallStandalone(object) {
-      if (!object) return console.warn('bindAll requires at least one argument.');
-      var functions = Array.prototype.slice.call(arguments, 1);
-      if (functions.length === 0) {
-        for (var method in object) {
-          if (hasOwnProperty$1.call(object, method)) {
-            if (typeof object[method] == 'function' && toString.call(object[method]) == "[object Function]") {
-              functions.push(method);
-            }
-          }
+            return results;
+          }).call(this);
         }
-      }
-      for (var i = 0; i < functions.length; i++) {
-        var f = functions[i];
-        object[f] = bind(object[f], object);
-      }
+
+        Lethargy.prototype.check = function(e) {
+          var lastDelta;
+          e = e.originalEvent || e;
+          if (e.wheelDelta != null) {
+            lastDelta = e.wheelDelta;
+          } else if (e.deltaY != null) {
+            lastDelta = e.deltaY * -40;
+          } else if ((e.detail != null) || e.detail === 0) {
+            lastDelta = e.detail * -40;
+          }
+          this.deltasTimestamp.push(Date.now());
+          this.deltasTimestamp.shift();
+          if (lastDelta > 0) {
+            this.lastUpDeltas.push(lastDelta);
+            this.lastUpDeltas.shift();
+            return this.isInertia(1);
+          } else {
+            this.lastDownDeltas.push(lastDelta);
+            this.lastDownDeltas.shift();
+            return this.isInertia(-1);
+          }
+        };
+
+        Lethargy.prototype.isInertia = function(direction) {
+          var lastDeltas, lastDeltasNew, lastDeltasOld, newAverage, newSum, oldAverage, oldSum;
+          lastDeltas = direction === -1 ? this.lastDownDeltas : this.lastUpDeltas;
+          if (lastDeltas[0] === null) {
+            return direction;
+          }
+          if (this.deltasTimestamp[(this.stability * 2) - 2] + this.delay > Date.now() && lastDeltas[0] === lastDeltas[(this.stability * 2) - 1]) {
+            return false;
+          }
+          lastDeltasOld = lastDeltas.slice(0, this.stability);
+          lastDeltasNew = lastDeltas.slice(this.stability, this.stability * 2);
+          oldSum = lastDeltasOld.reduce(function(t, s) {
+            return t + s;
+          });
+          newSum = lastDeltasNew.reduce(function(t, s) {
+            return t + s;
+          });
+          oldAverage = oldSum / lastDeltasOld.length;
+          newAverage = newSum / lastDeltasNew.length;
+          if (Math.abs(oldAverage) < Math.abs(newAverage * this.tolerance) && (this.sensitivity < Math.abs(newAverage))) {
+            return direction;
+          } else {
+            return false;
+          }
+        };
+
+        Lethargy.prototype.showLastUpDeltas = function() {
+          return this.lastUpDeltas;
+        };
+
+        Lethargy.prototype.showLastDownDeltas = function() {
+          return this.lastDownDeltas;
+        };
+
+        return Lethargy;
+
+      })();
+
+    }).call(commonjsGlobal);
+    });
+
+    var support = (function getSupport() {
+        return {
+            hasWheelEvent: 'onwheel' in document,
+            hasMouseWheelEvent: 'onmousewheel' in document,
+            hasTouch: ('ontouchstart' in window) || window.TouchEvent || window.DocumentTouch && document instanceof DocumentTouch,
+            hasTouchWin: navigator.msMaxTouchPoints && navigator.msMaxTouchPoints > 1,
+            hasPointer: !!window.navigator.msPointerEnabled,
+            hasKeyDown: 'onkeydown' in document,
+            isFirefox: navigator.userAgent.indexOf('Firefox') > -1
+        };
+    })();
+
+    var toString = Object.prototype.toString,
+        hasOwnProperty$1 = Object.prototype.hasOwnProperty;
+
+    var bindallStandalone = function(object) {
+        if(!object) return console.warn('bindAll requires at least one argument.');
+
+        var functions = Array.prototype.slice.call(arguments, 1);
+
+        if (functions.length === 0) {
+
+            for (var method in object) {
+                if(hasOwnProperty$1.call(object, method)) {
+                    if(typeof object[method] == 'function' && toString.call(object[method]) == "[object Function]") {
+                        functions.push(method);
+                    }
+                }
+            }
+        }
+
+        for(var i = 0; i < functions.length; i++) {
+            var f = functions[i];
+            object[f] = bind(object[f], object);
+        }
     };
 
     /*
@@ -2462,194 +1670,240 @@ var LocomotiveScroll = function LocomotiveScroll() {
         or partial application.
     */
     function bind(func, context) {
-      return function () {
+      return function() {
         return func.apply(context, arguments);
       };
     }
+
     var Lethargy = lethargy.Lethargy;
+
+
+
     var EVT_ID = 'virtualscroll';
+
     var src = VirtualScroll;
+
     var keyCodes = {
-      LEFT: 37,
-      UP: 38,
-      RIGHT: 39,
-      DOWN: 40,
-      SPACE: 32
+        LEFT: 37,
+        UP: 38,
+        RIGHT: 39,
+        DOWN: 40,
+        SPACE: 32
     };
+
     function VirtualScroll(options) {
-      bindallStandalone(this, '_onWheel', '_onMouseWheel', '_onTouchStart', '_onTouchMove', '_onKeyDown');
-      this.el = window;
-      if (options && options.el) {
-        this.el = options.el;
-        delete options.el;
-      }
-      this.options = objectAssign({
-        mouseMultiplier: 1,
-        touchMultiplier: 2,
-        firefoxMultiplier: 15,
-        keyStep: 120,
-        preventTouch: false,
-        unpreventTouchClass: 'vs-touchmove-allowed',
-        limitInertia: false,
-        useKeyboard: true,
-        useTouch: true
-      }, options);
-      if (this.options.limitInertia) this._lethargy = new Lethargy();
-      this._emitter = new tinyEmitter();
-      this._event = {
-        y: 0,
-        x: 0,
-        deltaX: 0,
-        deltaY: 0
-      };
-      this.touchStartX = null;
-      this.touchStartY = null;
-      this.bodyTouchAction = null;
-      if (this.options.passive !== undefined) {
-        this.listenerOptions = {
-          passive: this.options.passive
+        bindallStandalone(this, '_onWheel', '_onMouseWheel', '_onTouchStart', '_onTouchMove', '_onKeyDown');
+
+        this.el = window;
+        if (options && options.el) {
+            this.el = options.el;
+            delete options.el;
+        }
+        this.options = objectAssign({
+            mouseMultiplier: 1,
+            touchMultiplier: 2,
+            firefoxMultiplier: 15,
+            keyStep: 120,
+            preventTouch: false,
+            unpreventTouchClass: 'vs-touchmove-allowed',
+            limitInertia: false,
+            useKeyboard: true,
+            useTouch: true
+        }, options);
+
+        if (this.options.limitInertia) this._lethargy = new Lethargy();
+
+        this._emitter = new tinyEmitter();
+        this._event = {
+            y: 0,
+            x: 0,
+            deltaX: 0,
+            deltaY: 0
         };
-      }
+        this.touchStartX = null;
+        this.touchStartY = null;
+        this.bodyTouchAction = null;
+
+        if (this.options.passive !== undefined) {
+            this.listenerOptions = {passive: this.options.passive};
+        }
     }
-    VirtualScroll.prototype._notify = function (e) {
-      var evt = this._event;
-      evt.x += evt.deltaX;
-      evt.y += evt.deltaY;
+
+    VirtualScroll.prototype._notify = function(e) {
+        var evt = this._event;
+        evt.x += evt.deltaX;
+        evt.y += evt.deltaY;
+
       this._emitter.emit(EVT_ID, {
-        x: evt.x,
-        y: evt.y,
-        deltaX: evt.deltaX,
-        deltaY: evt.deltaY,
-        originalEvent: e
+            x: evt.x,
+            y: evt.y,
+            deltaX: evt.deltaX,
+            deltaY: evt.deltaY,
+            originalEvent: e
       });
     };
-    VirtualScroll.prototype._onWheel = function (e) {
-      var options = this.options;
-      if (this._lethargy && this._lethargy.check(e) === false) return;
-      var evt = this._event;
 
-      // In Chrome and in Firefox (at least the new one)
-      evt.deltaX = e.wheelDeltaX || e.deltaX * -1;
-      evt.deltaY = e.wheelDeltaY || e.deltaY * -1;
+    VirtualScroll.prototype._onWheel = function(e) {
+        var options = this.options;
+        if (this._lethargy && this._lethargy.check(e) === false) return;
+        var evt = this._event;
 
-      // for our purpose deltamode = 1 means user is on a wheel mouse, not touch pad
-      // real meaning: https://developer.mozilla.org/en-US/docs/Web/API/WheelEvent#Delta_modes
-      if (support.isFirefox && e.deltaMode == 1) {
-        evt.deltaX *= options.firefoxMultiplier;
-        evt.deltaY *= options.firefoxMultiplier;
-      }
-      evt.deltaX *= options.mouseMultiplier;
-      evt.deltaY *= options.mouseMultiplier;
-      this._notify(e);
-    };
-    VirtualScroll.prototype._onMouseWheel = function (e) {
-      if (this.options.limitInertia && this._lethargy.check(e) === false) return;
-      var evt = this._event;
+        // In Chrome and in Firefox (at least the new one)
+        evt.deltaX = e.wheelDeltaX || e.deltaX * -1;
+        evt.deltaY = e.wheelDeltaY || e.deltaY * -1;
 
-      // In Safari, IE and in Chrome if 'wheel' isn't defined
-      evt.deltaX = e.wheelDeltaX ? e.wheelDeltaX : 0;
-      evt.deltaY = e.wheelDeltaY ? e.wheelDeltaY : e.wheelDelta;
-      this._notify(e);
+        // for our purpose deltamode = 1 means user is on a wheel mouse, not touch pad
+        // real meaning: https://developer.mozilla.org/en-US/docs/Web/API/WheelEvent#Delta_modes
+        if(support.isFirefox && e.deltaMode == 1) {
+            evt.deltaX *= options.firefoxMultiplier;
+            evt.deltaY *= options.firefoxMultiplier;
+        }
+
+        evt.deltaX *= options.mouseMultiplier;
+        evt.deltaY *= options.mouseMultiplier;
+
+        this._notify(e);
     };
-    VirtualScroll.prototype._onTouchStart = function (e) {
-      var t = e.targetTouches ? e.targetTouches[0] : e;
-      this.touchStartX = t.pageX;
-      this.touchStartY = t.pageY;
+
+    VirtualScroll.prototype._onMouseWheel = function(e) {
+        if (this.options.limitInertia && this._lethargy.check(e) === false) return;
+
+        var evt = this._event;
+
+        // In Safari, IE and in Chrome if 'wheel' isn't defined
+        evt.deltaX = (e.wheelDeltaX) ? e.wheelDeltaX : 0;
+        evt.deltaY = (e.wheelDeltaY) ? e.wheelDeltaY : e.wheelDelta;
+
+        this._notify(e);
     };
-    VirtualScroll.prototype._onTouchMove = function (e) {
-      var options = this.options;
-      if (options.preventTouch && !e.target.classList.contains(options.unpreventTouchClass)) {
-        e.preventDefault();
-      }
-      var evt = this._event;
-      var t = e.targetTouches ? e.targetTouches[0] : e;
-      evt.deltaX = (t.pageX - this.touchStartX) * options.touchMultiplier;
-      evt.deltaY = (t.pageY - this.touchStartY) * options.touchMultiplier;
-      this.touchStartX = t.pageX;
-      this.touchStartY = t.pageY;
-      this._notify(e);
+
+    VirtualScroll.prototype._onTouchStart = function(e) {
+        var t = (e.targetTouches) ? e.targetTouches[0] : e;
+        this.touchStartX = t.pageX;
+        this.touchStartY = t.pageY;
     };
-    VirtualScroll.prototype._onKeyDown = function (e) {
-      var evt = this._event;
-      evt.deltaX = evt.deltaY = 0;
-      var windowHeight = window.innerHeight - 40;
-      switch (e.keyCode) {
-        case keyCodes.LEFT:
-        case keyCodes.UP:
-          evt.deltaY = this.options.keyStep;
-          break;
-        case keyCodes.RIGHT:
-        case keyCodes.DOWN:
-          evt.deltaY = -this.options.keyStep;
-          break;
-        case e.shiftKey:
-          evt.deltaY = windowHeight;
-          break;
-        case keyCodes.SPACE:
-          evt.deltaY = -windowHeight;
-          break;
-        default:
-          return;
-      }
-      this._notify(e);
+
+    VirtualScroll.prototype._onTouchMove = function(e) {
+        var options = this.options;
+        if(options.preventTouch
+            && !e.target.classList.contains(options.unpreventTouchClass)) {
+            e.preventDefault();
+        }
+
+        var evt = this._event;
+
+        var t = (e.targetTouches) ? e.targetTouches[0] : e;
+
+        evt.deltaX = (t.pageX - this.touchStartX) * options.touchMultiplier;
+        evt.deltaY = (t.pageY - this.touchStartY) * options.touchMultiplier;
+
+        this.touchStartX = t.pageX;
+        this.touchStartY = t.pageY;
+
+        this._notify(e);
     };
-    VirtualScroll.prototype._bind = function () {
-      if (support.hasWheelEvent) this.el.addEventListener('wheel', this._onWheel, this.listenerOptions);
-      if (support.hasMouseWheelEvent) this.el.addEventListener('mousewheel', this._onMouseWheel, this.listenerOptions);
-      if (support.hasTouch && this.options.useTouch) {
-        this.el.addEventListener('touchstart', this._onTouchStart, this.listenerOptions);
-        this.el.addEventListener('touchmove', this._onTouchMove, this.listenerOptions);
-      }
-      if (support.hasPointer && support.hasTouchWin) {
-        this.bodyTouchAction = document.body.style.msTouchAction;
-        document.body.style.msTouchAction = 'none';
-        this.el.addEventListener('MSPointerDown', this._onTouchStart, true);
-        this.el.addEventListener('MSPointerMove', this._onTouchMove, true);
-      }
-      if (support.hasKeyDown && this.options.useKeyboard) document.addEventListener('keydown', this._onKeyDown);
+
+    VirtualScroll.prototype._onKeyDown = function(e) {
+        var evt = this._event;
+        evt.deltaX = evt.deltaY = 0;
+        var windowHeight = window.innerHeight - 40;
+
+        switch(e.keyCode) {
+            case keyCodes.LEFT:
+            case keyCodes.UP:
+                evt.deltaY = this.options.keyStep;
+                break;
+
+            case keyCodes.RIGHT:
+            case keyCodes.DOWN:
+                evt.deltaY = - this.options.keyStep;
+                break;
+            case  e.shiftKey:
+                evt.deltaY = windowHeight;
+                break;
+            case keyCodes.SPACE:
+                evt.deltaY = - windowHeight;
+                break;
+            default:
+                return;
+        }
+
+        this._notify(e);
     };
-    VirtualScroll.prototype._unbind = function () {
-      if (support.hasWheelEvent) this.el.removeEventListener('wheel', this._onWheel);
-      if (support.hasMouseWheelEvent) this.el.removeEventListener('mousewheel', this._onMouseWheel);
-      if (support.hasTouch) {
-        this.el.removeEventListener('touchstart', this._onTouchStart);
-        this.el.removeEventListener('touchmove', this._onTouchMove);
-      }
-      if (support.hasPointer && support.hasTouchWin) {
-        document.body.style.msTouchAction = this.bodyTouchAction;
-        this.el.removeEventListener('MSPointerDown', this._onTouchStart, true);
-        this.el.removeEventListener('MSPointerMove', this._onTouchMove, true);
-      }
-      if (support.hasKeyDown && this.options.useKeyboard) document.removeEventListener('keydown', this._onKeyDown);
+
+    VirtualScroll.prototype._bind = function() {
+        if(support.hasWheelEvent) this.el.addEventListener('wheel', this._onWheel, this.listenerOptions);
+        if(support.hasMouseWheelEvent) this.el.addEventListener('mousewheel', this._onMouseWheel, this.listenerOptions);
+
+        if(support.hasTouch && this.options.useTouch) {
+            this.el.addEventListener('touchstart', this._onTouchStart, this.listenerOptions);
+            this.el.addEventListener('touchmove', this._onTouchMove, this.listenerOptions);
+        }
+
+        if(support.hasPointer && support.hasTouchWin) {
+            this.bodyTouchAction = document.body.style.msTouchAction;
+            document.body.style.msTouchAction = 'none';
+            this.el.addEventListener('MSPointerDown', this._onTouchStart, true);
+            this.el.addEventListener('MSPointerMove', this._onTouchMove, true);
+        }
+
+        if(support.hasKeyDown && this.options.useKeyboard) document.addEventListener('keydown', this._onKeyDown);
     };
-    VirtualScroll.prototype.on = function (cb, ctx) {
+
+    VirtualScroll.prototype._unbind = function() {
+        if(support.hasWheelEvent) this.el.removeEventListener('wheel', this._onWheel);
+        if(support.hasMouseWheelEvent) this.el.removeEventListener('mousewheel', this._onMouseWheel);
+
+        if(support.hasTouch) {
+            this.el.removeEventListener('touchstart', this._onTouchStart);
+            this.el.removeEventListener('touchmove', this._onTouchMove);
+        }
+
+        if(support.hasPointer && support.hasTouchWin) {
+            document.body.style.msTouchAction = this.bodyTouchAction;
+            this.el.removeEventListener('MSPointerDown', this._onTouchStart, true);
+            this.el.removeEventListener('MSPointerMove', this._onTouchMove, true);
+        }
+
+        if(support.hasKeyDown && this.options.useKeyboard) document.removeEventListener('keydown', this._onKeyDown);
+    };
+
+    VirtualScroll.prototype.on = function(cb, ctx) {
       this._emitter.on(EVT_ID, cb, ctx);
+
       var events = this._emitter.e;
       if (events && events[EVT_ID] && events[EVT_ID].length === 1) this._bind();
     };
-    VirtualScroll.prototype.off = function (cb, ctx) {
+
+    VirtualScroll.prototype.off = function(cb, ctx) {
       this._emitter.off(EVT_ID, cb, ctx);
+
       var events = this._emitter.e;
       if (!events[EVT_ID] || events[EVT_ID].length <= 0) this._unbind();
     };
-    VirtualScroll.prototype.reset = function () {
-      var evt = this._event;
-      evt.x = 0;
-      evt.y = 0;
+
+    VirtualScroll.prototype.reset = function() {
+        var evt = this._event;
+        evt.x = 0;
+        evt.y = 0;
     };
-    VirtualScroll.prototype.destroy = function () {
-      this._emitter.off();
-      this._unbind();
+
+    VirtualScroll.prototype.destroy = function() {
+        this._emitter.off();
+        this._unbind();
     };
+
     function lerp(start, end, amt) {
       return (1 - amt) * start + amt * end;
     }
+
     function getTranslate(el) {
       var translate = {};
       if (!window.getComputedStyle) return;
       var style = getComputedStyle(el);
       var transform = style.transform || style.webkitTransform || style.mozTransform;
       var mat = transform.match(/^matrix3d\((.+)\)$/);
+
       if (mat) {
         translate.x = mat ? parseFloat(mat[1].split(', ')[12]) : 0;
         translate.y = mat ? parseFloat(mat[1].split(', ')[13]) : 0;
@@ -2658,6 +1912,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
         translate.x = mat ? parseFloat(mat[1].split(', ')[4]) : 0;
         translate.y = mat ? parseFloat(mat[1].split(', ')[5]) : 0;
       }
+
       return translate;
     }
 
@@ -2674,6 +1929,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
         parents.push(elem);
       } // Return our parent array
 
+
       return parents;
     } // https://gomakethings.com/how-to-get-the-closest-parent-element-with-a-matching-selector-using-vanilla-javascript/
 
@@ -2688,32 +1944,24 @@ var LocomotiveScroll = function LocomotiveScroll() {
     var NEWTON_MIN_SLOPE = 0.001;
     var SUBDIVISION_PRECISION = 0.0000001;
     var SUBDIVISION_MAX_ITERATIONS = 10;
+
     var kSplineTableSize = 11;
     var kSampleStepSize = 1.0 / (kSplineTableSize - 1.0);
+
     var float32ArraySupported = typeof Float32Array === 'function';
-    function A(aA1, aA2) {
-      return 1.0 - 3.0 * aA2 + 3.0 * aA1;
-    }
-    function B(aA1, aA2) {
-      return 3.0 * aA2 - 6.0 * aA1;
-    }
-    function C(aA1) {
-      return 3.0 * aA1;
-    }
+
+    function A (aA1, aA2) { return 1.0 - 3.0 * aA2 + 3.0 * aA1; }
+    function B (aA1, aA2) { return 3.0 * aA2 - 6.0 * aA1; }
+    function C (aA1)      { return 3.0 * aA1; }
 
     // Returns x(t) given t, x1, and x2, or y(t) given t, y1, and y2.
-    function calcBezier(aT, aA1, aA2) {
-      return ((A(aA1, aA2) * aT + B(aA1, aA2)) * aT + C(aA1)) * aT;
-    }
+    function calcBezier (aT, aA1, aA2) { return ((A(aA1, aA2) * aT + B(aA1, aA2)) * aT + C(aA1)) * aT; }
 
     // Returns dx/dt given t, x1, and x2, or dy/dt given t, y1, and y2.
-    function getSlope(aT, aA1, aA2) {
-      return 3.0 * A(aA1, aA2) * aT * aT + 2.0 * B(aA1, aA2) * aT + C(aA1);
-    }
-    function binarySubdivide(aX, aA, aB, mX1, mX2) {
-      var currentX,
-        currentT,
-        i = 0;
+    function getSlope (aT, aA1, aA2) { return 3.0 * A(aA1, aA2) * aT * aT + 2.0 * B(aA1, aA2) * aT + C(aA1); }
+
+    function binarySubdivide (aX, aA, aB, mX1, mX2) {
+      var currentX, currentT, i = 0;
       do {
         currentT = aA + (aB - aA) / 2.0;
         currentX = calcBezier(currentT, mX1, mX2) - aX;
@@ -2725,24 +1973,28 @@ var LocomotiveScroll = function LocomotiveScroll() {
       } while (Math.abs(currentX) > SUBDIVISION_PRECISION && ++i < SUBDIVISION_MAX_ITERATIONS);
       return currentT;
     }
-    function newtonRaphsonIterate(aX, aGuessT, mX1, mX2) {
-      for (var i = 0; i < NEWTON_ITERATIONS; ++i) {
-        var currentSlope = getSlope(aGuessT, mX1, mX2);
-        if (currentSlope === 0.0) {
-          return aGuessT;
-        }
-        var currentX = calcBezier(aGuessT, mX1, mX2) - aX;
-        aGuessT -= currentX / currentSlope;
+
+    function newtonRaphsonIterate (aX, aGuessT, mX1, mX2) {
+    for (var i = 0; i < NEWTON_ITERATIONS; ++i) {
+      var currentSlope = getSlope(aGuessT, mX1, mX2);
+      if (currentSlope === 0.0) {
+        return aGuessT;
       }
-      return aGuessT;
+      var currentX = calcBezier(aGuessT, mX1, mX2) - aX;
+      aGuessT -= currentX / currentSlope;
     }
-    function LinearEasing(x) {
+    return aGuessT;
+    }
+
+    function LinearEasing (x) {
       return x;
     }
-    var src$1 = function bezier(mX1, mY1, mX2, mY2) {
+
+    var src$1 = function bezier (mX1, mY1, mX2, mY2) {
       if (!(0 <= mX1 && mX1 <= 1 && 0 <= mX2 && mX2 <= 1)) {
         throw new Error('bezier x values must be in [0, 1] range');
       }
+
       if (mX1 === mY1 && mX2 === mY2) {
         return LinearEasing;
       }
@@ -2752,10 +2004,12 @@ var LocomotiveScroll = function LocomotiveScroll() {
       for (var i = 0; i < kSplineTableSize; ++i) {
         sampleValues[i] = calcBezier(i * kSampleStepSize, mX1, mX2);
       }
-      function getTForX(aX) {
+
+      function getTForX (aX) {
         var intervalStart = 0.0;
         var currentSample = 1;
         var lastSample = kSplineTableSize - 1;
+
         for (; currentSample !== lastSample && sampleValues[currentSample] <= aX; ++currentSample) {
           intervalStart += kSampleStepSize;
         }
@@ -2764,6 +2018,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
         // Interpolate to provide an initial guess for t
         var dist = (aX - sampleValues[currentSample]) / (sampleValues[currentSample + 1] - sampleValues[currentSample]);
         var guessForT = intervalStart + dist * kSampleStepSize;
+
         var initialSlope = getSlope(guessForT, mX1, mX2);
         if (initialSlope >= NEWTON_MIN_SLOPE) {
           return newtonRaphsonIterate(aX, guessForT, mX1, mX2);
@@ -2773,7 +2028,8 @@ var LocomotiveScroll = function LocomotiveScroll() {
           return binarySubdivide(aX, intervalStart, intervalStart + kSampleStepSize, mX1, mX2);
         }
       }
-      return function BezierEasing(x) {
+
+      return function BezierEasing (x) {
         // Because JavaScript number are imprecise, we should guarantee the extremes are right.
         if (x === 0) {
           return 0;
@@ -2784,6 +2040,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
         return calcBezier(getTForX(x), mY1, mY2);
       };
     };
+
     var keyCodes$1 = {
       LEFT: 37,
       UP: 38,
@@ -2796,16 +2053,23 @@ var LocomotiveScroll = function LocomotiveScroll() {
       HOME: 36,
       END: 35
     };
+
     var _default$2 = /*#__PURE__*/function (_Core) {
       _inherits(_default, _Core);
+
       var _super = _createSuper(_default);
+
       function _default() {
         var _this;
+
         var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
         _classCallCheck(this, _default);
+
         if (history.scrollRestoration) {
           history.scrollRestoration = 'manual';
         }
+
         window.scrollTo(0, 0);
         _this = _super.call(this, options);
         if (_this.inertia) _this.lerp = _this.inertia * 0.1;
@@ -2820,10 +2084,12 @@ var LocomotiveScroll = function LocomotiveScroll() {
         window.addEventListener('keydown', _this.checkKey, false);
         return _this;
       }
+
       _createClass(_default, [{
         key: "init",
         value: function init() {
           var _this2 = this;
+
           this.html.classList.add(this.smoothClass);
           this.html.setAttribute("data-".concat(this.name, "-direction"), this.direction);
           this.instance = _objectSpread2({
@@ -2848,9 +2114,11 @@ var LocomotiveScroll = function LocomotiveScroll() {
             if (_this2.stop) {
               return;
             }
+
             if (!_this2.isDraggingScrollbar) {
               requestAnimationFrame(function () {
                 _this2.updateDelta(e);
+
                 if (!_this2.isScrolling) _this2.startScrolling();
               });
             }
@@ -2861,18 +2129,22 @@ var LocomotiveScroll = function LocomotiveScroll() {
           this.addElements();
           this.checkScroll(true);
           this.transformElements(true, true);
+
           _get(_getPrototypeOf(_default.prototype), "init", this).call(this);
         }
       }, {
         key: "setScrollLimit",
         value: function setScrollLimit() {
           this.instance.limit.y = this.el.offsetHeight - this.windowHeight;
+
           if (this.direction === 'horizontal') {
             var totalWidth = 0;
             var nodes = this.el.children;
+
             for (var i = 0; i < nodes.length; i++) {
               totalWidth += nodes[i].offsetWidth;
             }
+
             this.instance.limit.x = totalWidth - this.windowWidth;
           }
         }
@@ -2892,10 +2164,12 @@ var LocomotiveScroll = function LocomotiveScroll() {
           //Pevent scrollbar glitch/locking
 
           this.startScrollTs = undefined;
+
           if (this.scrollToRaf) {
             cancelAnimationFrame(this.scrollToRaf);
             this.scrollToRaf = null;
           }
+
           this.isScrolling = false;
           this.instance.scroll.y = Math.round(this.instance.scroll.y);
           this.html.classList.remove(this.scrollingClass);
@@ -2904,6 +2178,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
         key: "checkKey",
         value: function checkKey(e) {
           var _this3 = this;
+
           if (this.stop) {
             // If we are stopped, we don't want any scroll to occur because of a keypress
             // Prevent tab to scroll to activeElement
@@ -2916,8 +2191,10 @@ var LocomotiveScroll = function LocomotiveScroll() {
                 document.body.scrollLeft = 0;
               });
             }
+
             return;
           }
+
           switch (e.keyCode) {
             case keyCodes$1.TAB:
               // Do not remove the RAF
@@ -2934,28 +2211,37 @@ var LocomotiveScroll = function LocomotiveScroll() {
                 });
               });
               break;
+
             case keyCodes$1.UP:
               if (this.isActiveElementScrollSensitive()) {
                 this.instance.delta[this.directionAxis] -= 240;
               }
+
               break;
+
             case keyCodes$1.DOWN:
               if (this.isActiveElementScrollSensitive()) {
                 this.instance.delta[this.directionAxis] += 240;
               }
+
               break;
+
             case keyCodes$1.PAGEUP:
               this.instance.delta[this.directionAxis] -= window.innerHeight;
               break;
+
             case keyCodes$1.PAGEDOWN:
               this.instance.delta[this.directionAxis] += window.innerHeight;
               break;
+
             case keyCodes$1.HOME:
               this.instance.delta[this.directionAxis] -= this.instance.limit[this.directionAxis];
               break;
+
             case keyCodes$1.END:
               this.instance.delta[this.directionAxis] += this.instance.limit[this.directionAxis];
               break;
+
             case keyCodes$1.SPACE:
               if (this.isActiveElementScrollSensitive()) {
                 if (e.shiftKey) {
@@ -2964,10 +2250,13 @@ var LocomotiveScroll = function LocomotiveScroll() {
                   this.instance.delta[this.directionAxis] += window.innerHeight;
                 }
               }
+
               break;
+
             default:
               return;
           }
+
           if (this.instance.delta[this.directionAxis] < 0) this.instance.delta[this.directionAxis] = 0;
           if (this.instance.delta[this.directionAxis] > this.instance.limit[this.directionAxis]) this.instance.delta[this.directionAxis] = this.instance.limit[this.directionAxis];
           this.stopScrolling(); // Stop any movement, allows to kill any other `scrollTo` still happening
@@ -2985,7 +2274,9 @@ var LocomotiveScroll = function LocomotiveScroll() {
         key: "checkScroll",
         value: function checkScroll() {
           var _this4 = this;
+
           var forced = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
           if (forced || this.isScrolling || this.isDraggingScrollbar) {
             if (!this.hasScrollTicking) {
               this.checkScrollRaf = requestAnimationFrame(function () {
@@ -2993,6 +2284,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
               });
               this.hasScrollTicking = true;
             }
+
             this.updateScroll();
             var distance = Math.abs(this.instance.delta[this.directionAxis] - this.instance.scroll[this.directionAxis]);
             var timeSinceStart = Date.now() - this.startScrollTs; // Get the time since the scroll was started: the scroll can be stopped again only past 100ms
@@ -3000,16 +2292,19 @@ var LocomotiveScroll = function LocomotiveScroll() {
             if (!this.animatingScroll && timeSinceStart > 100 && (distance < 0.5 && this.instance.delta[this.directionAxis] != 0 || distance < 0.5 && this.instance.delta[this.directionAxis] == 0)) {
               this.stopScrolling();
             }
+
             Object.entries(this.sections).forEach(function (_ref) {
               var _ref2 = _slicedToArray(_ref, 2),
-                i = _ref2[0],
-                section = _ref2[1];
+                  i = _ref2[0],
+                  section = _ref2[1];
+
               if (section.persistent || _this4.instance.scroll[_this4.directionAxis] > section.offset[_this4.directionAxis] && _this4.instance.scroll[_this4.directionAxis] < section.limit[_this4.directionAxis]) {
                 if (_this4.direction === 'horizontal') {
                   _this4.transform(section.el, -_this4.instance.scroll[_this4.directionAxis], 0);
                 } else {
                   _this4.transform(section.el, 0, -_this4.instance.scroll[_this4.directionAxis]);
                 }
+
                 if (!section.inView) {
                   section.inView = true;
                   section.el.style.opacity = 1;
@@ -3023,27 +2318,35 @@ var LocomotiveScroll = function LocomotiveScroll() {
                   section.el.style.pointerEvents = 'none';
                   section.el.removeAttribute("data-".concat(_this4.name, "-section-inview"));
                 }
+
                 _this4.transform(section.el, 0, 0);
               }
             });
+
             if (this.getDirection) {
               this.addDirection();
             }
+
             if (this.getSpeed) {
               this.addSpeed();
               this.speedTs = Date.now();
             }
+
             this.detectElements();
             this.transformElements();
+
             if (this.hasScrollbar) {
               var scrollBarTranslation = this.instance.scroll[this.directionAxis] / this.instance.limit[this.directionAxis] * this.scrollBarLimit[this.directionAxis];
+
               if (this.direction === 'horizontal') {
                 this.transform(this.scrollbarThumb, scrollBarTranslation, 0);
               } else {
                 this.transform(this.scrollbarThumb, 0, scrollBarTranslation);
               }
             }
+
             _get(_getPrototypeOf(_default.prototype), "checkScroll", this).call(this);
+
             this.hasScrollTicking = false;
           }
         }
@@ -3064,6 +2367,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
         value: function updateDelta(e) {
           var delta;
           var gestureDirection = this[this.context] && this[this.context].gestureDirection ? this[this.context].gestureDirection : this.gestureDirection;
+
           if (gestureDirection === 'both') {
             delta = e.deltaX + e.deltaY;
           } else if (gestureDirection === 'vertical') {
@@ -3073,6 +2377,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
           } else {
             delta = e.deltaY;
           }
+
           this.instance.delta[this.directionAxis] -= delta * this.multiplier;
           if (this.instance.delta[this.directionAxis] < 0) this.instance.delta[this.directionAxis] = 0;
           if (this.instance.delta[this.directionAxis] > this.instance.limit[this.directionAxis]) this.instance.delta[this.directionAxis] = this.instance.limit[this.directionAxis];
@@ -3104,6 +2409,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
               this.instance.direction = 'up';
             }
           }
+
           if (this.instance.delta.x > this.instance.scroll.x) {
             if (this.instance.direction !== 'right') {
               this.instance.direction = 'right';
@@ -3131,11 +2437,13 @@ var LocomotiveScroll = function LocomotiveScroll() {
           this.scrollbar.classList.add("".concat(this.scrollbarClass));
           this.scrollbarThumb.classList.add("".concat(this.scrollbarClass, "_thumb"));
           this.scrollbar.append(this.scrollbarThumb);
+
           if (this.scrollbarContainer) {
             this.scrollbarContainer.append(this.scrollbar);
           } else {
             document.body.append(this.scrollbar);
           } // Scrollbar Events
+
 
           this.getScrollBar = this.getScrollBar.bind(this);
           this.releaseScrollBar = this.releaseScrollBar.bind(this);
@@ -3145,6 +2453,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
           window.addEventListener('mousemove', this.moveScrollBar); // Set scrollbar values
 
           this.hasScrollbar = false;
+
           if (this.direction == 'horizontal') {
             if (this.instance.limit.x + this.windowWidth <= this.windowWidth) {
               return;
@@ -3154,15 +2463,18 @@ var LocomotiveScroll = function LocomotiveScroll() {
               return;
             }
           }
+
           this.hasScrollbar = true;
           this.scrollbarBCR = this.scrollbar.getBoundingClientRect();
           this.scrollbarHeight = this.scrollbarBCR.height;
           this.scrollbarWidth = this.scrollbarBCR.width;
+
           if (this.direction === 'horizontal') {
             this.scrollbarThumb.style.width = "".concat(this.scrollbarWidth * this.scrollbarWidth / (this.instance.limit.x + this.scrollbarWidth), "px");
           } else {
             this.scrollbarThumb.style.height = "".concat(this.scrollbarHeight * this.scrollbarHeight / (this.instance.limit.y + this.scrollbarHeight), "px");
           }
+
           this.scrollbarThumbBCR = this.scrollbarThumb.getBoundingClientRect();
           this.scrollBarLimit = {
             x: this.scrollbarWidth - this.scrollbarThumbBCR.width,
@@ -3173,6 +2485,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
         key: "reinitScrollBar",
         value: function reinitScrollBar() {
           this.hasScrollbar = false;
+
           if (this.direction == 'horizontal') {
             if (this.instance.limit.x + this.windowWidth <= this.windowWidth) {
               return;
@@ -3182,15 +2495,18 @@ var LocomotiveScroll = function LocomotiveScroll() {
               return;
             }
           }
+
           this.hasScrollbar = true;
           this.scrollbarBCR = this.scrollbar.getBoundingClientRect();
           this.scrollbarHeight = this.scrollbarBCR.height;
           this.scrollbarWidth = this.scrollbarBCR.width;
+
           if (this.direction === 'horizontal') {
             this.scrollbarThumb.style.width = "".concat(this.scrollbarWidth * this.scrollbarWidth / (this.instance.limit.x + this.scrollbarWidth), "px");
           } else {
             this.scrollbarThumb.style.height = "".concat(this.scrollbarHeight * this.scrollbarHeight / (this.instance.limit.y + this.scrollbarHeight), "px");
           }
+
           this.scrollbarThumbBCR = this.scrollbarThumb.getBoundingClientRect();
           this.scrollBarLimit = {
             x: this.scrollbarWidth - this.scrollbarThumbBCR.width,
@@ -3217,22 +2533,27 @@ var LocomotiveScroll = function LocomotiveScroll() {
         key: "releaseScrollBar",
         value: function releaseScrollBar(e) {
           this.isDraggingScrollbar = false;
+
           if (this.isScrolling) {
             this.html.classList.add(this.scrollingClass);
           }
+
           this.html.classList.remove(this.draggingClass);
         }
       }, {
         key: "moveScrollBar",
         value: function moveScrollBar(e) {
           var _this5 = this;
+
           if (this.isDraggingScrollbar) {
             requestAnimationFrame(function () {
               var x = (e.clientX - _this5.scrollbarBCR.left) * 100 / _this5.scrollbarWidth * _this5.instance.limit.x / 100;
               var y = (e.clientY - _this5.scrollbarBCR.top) * 100 / _this5.scrollbarHeight * _this5.instance.limit.y / 100;
+
               if (y > 0 && y < _this5.instance.limit.y) {
                 _this5.instance.delta.y = y;
               }
+
               if (x > 0 && x < _this5.instance.limit.x) {
                 _this5.instance.delta.x = x;
               }
@@ -3243,6 +2564,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
         key: "addElements",
         value: function addElements() {
           var _this6 = this;
+
           this.els = {};
           this.parallaxElements = {}; // this.sections.forEach((section, y) => {
 
@@ -3252,8 +2574,9 @@ var LocomotiveScroll = function LocomotiveScroll() {
             var targetParents = getParents(el);
             var section = Object.entries(_this6.sections).map(function (_ref3) {
               var _ref4 = _slicedToArray(_ref3, 2),
-                key = _ref4[0],
-                section = _ref4[1];
+                  key = _ref4[0],
+                  section = _ref4[1];
+
               return section;
             }).find(function (section) {
               return targetParents.includes(section.el);
@@ -3272,12 +2595,15 @@ var LocomotiveScroll = function LocomotiveScroll() {
             var offset = typeof el.dataset[_this6.name + 'Offset'] === 'string' ? el.dataset[_this6.name + 'Offset'].split(',') : _this6.offset;
             var target = el.dataset[_this6.name + 'Target'];
             var targetEl;
+
             if (target !== undefined) {
               targetEl = document.querySelector("".concat(target));
             } else {
               targetEl = el;
             }
+
             var targetElBCR = targetEl.getBoundingClientRect();
+
             if (section === null) {
               top = targetElBCR.top + _this6.instance.scroll.y - getTranslate(targetEl).y;
               left = targetElBCR.left + _this6.instance.scroll.x - getTranslate(targetEl).x;
@@ -3290,12 +2616,14 @@ var LocomotiveScroll = function LocomotiveScroll() {
                 left = targetElBCR.left + _this6.instance.scroll.x - getTranslate(targetEl).x;
               }
             }
+
             var bottom = top + targetEl.offsetHeight;
             var right = left + targetEl.offsetWidth;
             var middle = {
               x: (right - left) / 2 + left,
               y: (bottom - top) / 2 + top
             };
+
             if (sticky) {
               var elBCR = el.getBoundingClientRect();
               var elTop = elBCR.top;
@@ -3313,6 +2641,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
                 y: (bottom - top) / 2 + top
               };
             }
+
             if (repeat == 'false') {
               repeat = false;
             } else if (repeat != undefined) {
@@ -3320,7 +2649,9 @@ var LocomotiveScroll = function LocomotiveScroll() {
             } else {
               repeat = _this6.repeat;
             }
+
             var relativeOffset = [0, 0];
+
             if (offset) {
               if (_this6.direction === 'horizontal') {
                 for (var i = 0; i < offset.length; i++) {
@@ -3334,6 +2665,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
                     relativeOffset[i] = offset[i];
                   }
                 }
+
                 left = left + relativeOffset[0];
                 right = right - relativeOffset[1];
               } else {
@@ -3348,10 +2680,12 @@ var LocomotiveScroll = function LocomotiveScroll() {
                     relativeOffset[i] = offset[i];
                   }
                 }
+
                 top = top + relativeOffset[0];
                 bottom = bottom - relativeOffset[1];
               }
             }
+
             var mappedEl = {
               el: el,
               id: id,
@@ -3375,9 +2709,11 @@ var LocomotiveScroll = function LocomotiveScroll() {
               sticky: sticky
             };
             _this6.els[id] = mappedEl;
+
             if (el.classList.contains(cl)) {
               _this6.setInView(_this6.els[id], id);
             }
+
             if (speed !== false || sticky) {
               _this6.parallaxElements[id] = mappedEl;
             }
@@ -3387,11 +2723,14 @@ var LocomotiveScroll = function LocomotiveScroll() {
         key: "addSections",
         value: function addSections() {
           var _this7 = this;
+
           this.sections = {};
           var sections = this.el.querySelectorAll("[data-".concat(this.name, "-section]"));
+
           if (sections.length === 0) {
             sections = [this.el];
           }
+
           sections.forEach(function (section, index) {
             var id = typeof section.dataset[_this7.name + 'Id'] === 'string' ? section.dataset[_this7.name + 'Id'] : 'section' + index;
             var sectionBCR = section.getBoundingClientRect();
@@ -3420,6 +2759,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
         key: "transform",
         value: function transform(element, x, y, delay) {
           var transform;
+
           if (!delay) {
             transform = "matrix3d(1,0,0.00,0,0.00,1,0.00,0,0,0,1,0,".concat(x, ",").concat(y, ",0,1)");
           } else {
@@ -3428,6 +2768,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
             var lerpY = lerp(start.y, y, delay);
             transform = "matrix3d(1,0,0.00,0,0.00,1,0.00,0,0,0,1,0,".concat(lerpX, ",").concat(lerpY, ",0,1)");
           }
+
           element.style.webkitTransform = transform;
           element.style.msTransform = transform;
           element.style.transform = transform;
@@ -3436,6 +2777,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
         key: "transformElements",
         value: function transformElements(isForced) {
           var _this8 = this;
+
           var setAllElements = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
           var scrollRight = this.instance.scroll.x + this.windowWidth;
           var scrollBottom = this.instance.scroll.y + this.windowHeight;
@@ -3445,37 +2787,47 @@ var LocomotiveScroll = function LocomotiveScroll() {
           };
           Object.entries(this.parallaxElements).forEach(function (_ref5) {
             var _ref6 = _slicedToArray(_ref5, 2),
-              i = _ref6[0],
-              current = _ref6[1];
+                i = _ref6[0],
+                current = _ref6[1];
+
             var transformDistance = false;
+
             if (isForced) {
               transformDistance = 0;
             }
+
             if (current.inView || setAllElements) {
               switch (current.position) {
                 case 'top':
                   transformDistance = _this8.instance.scroll[_this8.directionAxis] * -current.speed;
                   break;
+
                 case 'elementTop':
                   transformDistance = (scrollBottom - current.top) * -current.speed;
                   break;
+
                 case 'bottom':
                   transformDistance = (_this8.instance.limit[_this8.directionAxis] - scrollBottom + _this8.windowHeight) * current.speed;
                   break;
+
                 case 'left':
                   transformDistance = _this8.instance.scroll[_this8.directionAxis] * -current.speed;
                   break;
+
                 case 'elementLeft':
                   transformDistance = (scrollRight - current.left) * -current.speed;
                   break;
+
                 case 'right':
                   transformDistance = (_this8.instance.limit[_this8.directionAxis] - scrollRight + _this8.windowHeight) * current.speed;
                   break;
+
                 default:
                   transformDistance = (scrollMiddle[_this8.directionAxis] - current.middle[_this8.directionAxis]) * -current.speed;
                   break;
               }
             }
+
             if (current.sticky) {
               if (current.inView) {
                 if (_this8.direction === 'horizontal') {
@@ -3503,6 +2855,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
                 }
               }
             }
+
             if (transformDistance !== false) {
               if (current.direction === 'horizontal' || _this8.direction === 'horizontal' && current.direction !== 'vertical') {
                 _this8.transform(current.el, transformDistance, 0, isForced ? false : current.delay);
@@ -3520,10 +2873,12 @@ var LocomotiveScroll = function LocomotiveScroll() {
          *          options {object} - Options object for additionnal settings.
          * @return {void}
          */
+
       }, {
         key: "scrollTo",
         value: function scrollTo(target) {
           var _this9 = this;
+
           var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
           // Parse options
           var offset = parseInt(options.offset) || 0; // An offset to apply on top of given `target` or `sourceElem`'s target
@@ -3537,6 +2892,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
           var callback = options.callback ? options.callback : false; // function called when scrollTo completes (note that it won't wait for lerp to stabilize)
 
           easing = src$1.apply(void 0, _toConsumableArray(easing));
+
           if (typeof target === 'string') {
             // Selector or boundaries
             if (target === 'top') {
@@ -3557,18 +2913,21 @@ var LocomotiveScroll = function LocomotiveScroll() {
           } else if (typeof target === 'number') {
             // Absolute coordinate
             target = parseInt(target);
-          } else if (target && target.tagName) ;else {
+          } else if (target && target.tagName) ; else {
             console.warn('`target` parameter is not valid');
             return;
           } // We have a target that is not a coordinate yet, get it
 
+
           if (typeof target !== 'number') {
             // Verify the given target belongs to this scroll scope
             var targetInScope = getParents(target).includes(this.el);
+
             if (!targetInScope) {
               // If the target isn't inside our main element, abort any action
               return;
             } // Get target offset from top
+
 
             var targetBCR = target.getBoundingClientRect();
             var offsetTop = targetBCR.top;
@@ -3579,22 +2938,24 @@ var LocomotiveScroll = function LocomotiveScroll() {
               return Object.entries(_this9.sections) // Get sections associative array as a regular array
               .map(function (_ref7) {
                 var _ref8 = _slicedToArray(_ref7, 2),
-                  key = _ref8[0],
-                  section = _ref8[1];
+                    key = _ref8[0],
+                    section = _ref8[1];
+
                 return section;
               }) // map to section only (we dont need the key here)
               .find(function (section) {
                 return section.el == candidate;
               }); // finally find the section that matches the candidate
             });
-
             var parentSectionOffset = 0;
+
             if (parentSection) {
               parentSectionOffset = getTranslate(parentSection)[this.directionAxis]; // We got a parent section, store it's current offset to remove it later
             } else {
               // if no parent section is found we need to use instance scroll directly
               parentSectionOffset = -this.instance.scroll[this.directionAxis];
             } // Final value of scroll destination : offsetTop + (optional offset given in options) - (parent's section translate)
+
 
             if (this.direction === 'horizontal') {
               offset = offsetLeft + offset - parentSectionOffset;
@@ -3607,10 +2968,12 @@ var LocomotiveScroll = function LocomotiveScroll() {
           // ==========================================================================
           // Setup
 
+
           var scrollStart = parseFloat(this.instance.delta[this.directionAxis]);
           var scrollTarget = Math.max(0, Math.min(offset, this.instance.limit[this.directionAxis])); // Make sure our target is in the scroll boundaries
 
           var scrollDiff = scrollTarget - scrollStart;
+
           var render = function render(p) {
             if (disableLerp) {
               if (_this9.direction === 'horizontal') {
@@ -3623,6 +2986,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
             }
           }; // Prepare the scroll
 
+
           this.animatingScroll = true; // This boolean allows to prevent `checkScroll()` from calling `stopScrolling` when the animation is slow (i.e. at the beginning of an EaseIn)
 
           this.stopScrolling(); // Stop any movement, allows to kill any other `scrollTo` still happening
@@ -3631,6 +2995,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
           // Start the animation loop
 
           var start = Date.now();
+
           var loop = function loop() {
             var p = (Date.now() - start) / duration; // Animation progress
 
@@ -3645,6 +3010,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
               render(easing(p));
             }
           };
+
           loop();
         }
       }, {
@@ -3688,6 +3054,7 @@ var LocomotiveScroll = function LocomotiveScroll() {
         key: "destroy",
         value: function destroy() {
           _get(_getPrototypeOf(_default.prototype), "destroy", this).call(this);
+
           this.stopScrolling();
           this.html.classList.remove(this.smoothClass);
           this.vs.destroy();
@@ -3695,12 +3062,16 @@ var LocomotiveScroll = function LocomotiveScroll() {
           window.removeEventListener('keydown', this.checkKey, false);
         }
       }]);
+
       return _default;
     }(_default);
+
     var Smooth = /*#__PURE__*/function () {
       function Smooth() {
         var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
         _classCallCheck(this, Smooth);
+
         this.options = options; // Override default options with given ones
 
         Object.assign(this, defaults, options);
@@ -3713,17 +3084,21 @@ var LocomotiveScroll = function LocomotiveScroll() {
         if (!this.smartphone.smooth && this.smartphone.direction == 'horizontal') console.warn('🚨 `smooth:false` & `horizontal` direction are not yet compatible (smartphone)');
         this.init();
       }
+
       _createClass(Smooth, [{
         key: "init",
         value: function init() {
           this.options.isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1 || window.innerWidth < this.tablet.breakpoint;
           this.options.isTablet = this.options.isMobile && window.innerWidth >= this.tablet.breakpoint;
+
           if (this.smooth && !this.options.isMobile || this.tablet.smooth && this.options.isTablet || this.smartphone.smooth && this.options.isMobile && !this.options.isTablet) {
             this.scroll = new _default$2(this.options);
           } else {
             this.scroll = new _default$1(this.options);
           }
+
           this.scroll.init();
+
           if (window.location.hash) {
             // Get the hash without the '#' and find the matching element
             var id = window.location.hash.slice(1, window.location.hash.length);
@@ -3773,216 +3148,15 @@ var LocomotiveScroll = function LocomotiveScroll() {
           this.scroll.destroy();
         }
       }]);
+
       return Smooth;
     }();
+
     return Smooth;
-  });
+
+  })));
+
 };
-var _default2 = LocomotiveScroll();
-exports.default = _default2;
 
-}).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+export default LocomotiveScroll();
 
-},{}],15:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.ScrollLock = void 0;
-var _iosChecker = require("./ios-checker");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var ScrollLock = /*#__PURE__*/function () {
-  function ScrollLock() {
-    _classCallCheck(this, ScrollLock);
-    this._iosChecker = _iosChecker.iosChecker;
-    this._lockClass = this._iosChecker() ? 'scroll-lock-ios' : 'scroll-lock';
-    this._scrollTop = null;
-    this._fixedBlockElements = document.querySelectorAll('[data-fix-block]');
-  }
-  _createClass(ScrollLock, [{
-    key: "_getScrollbarWidth",
-    value: function _getScrollbarWidth() {
-      return window.innerWidth - document.documentElement.clientWidth;
-    }
-  }, {
-    key: "_getBodyScrollTop",
-    value: function _getBodyScrollTop() {
-      return self.pageYOffset || document.documentElement && document.documentElement.ScrollTop || document.body && document.body.scrollTop;
-    }
-  }, {
-    key: "disableScrolling",
-    value: function disableScrolling() {
-      var _this = this;
-      this._scrollTop = document.body.dataset.scroll = document.body.dataset.scroll ? document.body.dataset.scroll : this._getBodyScrollTop();
-      if (this._getScrollbarWidth()) {
-        document.body.style.paddingRight = "".concat(this._getScrollbarWidth(), "px");
-        this._fixedBlockElements.forEach(function (block) {
-          block.style.paddingRight = "".concat(_this._getScrollbarWidth(), "px");
-        });
-      }
-      document.body.style.top = "-".concat(this._scrollTop, "px");
-      document.body.classList.add(this._lockClass);
-    }
-  }, {
-    key: "enableScrolling",
-    value: function enableScrolling() {
-      document.body.classList.remove(this._lockClass);
-      window.scrollTo(0, +document.body.dataset.scroll);
-      document.body.style.paddingRight = null;
-      document.body.style.top = null;
-      this._fixedBlockElements.forEach(function (block) {
-        block.style.paddingRight = null;
-      });
-      document.body.removeAttribute('data-scroll');
-      this._scrollTop = null;
-    }
-  }]);
-  return ScrollLock;
-}();
-exports.ScrollLock = ScrollLock;
-window.scrollLock = new ScrollLock();
-
-},{"./ios-checker":13}],16:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.StickyHeader = void 0;
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-var StickyHeader = /*#__PURE__*/function () {
-  function StickyHeader() {
-    _classCallCheck(this, StickyHeader);
-    this._stickyHeader = document.querySelector('[data-header="sticky"]');
-    this._headerHeight = this._stickyHeader ? this._stickyHeader.offsetHeight : '';
-    this._hidePoint = this._stickyHeader ? +this._stickyHeader.dataset.hidePoint : 0;
-    this._hidePoint = this._hidePoint ? this._hidePoint : 0;
-    this._themeItems = document.querySelectorAll('[data-header-theme-class]');
-    this._activeTheme = null;
-    this._scrollY = null;
-    this._prevScrollY = null;
-    this._isHidden = false;
-    this._isDisableScrolling = false;
-    this._onWindowScroll = this._onWindowScroll.bind(this);
-    this._onLocomotiveScroll = this._onLocomotiveScroll.bind(this);
-  }
-  _createClass(StickyHeader, [{
-    key: "init",
-    value: function init() {
-      if (!this._stickyHeader) {
-        return;
-      }
-      this._checkTheme();
-      if (window.ls) {
-        window.ls.on('scroll', this._onLocomotiveScroll);
-        return;
-      }
-      window.addEventListener('scroll', this._onWindowScroll);
-    }
-  }, {
-    key: "_hideHeader",
-    value: function _hideHeader() {
-      if (!this._isHidden) {
-        this._isHidden = true;
-        this._stickyHeader.classList.add('is-hidden');
-      }
-    }
-  }, {
-    key: "_showHeader",
-    value: function _showHeader() {
-      if (this._isHidden) {
-        this._isHidden = false;
-        this._stickyHeader.classList.remove('is-hidden');
-      }
-    }
-  }, {
-    key: "_checkScrollDirection",
-    value: function _checkScrollDirection() {
-      if (this._scrollY > this._prevScrollY) {
-        return 'down';
-      }
-      return 'up';
-    }
-  }, {
-    key: "_onLocomotiveScroll",
-    value: function _onLocomotiveScroll(evt) {
-      this._checkTheme();
-      if (evt.direction === 'down' && evt.delta.y > this._hidePoint) {
-        this._hideHeader();
-      }
-      if (evt.direction === 'up' || evt.delta.y <= this._hidePoint) {
-        this._showHeader();
-      }
-    }
-  }, {
-    key: "_onWindowScroll",
-    value: function _onWindowScroll() {
-      this._scrollY = document.documentElement.scrollTop;
-      this._checkTheme();
-      if (this._checkScrollDirection() === 'down' && this._scrollY > this._hidePoint) {
-        this._hideHeader();
-      }
-      if (this._checkScrollDirection() === 'up' || this._scrollY <= this._hidePoint) {
-        this._showHeader();
-      }
-      this._prevScrollY = this._scrollY;
-    }
-  }, {
-    key: "_checkTheme",
-    value: function _checkTheme() {
-      var _this = this;
-      this._themeItems.forEach(function (item) {
-        if (item.getBoundingClientRect().top <= 0 && item.getBoundingClientRect().height + item.getBoundingClientRect().top > 0) {
-          if (_this._activeTheme === item.dataset.headerThemeClass) {
-            return;
-          }
-          _this._stickyHeader.classList.remove(_this._activeTheme);
-          _this._activeTheme = item.dataset.headerThemeClass;
-          _this._stickyHeader.classList.add(_this._activeTheme);
-        }
-      });
-    }
-  }]);
-  return StickyHeader;
-}();
-exports.StickyHeader = StickyHeader;
-
-},{}],17:[function(require,module,exports){
-arguments[4][13][0].apply(exports,arguments)
-},{"dup":13}],18:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.iosVhFix = void 0;
-var _iosChecker = require("./ios-checker");
-var iosVhFix = function iosVhFix() {
-  if (!(!!window.MSInputMethodContext && !!document.documentMode)) {
-    if ((0, _iosChecker.iosChecker)()) {
-      var vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', "".concat(vh, "px"));
-      window.addEventListener('resize', function () {
-        vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', "".concat(vh, "px"));
-      });
-    }
-  }
-};
-exports.iosVhFix = iosVhFix;
-
-},{"./ios-checker":17}]},{},[1])
-
-
-//# sourceMappingURL=main.min.js.map
