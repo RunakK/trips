@@ -29,6 +29,10 @@
     gap: 14px;
     flex-wrap: wrap;
 
+    @include vp-1340 {
+      gap: 3px;
+    }
+
     @include vp-1199 {
       justify-content: space-between;
     }
@@ -55,7 +59,7 @@
       margin-top: -10px;
     }
 
-    @include vp-1319 {
+    @include vp-1340 {
       margin-right: 14px;
     }
 

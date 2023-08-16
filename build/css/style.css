@@ -2056,6 +2056,11 @@ button,
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
 }
+@media (max-width: 1340px) {
+  .header-example__wrapper {
+    gap: 3px;
+  }
+}
 @media (max-width: 1199px) {
   .header-example__wrapper {
     -webkit-box-pack: justify;
@@ -2089,7 +2094,7 @@ button,
   height: 62px;
   margin-top: -10px;
 }
-@media (max-width: 1319px) {
+@media (max-width: 1340px) {
   .header-example__logo {
     margin-right: 14px;
   }
