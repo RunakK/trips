@@ -66,8 +66,38 @@
     </header>
     <main>
       <section class="hero">
-        <img src="./img/hero-altay-desktop.png" alt="">
+        <h2 class="visually-hidden">Наши туры в горы</h2>
+        <picture>
+          <source type="image/webp" srcset="./img/hero-desktop-kavk.webp 1x, ./img/hero-desktop-kavk@2x.webp 2x">
+          <source type="image/webp" media="(max-width: 1199px)" srcset="./img/hero-kavk-tablet.webp 1x, ./img/hero-kavk-tablet@2x.webp 2x">
+          <source type="image/webp" media="(max-width: 767px)" srcset="./img/hero-kavk-mobile.webp 1x, ./img/hero-kavk-mobile@2x.webp 2x">
+          <source media="(max-width: 1440px)" srcset="./img/hero-desktop-kavk.png 1x, ./img/hero-desktop-kavk@2x.png 2x">
+          <source media="(max-width: 1199px)" srcset="./img/hero-kavk-tablet.png 1x, ./img/hero-kavk-tablet@2x.png 2x">
+          <source media="(max-width: 767px)" srcset="./img/hero-kavk-mobile.png 1x, ./img/hero-kavk-mobile@2x.png 2x">
+          <img src="./img/hero-desktop-kavk.png" srcset="./img/hero-desktop-kavk@2x.png" alt="Горные вершины кавказа в тумане">
+        </picture>
         <div class="container">
+          <div class="hero__content-wrapper">
+            <h3>Захватывающие вершины Кавказа</h3>
+            <p>В&nbsp;сопровождении опытных гидов вы&nbsp;пройдете через потрясающие ландшафты и&nbsp;совершите восход на&nbsp;вершину горы Чегет.</p>
+            <a class="btn hero__button" href="#">Смотреть тур</a>
+            <div class="hero__media hero__media--video">
+              <button class="hero__video-button"></button>
+              <picture>
+                <source type="image/webp" srcset="./img/hero-video-desktop.webp 1x, ./img/hero-video-desktop@2x.webp 2x">
+                <source type="image/webp" media="(max-width: 1199px)" srcset="./img/hero-video-tablet.webp 1x, ./img/hero-video-tablet@2x.webp 2x">
+                <source type="image/webp" media="(max-width: 767px)" srcset="./img/hero-video-mobile.webp 1x, ./img/hero-video-mobile@2x.webp 2x">
+                <source media="(max-width: 1440px)" srcset="./img/hero-video-desktop.png 1x, ./img/hero-video-desktop@2x.png 2x">
+                <source media="(max-width: 1199px)" srcset="./img/hero-kavk-tablet.png 1x, ./img/hero-kavk-tablet@2x.png 2x">
+                <source media="(max-width: 767px)" srcset="./img/hero-video-mobile.png 1x, ./img/hero-video-mobile@2x.png 2x">
+                <img src="./img/hero-video-desktop.png" srcset="./img/hero-video-desktop@2x.png" alt="Горные вершины кавказа в тумане" width="482" height="317">
+              </picture>
+            </div>
+          </div>
+          <div class="hero__options">
+            <span class="hero__optioins-item--level">6 дней/5 ночей</span>
+            <span class="hero__optioins-item--level">Высокая сложность</span>
+          </div>
         </div>
       </section>
     </main>

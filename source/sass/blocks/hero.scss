@@ -1,7 +1,205 @@
 .hero {
   position: relative;
-}
+  margin-top: -19px;
+  color: $color-default-white;
+  padding-bottom: 80px;
 
-.hero img {
-  width: 100%;
+  &__content-wrapper {
+    padding-top: 199px;
+    z-index: 1;
+    position: relative;
+
+    @include vp-1199 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding-top: 192px;
+    }
+
+    @include vp-767 {
+      padding-top: 159px;
+    }
+  }
+
+  & h3 {
+    margin: 0;
+    font-size: 77px;
+    font-weight: 800;
+    line-height: 77px;
+    max-width: 790px;
+    margin-bottom: 25px;
+    z-index: 2;
+    letter-spacing: -1.9px;
+    word-spacing: 18px;
+
+    @include vp-1199 {
+      font-size: 56px;
+      line-height: 56px;
+      margin-bottom: 15px;
+    }
+
+    @include vp-767 {
+      font-size: 30px;
+      line-height: 30px;
+      letter-spacing: -0.5px;
+      max-width: 100%;
+    }
+  }
+
+  & p {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 24px;
+    width: 423px;
+    margin-bottom: 37px;
+    z-index: 2;
+    letter-spacing: 1.3px;
+
+    @include vp-1199 {
+      margin-bottom: 25px;
+    }
+
+    @include vp-767 {
+      font-size: 15px;
+      line-height: 20px;
+      width: 100%;
+      margin-bottom: 19px;
+    }
+  }
+
+  & img {
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    padding: 21px 10px;
+    width: 220px;
+    margin-bottom: 150px;
+    letter-spacing: 1px;
+
+    @include vp-1199 {
+      margin-bottom: 50px;
+      width: 206px;
+    }
+
+    @include vp-767 {
+      width: 62%;
+      padding: 18px 10px;
+    }
+  }
+
+  &__options {
+    display: flex;
+    justify-content: flex-start;
+
+    @include vp-1199 {
+      display: none;
+    }
+
+    & span {
+      position: relative;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+      display: flex;
+      padding: 13px 20px 13px 40px;
+      border: 1px solid rgba(255, 255, 255, 0.50);
+      margin-right: 9px;
+      letter-spacing: 0.7px;
+
+      &::before {
+        content: "";
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        align-self: center;
+        left: 20px;
+        background-image: url("../../img/svg/moon.svg");
+      }
+
+      &:last-child {
+        &::before {
+          background-image: url("../../img/svg/level.svg");
+        }
+      }
+    }
+  }
+
+  &__media {
+    width: 482px;
+    height: 317px;
+    position: absolute;
+    right: 0;
+    top: 320px;
+
+    @include vp-1199 {
+      position: relative;
+      top: 0;
+      width: 59.5vw;
+      height: auto;
+      aspect-ratio: 16/9;
+      display: flex;
+      justify-content: center;
+    }
+
+    &--video {
+      & picture {
+        width: 100%;
+      }
+
+      & img {
+        width: 492px;
+        height: auto;
+        display: flex;
+        z-index: -1;
+
+        @include vp-1199 {
+          display: block;
+          position: relative;
+          object-fit: cover;
+          width: 100%;
+          height: auto;
+        }
+      }
+    }
+  }
+
+  &__video-button {
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    border: 1px solid $color-default-white;
+    background-color: rgba(255, 255, 255, 0.20);
+    border-radius: 50%;
+    margin: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    @include vp-1199 {
+      top: 50%;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 22px;
+      border: 11px solid transparent;
+      border-left: 11px solid #fff;
+      left: 65%;
+      margin: auto;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
 }
