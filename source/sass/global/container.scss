@@ -11,4 +11,18 @@
   @include vp-767 {
     padding: 0 15px;
   }
+
+  &--hero {
+    padding-bottom: 80px;
+    min-height: max-content;
+
+    @include vp-1199 {
+      min-height: 1043px;
+    }
+
+    @include vp-767 {
+      min-height: 587px;
+    }
+  }
 }
+

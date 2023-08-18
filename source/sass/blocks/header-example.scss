@@ -7,6 +7,7 @@
   width: 100%;
   padding-top: 60px;
   color: $color-default-white;
+  z-index: 2;
 
   @include vp-1199 {
     padding-top: 41px;

@@ -27,9 +27,9 @@
     font-size: 77px;
     font-weight: 800;
     line-height: 77px;
-    max-width: 790px;
+    max-width: 920px;
     margin-bottom: 25px;
-    z-index: 2;
+    z-index: 3;
     letter-spacing: -1.9px;
     word-spacing: 18px;
 
@@ -52,7 +52,7 @@
     font-size: 17px;
     font-weight: 400;
     line-height: 24px;
-    width: 423px;
+    width: 471px;
     margin-bottom: 37px;
     z-index: 2;
     letter-spacing: 1.3px;
@@ -152,6 +152,15 @@
     }
 
     &--video {
+      display: flex;
+
+      & iframe {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 1;
+      }
+
       & picture {
         width: 100%;
       }
@@ -169,6 +178,75 @@
           width: 100%;
           height: auto;
         }
+      }
+    }
+
+    &--photo {
+      width: 410px;
+      height: 459px;
+      right: 0;
+      top: 222px;
+      z-index: -1;
+
+      & img {
+        height: auto;
+      }
+
+      @include vp-1199 {
+        top: 0;
+        width: 677px;
+        height: auto;
+        margin-top: -16px;
+      }
+    }
+
+    @include vp-767 {
+      display: none;
+    }
+  }
+
+  &__photo--left {
+
+    @include vp-1199 {
+      position: relative;
+      left: 18%;
+      width: 100%;
+    }
+
+    & img {
+      width: 308px;
+      height: 407px;
+      z-index: 1;
+
+      @include vp-1199 {
+        width: 266px;
+        height: 351px;
+        left: -4px;
+      }
+    }
+  }
+
+  &__photo--right {
+
+    @include vp-1199 {
+      position: relative;
+      right: 18%;
+      width: 100%;
+    }
+
+    & img {
+      width: 277px;
+      height: 366px;
+      z-index: 2;
+      right: 0;
+      bottom: 0;
+
+      @include vp-1199 {
+        width: 236px;
+        height: 312px;
+        bottom: 16px;
+        right: -4px;
+        top: 54px;
       }
     }
   }
@@ -201,5 +279,38 @@
       top: 50%;
       transform: translate(-50%, -50%);
     }
+  }
+
+  & .swiper-pagination-bullet {
+    border: 1px solid $color-default-white;
+    opacity: 1;
+    background: transparent;
+    width: 10px;
+    height: 10px;
+
+    @include vp-767 {
+      width: 8px;
+      height: 8px;
+    }
+  }
+
+  & .swiper-pagination-bullet-active {
+    background-color: $color-default-white;
+  }
+
+  & .swiper-pagination {
+    bottom: 90px;
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+
+    @include vp-767 {
+      gap: 4px;
+      bottom: 40px;
+    }
+  }
+
+  & .swiper-slide {
+    height: auto;
   }
 }
