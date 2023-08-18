@@ -5,6 +5,7 @@
   font-weight: 500;
   line-height: 100%;
   color: $color-default-white;
+  text-align: center;
 
   background-color: $color-navy-blue;
   border: none;
@@ -20,7 +21,7 @@
     outline-offset: -2px;
   }
 
-  @include active {
+  @include active-no-hover {
     background-color: $color-resolution-blue;
     color: $color-default-white;
   }

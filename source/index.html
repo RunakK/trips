@@ -66,10 +66,132 @@
     </header>
     <main>
       <section class="hero">
-        <img src="./img/hero-altay-desktop.png" alt="">
-        <div class="container">
+        <!-- Slider main container -->
+        <div class="swiper hero__swiper">
+          <!-- Additional required wrapper -->
+          <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide">
+              <h2 class="visually-hidden">Наши туры в горы</h2>
+              <picture>
+                <source type="image/webp" srcset="./img/hero-desktop-kavk.webp 1x, ./img/hero-desktop-kavk@2x.webp 2x">
+                <source type="image/webp" media="(max-width: 1199px)" srcset="./img/hero-kavk-tablet.webp 1x, ./img/hero-kavk-tablet@2x.webp 2x">
+                <source type="image/webp" media="(max-width: 767px)" srcset="./img/hero-kavk-mobile.webp 1x, ./img/hero-kavk-mobile@2x.webp 2x">
+                <source media="(max-width: 1440px)" srcset="./img/hero-desktop-kavk.png 1x, ./img/hero-desktop-kavk@2x.png 2x">
+                <source media="(max-width: 1199px)" srcset="./img/hero-kavk-tablet.png 1x, ./img/hero-kavk-tablet@2x.png 2x">
+                <source media="(max-width: 767px)" srcset="./img/hero-kavk-mobile.png 1x, ./img/hero-kavk-mobile@2x.png 2x">
+                <img src="./img/hero-desktop-kavk.png" srcset="./img/hero-desktop-kavk@2x.png" alt="Горные вершины кавказа в тумане">
+              </picture>
+              <div class="container container--hero">
+                <div class="hero__content-wrapper">
+                  <h3>Захватывающие вершины Кавказа</h3>
+                  <p>В&nbsp;сопровождении опытных гидов вы&nbsp;пройдете через потрясающие ландшафты и&nbsp;совершите восход на&nbsp;вершину горы Чегет.</p>
+                  <a class="btn hero__button" href="#">Смотреть тур</a>
+                  <div class="hero__media hero__media--video" data-src="https://www.youtube.com/embed/9TZXsZItgdw?autoplay=1">
+                    <button class="hero__video-button"></button>
+                    <picture>
+                      <source type="image/webp" srcset="./img/hero-video-desktop.webp 1x, ./img/hero-video-desktop@2x.webp 2x">
+                      <source type="image/webp" media="(max-width: 1199px)" srcset="./img/hero-video-tablet.webp 1x, ./img/hero-video-tablet@2x.webp 2x">
+                      <source type="image/webp" media="(max-width: 767px)" srcset="./img/hero-video-mobile.webp 1x, ./img/hero-video-mobile@2x.webp 2x">
+                      <source media="(max-width: 1440px)" srcset="./img/hero-video-desktop.png 1x, ./img/hero-video-desktop@2x.png 2x">
+                      <source media="(max-width: 1199px)" srcset="./img/hero-kavk-tablet.png 1x, ./img/hero-kavk-tablet@2x.png 2x">
+                      <source media="(max-width: 767px)" srcset="./img/hero-video-mobile.png 1x, ./img/hero-video-mobile@2x.png 2x">
+                      <img src="./img/hero-video-desktop.png" srcset="./img/hero-video-desktop@2x.png" alt="Горные вершины кавказа в тумане" width="482" height="317">
+                    </picture>
+                  </div>
+                </div>
+                <div class="hero__options">
+                  <span class="hero__optioins-item--level">6 дней/5 ночей</span>
+                  <span class="hero__optioins-item--level">Высокая сложность</span>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <h2 class="visually-hidden">Невероятная природа Камчатки</h2>
+              <picture>
+                <source type="image/webp" srcset="./img/hero-kamch-desktop.webp 1x, ./img/hero-kamch-desktop@2x.webp 2x">
+                <source type="image/webp" media="(max-width: 1199px)" srcset="./img/hero-kamch-tablet.webp 1x, ./img/hero-kamch-tablet@2x.webp 2x">
+                <source type="image/webp" media="(max-width: 767px)" srcset="./img/hero-kamch-mobile.webp 1x, ./img/hero-kamch-mobile@2x.webp 2x">
+                <source media="(max-width: 1440px)" srcset="./img/hero-kamch-desktop.png 1x, ./img/hero-kamch-desktop@2x.png 2x">
+                <source media="(max-width: 1199px)" srcset="./img/hero-kamch-tablet.png 1x, ./img/hero-kamch-tablet@2x.png 2x">
+                <source media="(max-width: 767px)" srcset="./img/hero-kamch-mobile.png 1x, ./img/hero-kamch-mobile@2x.png 2x">
+                <img src="./img/hero-kamch-desktop.png" srcset="./img/hero-kamch-desktop@2x.png" alt="Горные вершины на фоне голубого неба">
+              </picture>
+              <div class="container container--hero">
+                <div class="hero__content-wrapper">
+                  <h3>Невероятная<br>природа Камчатки</h3>
+                  <p>Незабываемое приключение, во&nbsp;время которого вы&nbsp;отправитесь в&nbsp;путешествие по&nbsp;одному из&nbsp;самых нетронутых уголков дикой природы&nbsp;в&nbsp;мире.</p>
+                  <a class="btn hero__button" href="#">Смотреть тур</a>
+                  <div class="hero__media hero__media--photo">
+                    <div class="hero__photo--left">
+                      <picture>
+                        <source type="image/webp" srcset="./img/hero-photo-1-desktop.webp 1x, ./img/hero-photo-1-desktop@2x.webp 2x">
+                        <source type="image/webp" media="(max-width: 1199px)" srcset="./img/hero-photo-1-tablet.webp 1x, ./img/hero-photo-1-tablet@2x.webp 2x">
+                        <source type="image/webp" media="(max-width: 767px)" srcset="./img/hero-photo-1-mobile.webp 1x, ./img/hero-photo-1-mobile@2x.webp 2x">
+                        <source media="(max-width: 1440px)" srcset="./img/hero-photo-1-desktop.png 1x, ./img/hero-photo-1-desktop@2x.png 2x">
+                        <source media="(max-width: 1199px)" srcset="./img/hero-photo-1-tablet.png 1x, ./img/hero-photo-1-tablet@2x.png 2x">
+                        <source media="(max-width: 767px)" srcset="./img/hero-photo-1-mobile.png 1x, ./img/hero-photo-1-mobile@2x.png 2x">
+                        <img src="./img/hero-photo-1-desktop.png" srcset="./img/hero-photo-1-desktop@2x.png" alt="Горные вершины на фоне голубого неба" width="308" height="407">
+                      </picture>
+                    </div>
+                    <div class="hero__photo--right">
+                      <picture>
+                        <source type="image/webp" srcset="./img/hero-photo-2-desktop.webp 1x, ./img/hero-photo-2-desktop@2x.webp 2x">
+                        <source type="image/webp" media="(max-width: 1199px)" srcset="./img/hero-photo-2-tablet.webp 1x, ./img/hero-photo-2-tablet@2x.webp 2x">
+                        <source type="image/webp" media="(max-width: 767px)" srcset="./img/hero-photo-2-mobile.webp 1x, ./img/hero-photo-2-mobile@2x.webp 2x">
+                        <source media="(max-width: 1440px)" srcset="./img/hero-photo-2-desktop.png 1x, ./img/hero-photo-2-desktop@2x.png 2x">
+                        <source media="(max-width: 1199px)" srcset="./img/hero-photo-2-tablet.png 1x, ./img/hero-photo-2-tablet@2x.png 2x">
+                        <source media="(max-width: 767px)" srcset="./img/hero-photo-2-mobile.png 1x, ./img/hero-photo-2-mobile@2x.png 2x">
+                        <img src="./img/hero-photo-2-desktop.png" srcset="./img/hero-photo-2-desktop@2x.png" alt="Горные вершины на фоне голубого неба" width="277" height="306">
+                      </picture>
+                    </div>
+                  </div>
+                </div>
+                <div class="hero__options">
+                  <span class="hero__optioins-item--level">9 дней/10 ночей</span>
+                  <span class="hero__optioins-item--level">Средняя сложность</span>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <h2 class="visually-hidden">Наши туры в горы</h2>
+              <picture>
+                <source type="image/webp" srcset="./img/hero-desktop-kavk.webp 1x, ./img/hero-desktop-kavk@2x.webp 2x">
+                <source type="image/webp" media="(max-width: 1199px)" srcset="./img/hero-kavk-tablet.webp 1x, ./img/hero-kavk-tablet@2x.webp 2x">
+                <source type="image/webp" media="(max-width: 767px)" srcset="./img/hero-kavk-mobile.webp 1x, ./img/hero-kavk-mobile@2x.webp 2x">
+                <source media="(max-width: 1440px)" srcset="./img/hero-desktop-kavk.png 1x, ./img/hero-desktop-kavk@2x.png 2x">
+                <source media="(max-width: 1199px)" srcset="./img/hero-kavk-tablet.png 1x, ./img/hero-kavk-tablet@2x.png 2x">
+                <source media="(max-width: 767px)" srcset="./img/hero-kavk-mobile.png 1x, ./img/hero-kavk-mobile@2x.png 2x">
+                <img src="./img/hero-desktop-kavk.png" srcset="./img/hero-desktop-kavk@2x.png" alt="Горные вершины кавказа в тумане">
+              </picture>
+              <div class="container container--hero">
+                <div class="hero__content-wrapper">
+                  <h3>Магические пейзажи Алтайского Края</h3>
+                  <p>Алтайский <nobr>трекинг-тур</nobr>&nbsp;&mdash; это захватывающее приключение с&nbsp;посещением магических и&nbsp;захватывающих дух ландшафтов Алтайских гор.</p>
+                  <a class="btn hero__button" href="#">Смотреть тур</a>
+                  <div class="hero__media hero__media--video">
+                    <iframe frameborder="0" style="border:none;width:100%;height:100%;" width="100%" height="100%" src="https://music.yandex.ru/iframe/#track/112912322/25474374">Слушайте <a href='https://music.yandex.ru/album/25474374/track/112912322'>001. Конец фронтенда, одинаковые фреймворки и логические свойства</a> на Яндекс Музыке</iframe>
+                  </div>
+                </div>
+                <div class="hero__options">
+                  <span class="hero__optioins-item--level">6 дней/5 ночей</span>
+                  <span class="hero__optioins-item--level">Высокая сложность</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- If we need pagination -->
+          <div class="swiper-pagination hero__pagination"></div>
+
+          <!-- If we need navigation buttons -->
+          <!-- <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div> -->
+
+          <!-- If we need scrollbar -->
+          <div class="swiper-scrollbar"></div>
         </div>
       </section>
+
     </main>
     <footer class="footer">
       <div class="container">

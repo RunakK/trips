@@ -11,7 +11,44 @@ window.addEventListener('DOMContentLoaded', () => {
 
   iosVhFix();
 
+  const hero = new Swiper('.hero__swiper', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: true,
+    // slidesPerView: 1,
+    // spaceBetween: 10,
+
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+    },
+
+    // Navigation arrows
+    // navigation: {
+    //   nextEl: '.swiper-button-next',
+    //   prevEl: '.swiper-button-prev',
+    // },
+  });
+
   // Modules
+
+  // video
+
+  const video = document.querySelector('.hero__video-button');
+  const heroVideo = document.querySelector('.hero__media--video');
+
+
+  video.addEventListener('click', () => {
+    if (video.classList.contains('video-is-active')) {
+      return;
+    }
+
+    video.classList.add('video-is-active');
+
+    const src = heroVideo.dataset.src;
+
+    heroVideo.insertAdjacentHTML('afterbegin', '<iframe width="560" height="315" src="' + src + '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>');
+  });
   // ---------------------------------
 
   // все скрипты должны быть в обработчике 'DOMContentLoaded', но не все в 'load'
