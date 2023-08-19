@@ -1,26 +1,57 @@
 .tours {
   color: $color-default-white;
+  padding-top: 124px;
+
+  @include vp-1199 {
+    padding-top: 88px;
+  }
+
+  @include vp-767 {
+    padding-top: 67px;
+  }
 
   &__card {
     position: relative;
     width: 31.67%;
     display: flex;
     flex-direction: column;
-    background-color: green;
-    padding: 20px 28px;
-    min-height: 412px;
+    padding: 17.3% 1.7% 3%;
+    padding-bottom: 2.4%;
     justify-content: flex-end;
     box-sizing: border-box;
+    background-size: 100%;
+
+    @include vp-1340 {
+      padding-left: 1.2%;
+      padding-right: 1.2%;
+    }
+
+    @include vp-1199 {
+      padding: 20px;
+      padding-top: 207px;
+      width: 48%;
+      padding-bottom: 28px;
+    }
+
+    @include vp-767 {
+      width: 100%;
+      padding-top: 193px;
+    }
 
     & img {
       position: absolute;
-      width: 100%;
-      height: auto;
+      width: auto;
+      height: 100%;
       object-fit: cover;
       background-color: #3e6f3e;
       z-index: 0;
       top: 0;
       left: 0;
+
+      @include vp-1199 {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 
@@ -30,17 +61,20 @@
     line-height: 35px;
     margin: 0;
     color: $color-elephant;
-    margin-bottom: 58px;
+    margin-bottom: 52px;
     position: relative;
 
     @include vp-1199 {
       font-size: 25px;
       line-height: 25px;
+      margin-bottom: 43px;
     }
 
     @include vp-767 {
       font-size: 22px;
       line-height: 22px;
+      width: 68%;
+      margin-bottom: 27px;
     }
 
     & span {
@@ -73,6 +107,8 @@
     line-height: 28px;
     margin-bottom: 38px;
     position: relative;
+    letter-spacing: 1.3px;
+    max-width: 95%;
 
     &::before {
       content: "";
@@ -85,18 +121,40 @@
     }
 
     @include vp-1199 {
+      margin-bottom: 38px;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 28px;
+    }
+
+    @include vp-767 {
       font-size: 20px;
-      line-height: 24px
+      font-weight: 700;
+      line-height: 24px;
+      margin-bottom: 31px;
     }
   }
 
   &__options {
     margin: 0;
     padding: 0;
-    display: flex;
-    flex-wrap: wrap;
     margin-bottom: 23px;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2%;
+    align-items: start;
+
+    @include vp-1199 {
+      margin-bottom: 23px;
+      gap: 0;
+    }
+
+    @include vp-767 {
+      display: flex;
+      flex-wrap: wrap;
+      row-gap: 11px;
+      margin-bottom: 16px;
+    }
   }
 
   &__options-item {
@@ -104,40 +162,107 @@
     font-weight: 500;
     line-height: 12px;
     padding: 8px;
-    padding-left: 39px;
     position: relative;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
+    padding: 8px;
+    padding-left: 10%;
+    letter-spacing: 0.7px;
+    padding-left: 3px;
+    justify-content: end;
+    letter-spacing: 1px;
+    min-width: fit-content;
 
-    &::before {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      left: 0;
-    }
+    & span {
+      display: flex;
+      flex-wrap: wrap;
+      // padding-left: 20px;
+      padding-left: 34%;
+      position: relative;
 
-
-    &--location {
-      padding: 8px;
-      padding-left: 39px;
-      background-color: $color-navy-blue;
+      @include vp-767 {
+        margin: 0 auto;
+        padding-left: 22px;
+      }
 
       &::before {
-        background: url(../../img/svg/pin.svg) no-repeat center;
-        left: 0;
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        align-self: center;
+
+        @include vp-1340 {
+        }
+
+        @include vp-767 {
+        }
+      }
+    }
+
+    @include vp-767 {
+      width: 36%;
+    }
+
+    &--location {
+      background-color: $color-navy-blue;
+
+      @include vp-767 {
+        order: 1;
+        padding: 8px 10px;
+        width: 39%;
+        min-width: fit-content;
+        max-width: 100%;
+      }
+
+      & span {
+        margin: 0 auto;
+        padding-left: 22%;
+
+        @include vp-1199 {
+          padding-left: 16%;
+        }
+
+        @include vp-767 {
+          padding-left: 13%;
+        }
+
+        &::before {
+          background: url(../../img/svg/pin.svg) no-repeat center;
+          left: 0;
+
+          @include vp-1199 {
+            left: -10%;
+          }
+
+
+        @include vp-767 {
+          left: -10px;
+        }
+        }
       }
     }
 
     &--day {
-      &::before {
+      & ::before {
+        left: 0;
         background: url(../../img/svg/sun.svg) no-repeat center;
+
+        @include vp-767 {
+            left: -14px;
+          }
       }
     }
 
     &--night {
-      &::before {
+      & ::before {
+        left: 0;
         background: url(../../img/svg/moon.svg) no-repeat center;
+
+        @include vp-767 {
+            left: -9px;
+          }
       }
     }
   }
@@ -148,6 +273,26 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    z-index: 1;
+    gap: 10%;
+    padding-right: 2%;
+
+    @include vp-1340 {
+      padding-right: 0;
+    }
+
+    @include vp-1199 {
+      padding-right: 2%;
+    }
+
+    @include vp-1023 {
+      padding-right: 0;
+      gap: 4%;
+    }
+
+    @include vp-767 {
+      padding-right: 2%;
+    }
   }
 
   &__description-item {
@@ -165,6 +310,15 @@
       margin: 0;
       display: flex;
       flex-direction: column;
+      row-gap: 6px;
+
+      @include vp-1199 {
+        row-gap: 8px;
+      }
+
+      @include vp-767 {
+        row-gap: 5px;
+      }
     }
 
     & dd {
@@ -172,12 +326,32 @@
       font-size: 13px;
       font-weight: 700;
       line-height: 13px;
+
+      @include vp-1199 {
+        letter-spacing: -0.2px;
+      }
+
+      @include vp-767 {
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 12px;
+      }
+
+      & img {
+        width: 73px;
+        height: 12px;
+      }
     }
 
     & dt {
       font-size: 12px;
       font-weight: 300;
       line-height: 100%;
+      letter-spacing: 0.6px;
+    }
+
+    &--date {
+      // margin-left: -3%;
     }
   }
 }
