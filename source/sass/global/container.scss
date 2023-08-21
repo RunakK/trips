@@ -3,6 +3,8 @@
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 120px;
+  word-break: break-word;
+  position: relative;
 
   @include vp-1199 {
     padding: 0 45px;
@@ -22,6 +24,7 @@
 
     @include vp-767 {
       min-height: 587px;
+      padding-bottom: 72px;
     }
   }
 }
