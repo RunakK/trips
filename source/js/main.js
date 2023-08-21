@@ -20,14 +20,51 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // If we need pagination
     pagination: {
-      el: '.swiper-pagination',
+      el: '.hero__pagination',
     },
 
-    // Navigation arrows
-    // navigation: {
-    //   nextEl: '.swiper-button-next',
-    //   prevEl: '.swiper-button-prev',
-    // },
+    navigation: {
+      nextEl: '.hero__next',
+      prevEl: '.hero__prev',
+    },
+  });
+
+  const tours = new Swiper('.tours__swiper', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: true,
+    slidesPerView: 3,
+    spaceBetween: 10,
+
+    breakpoints: {
+      // when window width is >= 320px
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 0,
+      },
+      // when window width is >= 768px
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 18,
+      },
+
+      // when window width is >= 1200px
+      1200: {
+        slidesPerView: 3,
+        spaceBetween: 20,
+      },
+
+      1340: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+      },
+    },
+
+    navigation: {
+      nextEl: '.tours__next',
+      prevEl: '.tours__prev',
+
+    },
   });
 
   // Modules

@@ -183,9 +183,8 @@
           <!-- If we need pagination -->
           <div class="swiper-pagination hero__pagination"></div>
 
-          <!-- If we need navigation buttons -->
-          <!-- <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div> -->
+          <!-- <div class="btn hero__next"></div>
+          <div class="btn hero__prev"></div> -->
 
           <!-- If we need scrollbar -->
           <div class="swiper-scrollbar"></div>
@@ -194,126 +193,188 @@
 
       <section class="tours">
         <div class="container">
-          <h2>Ближайшие туры
+          <h2>Ближайшие <br>туры
             <span>Ближайшие туры</span>
+            <div class="tours__buttons">
+              <div class="btn btn--arrow-left tours__prev"></div>
+              <div class="btn btn--arrow-right tours__next"></div>
+            </div>
           </h2>
-          <div class="tours__card tours__card--elbrus">
-            <picture>
-              <source type="image/webp" srcset="./img/tour-elb-desktop.webp 1x, ./img/tour-elb-desktop@2x.webp 2x">
-              <source type="image/webp" media="(max-width: 1199px)" srcset="./img/tour-elb-tablet.webp 1x, ./img/tour-elb-tablet@2x.webp 2x">
-              <source type="image/webp" media="(max-width: 767px)" srcset="./img/tour-elb-mobile.webp 1x, ./img/tour-elb-mobile@2x.webp 2x">
-              <source media="(max-width: 1440px)" srcset="./img/tour-elb-desktop.png 1x, ./img/tour-elb-desktop@2x.png 2x">
-              <source media="(max-width: 1199px)" srcset="./img/tour-elb-tablet.png 1x, ./img/tour-elb-tablet@2x.png 2x">
-              <source media="(max-width: 767px)" srcset="./img/tour-elb-mobile.png 1x, ./img/tour-elb-mobile@2x.png 2x">
-              <img src="./img/tour-elb-desktop.png" srcset="./img/tour-elb-desktop@2x.png" width="380" height="412" alt="Горные вершины на фоне голубого неба">
-            </picture>
-            <ul class="tours__options">
-              <li class="tours__options-item tours__options-item--location"><span>Кавказ</span></li>
-              <li class="tours__options-item tours__options-item--day"><span>4 дня</span></li>
-              <li class="tours__options-item tours__options-item--night"><span>3 ночи</span></li>
-            </ul>
-            <h3>Путешествие<br>вокруг Эльбруса</h3>
-            <ul class="tours__description">
-              <li class="tours__description-item">
-                <dl>
-                  <dt>Сложность:</dt>
-                  <dd>
-                    <img src="./img/svg/stars3.svg" alt="три звезды" width="79" height="14">
-                  </dd>
-                </dl>
-              </li>
-              <li class="tours__description-item tours__description-item--date">
-                <dl>
-                  <dt>Даты набора:</dt>
-                  <dd>12.06-19.06</dd>
-                </dl>
-              </li>
-              <li class="tours__description-item tours__description-item--group">
-                <dl>
-                  <dt>Группа:</dt>
-                  <dd>до 15 чел.</dd>
-                </dl>
-              </li>
-            </ul>
+          <div class="swiper tours__swiper">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper tours__wrapper">
+              <!-- Slides -->
+              <div class="swiper-slide">
+                <div class="tours__card tours__card--elbrus">
+                  <picture>
+                    <source type="image/webp" srcset="./img/tour-elb-desktop.webp 1x, ./img/tour-elb-desktop@2x.webp 2x">
+                    <source type="image/webp" media="(max-width: 1199px)" srcset="./img/tour-elb-tablet.webp 1x, ./img/tour-elb-tablet@2x.webp 2x">
+                    <source type="image/webp" media="(max-width: 767px)" srcset="./img/tour-elb-mobile.webp 1x, ./img/tour-elb-mobile@2x.webp 2x">
+                    <source media="(max-width: 1440px)" srcset="./img/tour-elb-desktop.png 1x, ./img/tour-elb-desktop@2x.png 2x">
+                    <source media="(max-width: 1199px)" srcset="./img/tour-elb-tablet.png 1x, ./img/tour-elb-tablet@2x.png 2x">
+                    <source media="(max-width: 767px)" srcset="./img/tour-elb-mobile.png 1x, ./img/tour-elb-mobile@2x.png 2x">
+                    <img src="./img/tour-elb-desktop.png" srcset="./img/tour-elb-desktop@2x.png" width="380" height="412" alt="Горные вершины на фоне голубого неба">
+                  </picture>
+                  <ul class="tours__options">
+                    <li class="tours__options-item tours__options-item--location"><span>Кавказ</span></li>
+                    <li class="tours__options-item tours__options-item--day"><span>4 дня</span></li>
+                    <li class="tours__options-item tours__options-item--night"><span>3 ночи</span></li>
+                  </ul>
+                  <h3>Путешествие<br>вокруг Эльбруса</h3>
+                  <ul class="tours__description">
+                    <li class="tours__description-item">
+                      <dl>
+                        <dt>Сложность:</dt>
+                        <dd>
+                          <img src="./img/svg/stars3.svg" alt="три звезды" width="79" height="14">
+                        </dd>
+                      </dl>
+                    </li>
+                    <li class="tours__description-item tours__description-item--date">
+                      <dl>
+                        <dt>Даты набора:</dt>
+                        <dd>12.06-19.06</dd>
+                      </dl>
+                    </li>
+                    <li class="tours__description-item tours__description-item--group">
+                      <dl>
+                        <dt>Группа:</dt>
+                        <dd>до 15 чел.</dd>
+                      </dl>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="swiper-slide">
+                <div class="tours__card tours__card--beluh">
+                  <picture>
+                    <source type="image/webp" srcset="./img/tour-bel-desktop.webp 1x, ./img/tour-bel-desktop@2x.webp 2x">
+                    <source type="image/webp" media="(max-width: 1199px)" srcset="./img/tour-bel-tablet.webp 1x, ./img/tour-bel-tablet@2x.webp 2x">
+                    <source type="image/webp" media="(max-width: 767px)" srcset="./img/tour-bel-mobile.webp 1x, ./img/tour-bel-mobile@2x.webp 2x">
+                    <source media="(max-width: 1440px)" srcset="./img/tour-bel-desktop.png 1x, ./img/tour-bel-desktop@2x.png 2x">
+                    <source media="(max-width: 1199px)" srcset="./img/tour-bel-tablet.png 1x, ./img/tour-bel-tablet@2x.png 2x">
+                    <source media="(max-width: 767px)" srcset="./img/tour-bel-mobile.png 1x, ./img/tour-bel-mobile@2x.png 2x">
+                    <img src="./img/tour-bel-desktop.png" srcset="./img/tour-bel-desktop@2x.png" width="380" height="412" alt="Горные вершины на фоне голубого неба">
+                  </picture>
+                  <ul class="tours__options">
+                    <li class="tours__options-item tours__options-item--location"><span>Алтай</span></li>
+                    <li class="tours__options-item tours__options-item--day"><span>14 дней</span></li>
+                    <li class="tours__options-item tours__options-item--night"><span>13 ночей</span></li>
+                  </ul>
+                  <h3>Путь к подножию<br>Белухи</h3>
+                  <ul class="tours__description">
+                    <li class="tours__description-item">
+                      <dl>
+                        <dt>Сложность:</dt>
+                        <dd>
+                          <img src="./img/svg/stars2.svg" alt="три звезды" width="79" height="14">
+                        </dd>
+                      </dl>
+                    </li>
+                    <li class="tours__description-item tours__description-item--date">
+                      <dl>
+                        <dt>Даты набора:</dt>
+                        <dd>14.06-23.06</dd>
+                      </dl>
+                    </li>
+                    <li class="tours__description-item tours__description-item--group">
+                      <dl>
+                        <dt>Группа:</dt>
+                        <dd>до 25 чел.</dd>
+                      </dl>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="swiper-slide">
+                <div class="tours__card tours__card--fisht">
+                  <picture>
+                    <source type="image/webp" srcset="./img/tour-fisht-desktop.webp 1x, ./img/tour-fisht-desktop@2x.webp 2x">
+                    <source type="image/webp" media="(max-width: 1199px)" srcset="./img/tour-fisht-tablet.webp 1x, ./img/tour-fisht-tablet@2x.webp 2x">
+                    <source type="image/webp" media="(max-width: 767px)" srcset="./img/tour-fisht-mobile.webp 1x, ./img/tour-fisht-mobile@2x.webp 2x">
+                    <source media="(max-width: 1440px)" srcset="./img/tour-fisht-desktop.png 1x, ./img/tour-fisht-desktop@2x.png 2x">
+                    <source media="(max-width: 1199px)" srcset="./img/tour-fisht-tablet.png 1x, ./img/tour-fisht-tablet@2x.png 2x">
+                    <source media="(max-width: 767px)" srcset="./img/tour-fisht-mobile.png 1x, ./img/tour-fisht-mobile@2x.png 2x">
+                    <img src="./img/tour-fisht-desktop.png" srcset="./img/tour-fisht-desktop@2x.png" width="380" height="412" alt="Горные вершины на фоне голубого неба">
+                  </picture>
+                  <ul class="tours__options">
+                    <li class="tours__options-item tours__options-item--location"><span>Адыгея</span></li>
+                    <li class="tours__options-item tours__options-item--day"><span>7 дней</span></li>
+                    <li class="tours__options-item tours__options-item--night"><span>6 ночей</span></li>
+                  </ul>
+                  <h3>Через Фишт<br>к Черному морю</h3>
+                  <ul class="tours__description">
+                    <li class="tours__description-item">
+                      <dl>
+                        <dt>Сложность:</dt>
+                        <dd>
+                          <img src="./img/svg/stars3.svg" alt="три звезды" width="79" height="14">
+                        </dd>
+                      </dl>
+                    </li>
+                    <li class="tours__description-item tours__description-item--date">
+                      <dl>
+                        <dt>Даты набора:</dt>
+                        <dd>15.07-19.07</dd>
+                      </dl>
+                    </li>
+                    <li class="tours__description-item tours__description-item--group">
+                      <dl>
+                        <dt>Группа:</dt>
+                        <dd>до 22 чел.</dd>
+                      </dl>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div class="swiper-slide">
+                <div class="tours__card tours__card--elbrus">
+                  <picture>
+                    <source type="image/webp" srcset="./img/tour-elb-desktop.webp 1x, ./img/tour-elb-desktop@2x.webp 2x">
+                    <source type="image/webp" media="(max-width: 1199px)" srcset="./img/tour-elb-tablet.webp 1x, ./img/tour-elb-tablet@2x.webp 2x">
+                    <source type="image/webp" media="(max-width: 767px)" srcset="./img/tour-elb-mobile.webp 1x, ./img/tour-elb-mobile@2x.webp 2x">
+                    <source media="(max-width: 1440px)" srcset="./img/tour-elb-desktop.png 1x, ./img/tour-elb-desktop@2x.png 2x">
+                    <source media="(max-width: 1199px)" srcset="./img/tour-elb-tablet.png 1x, ./img/tour-elb-tablet@2x.png 2x">
+                    <source media="(max-width: 767px)" srcset="./img/tour-elb-mobile.png 1x, ./img/tour-elb-mobile@2x.png 2x">
+                    <img src="./img/tour-elb-desktop.png" srcset="./img/tour-elb-desktop@2x.png" width="380" height="412" alt="Горные вершины на фоне голубого неба">
+                  </picture>
+                  <ul class="tours__options">
+                    <li class="tours__options-item tours__options-item--location"><span>Кавказ</span></li>
+                    <li class="tours__options-item tours__options-item--day"><span>4 дня</span></li>
+                    <li class="tours__options-item tours__options-item--night"><span>3 ночи</span></li>
+                  </ul>
+                  <h3>Путешествие<br>вокруг Эльбруса</h3>
+                  <ul class="tours__description">
+                    <li class="tours__description-item">
+                      <dl>
+                        <dt>Сложность:</dt>
+                        <dd>
+                          <img src="./img/svg/stars3.svg" alt="три звезды" width="79" height="14">
+                        </dd>
+                      </dl>
+                    </li>
+                    <li class="tours__description-item tours__description-item--date">
+                      <dl>
+                        <dt>Даты набора:</dt>
+                        <dd>12.06-19.06</dd>
+                      </dl>
+                    </li>
+                    <li class="tours__description-item tours__description-item--group">
+                      <dl>
+                        <dt>Группа:</dt>
+                        <dd>до 15 чел.</dd>
+                      </dl>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+            </div>
           </div>
-          <div class="tours__card tours__card--beluh">
-            <picture>
-              <source type="image/webp" srcset="./img/tour-bel-desktop.webp 1x, ./img/tour-bel-desktop@2x.webp 2x">
-              <source type="image/webp" media="(max-width: 1199px)" srcset="./img/tour-bel-tablet.webp 1x, ./img/tour-bel-tablet@2x.webp 2x">
-              <source type="image/webp" media="(max-width: 767px)" srcset="./img/tour-bel-mobile.webp 1x, ./img/tour-bel-mobile@2x.webp 2x">
-              <source media="(max-width: 1440px)" srcset="./img/tour-bel-desktop.png 1x, ./img/tour-bel-desktop@2x.png 2x">
-              <source media="(max-width: 1199px)" srcset="./img/tour-bel-tablet.png 1x, ./img/tour-bel-tablet@2x.png 2x">
-              <source media="(max-width: 767px)" srcset="./img/tour-bel-mobile.png 1x, ./img/tour-bel-mobile@2x.png 2x">
-              <img src="./img/tour-bel-desktop.png" srcset="./img/tour-bel-desktop@2x.png" width="380" height="412" alt="Горные вершины на фоне голубого неба">
-            </picture>
-            <ul class="tours__options">
-              <li class="tours__options-item tours__options-item--location"><span>Алтай</span></li>
-              <li class="tours__options-item tours__options-item--day"><span>14 дней</span></li>
-              <li class="tours__options-item tours__options-item--night"><span>13 ночей</span></li>
-            </ul>
-            <h3>Путь к подножию<br>Белухи</h3>
-            <ul class="tours__description">
-              <li class="tours__description-item">
-                <dl>
-                  <dt>Сложность:</dt>
-                  <dd>
-                    <img src="./img/svg/stars2.svg" alt="три звезды" width="79" height="14">
-                  </dd>
-                </dl>
-              </li>
-              <li class="tours__description-item tours__description-item--date">
-                <dl>
-                  <dt>Даты набора:</dt>
-                  <dd>14.06-23.06</dd>
-                </dl>
-              </li>
-              <li class="tours__description-item tours__description-item--group">
-                <dl>
-                  <dt>Группа:</dt>
-                  <dd>до 25 чел.</dd>
-                </dl>
-              </li>
-            </ul>
-          </div>
-          <div class="tours__card tours__card--fisht">
-            <picture>
-              <source type="image/webp" srcset="./img/tour-fisht-desktop.webp 1x, ./img/tour-fisht-desktop@2x.webp 2x">
-              <source type="image/webp" media="(max-width: 1199px)" srcset="./img/tour-fisht-tablet.webp 1x, ./img/tour-fisht-tablet@2x.webp 2x">
-              <source type="image/webp" media="(max-width: 767px)" srcset="./img/tour-fisht-mobile.webp 1x, ./img/tour-fisht-mobile@2x.webp 2x">
-              <source media="(max-width: 1440px)" srcset="./img/tour-fisht-desktop.png 1x, ./img/tour-fisht-desktop@2x.png 2x">
-              <source media="(max-width: 1199px)" srcset="./img/tour-fisht-tablet.png 1x, ./img/tour-fisht-tablet@2x.png 2x">
-              <source media="(max-width: 767px)" srcset="./img/tour-fisht-mobile.png 1x, ./img/tour-fisht-mobile@2x.png 2x">
-              <img src="./img/tour-fisht-desktop.png" srcset="./img/tour-fisht-desktop@2x.png" width="380" height="412" alt="Горные вершины на фоне голубого неба">
-            </picture>
-            <ul class="tours__options">
-              <li class="tours__options-item tours__options-item--location"><span>Адыгея</span></li>
-              <li class="tours__options-item tours__options-item--day"><span>7 дней</span></li>
-              <li class="tours__options-item tours__options-item--night"><span>6 ночей</span></li>
-            </ul>
-            <h3>Через Фишт<br>к Черному морю</h3>
-            <ul class="tours__description">
-              <li class="tours__description-item">
-                <dl>
-                  <dt>Сложность:</dt>
-                  <dd>
-                    <img src="./img/svg/stars3.svg" alt="три звезды" width="79" height="14">
-                  </dd>
-                </dl>
-              </li>
-              <li class="tours__description-item tours__description-item--date">
-                <dl>
-                  <dt>Даты набора:</dt>
-                  <dd>15.07-19.07</dd>
-                </dl>
-              </li>
-              <li class="tours__description-item tours__description-item--group">
-                <dl>
-                  <dt>Группа:</dt>
-                  <dd>до 22 чел.</dd>
-                </dl>
-              </li>
-            </ul>
-          </div>
+          <a class="tours__view-all" href="#">Показать все туры</a>
         </div>
       </section>
 

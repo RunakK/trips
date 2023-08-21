@@ -123,12 +123,12 @@
         height: 12px;
         align-self: center;
         left: 20px;
-        background-image: url("../../img/svg/moon.svg");
+        background: url("../../img/svg/moon.svg") no-repeat center;
       }
 
       &:last-child {
         &::before {
-          background-image: url("../../img/svg/level.svg");
+          background: url("../../img/svg/level.svg") no-repeat center;
         }
       }
     }

@@ -4,6 +4,7 @@
   margin: 0 auto;
   padding: 0 120px;
   word-break: break-word;
+  position: relative;
 
   @include vp-1199 {
     padding: 0 45px;
