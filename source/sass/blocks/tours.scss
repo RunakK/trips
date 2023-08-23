@@ -281,7 +281,7 @@
     &--night {
       & ::before {
         left: 0;
-        background: url(../../img/svg/moon.svg) no-repeat center;
+        background: url(../../img/svg/moon2.svg) no-repeat center;
 
         @include vp-767 {
           left: -9px;
@@ -399,6 +399,10 @@
     right: 0;
     display: flex;
     gap: 4px;
+
+    @include vp-767 {
+      top: 2px;
+    }
   }
 
   &__view-all {
@@ -410,13 +414,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    gap: 12px;
 
     @include vp-767 {
       font-size: 14px;
       font-weight: 700;
       line-height: 14px;
-      letter-spacing: 0.56px;
+      letter-spacing: 1px;
       text-transform: uppercase;
+    }
+
+    @include hover-focus {
+      color: #1c3374;
+    }
+
+    @include active-no-hover {
+      color: $color-navy-blue;
     }
   }
 }

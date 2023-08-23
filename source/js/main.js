@@ -33,7 +33,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // Optional parameters
     direction: 'horizontal',
     loop: true,
-    slidesPerView: 3,
+    slidesPerView: 1,
     spaceBetween: 10,
 
     breakpoints: {
@@ -63,6 +63,45 @@ window.addEventListener('DOMContentLoaded', () => {
     navigation: {
       nextEl: '.tours__next',
       prevEl: '.tours__prev',
+
+    },
+  });
+
+
+  const instructors = new Swiper('.instructors__swiper', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: true,
+    slidesPerView: 1,
+    spaceBetween: 10,
+
+    breakpoints: {
+      // when window width is >= 320px
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 0,
+      },
+      // when window width is >= 768px
+      768: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+      },
+
+      // when window width is >= 1200px
+      1200: {
+        slidesPerView: 4,
+        spaceBetween: 20,
+      },
+
+      1300: {
+        slidesPerView: 4,
+        spaceBetween: 30,
+      },
+    },
+
+    navigation: {
+      nextEl: '.instructors__next',
+      prevEl: '.instructors__prev',
 
     },
   });

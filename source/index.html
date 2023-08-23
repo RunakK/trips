@@ -196,8 +196,16 @@
           <h2>Ближайшие <br>туры
             <span>Ближайшие туры</span>
             <div class="tours__buttons">
-              <div class="btn btn--arrow-left tours__prev"></div>
-              <div class="btn btn--arrow-right tours__next"></div>
+              <div class="btn btn--arrow-left tours__prev">
+                <svg width="14" height="9" viewBox="0 0 14 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <use href="./img/sprite.svg#arrow-left"></use>
+                </svg>
+              </div>
+              <div class="btn btn--arrow-right tours__next">
+                <svg width="14" height="9" viewBox="0 0 14 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <use href="./img/sprite.svg#arrow-left"></use>
+                </svg>
+              </div>
             </div>
           </h2>
           <div class="swiper tours__swiper">
@@ -374,11 +382,173 @@
 
             </div>
           </div>
-          <a class="tours__view-all" href="#">Показать все туры</a>
+          <a class="tours__view-all" href="#">
+            Показать все туры
+            <svg width="9" height="14" viewBox="0 0 9 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <use href="./img/sprite.svg#right-tours"></use>
+            </svg>
+          </a>
         </div>
       </section>
 
+      <section class="teaching">
+        <div class="container">
+          <h2>Обучение
+            <span>Обучение</span>
+          </h2>
+          <p>Обучение проводится квалифицированными специалистами, за&nbsp;плечами которых десятки пройденных маршрутов Кавказа, Крыма, Гималаев, Эльбруса, Алтая, Карелии, Адыгеи и&nbsp;других.</p>
+        </div>
+          <div class="teaching__instructors container--instructors instructors">
+            <h3>Наши инструкторы
+              <div class="instructors__buttons">
+                <div class="btn btn--arrow-left instructors__prev">
+                  <svg width="14" height="9" viewBox="0 0 14 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <use href="./img/sprite.svg#arrow-left"></use>
+                  </svg>
+                </div>
+                <div class="btn btn--arrow-right instructors__next">
+                  <svg width="14" height="9" viewBox="0 0 14 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <use href="./img/sprite.svg#arrow-left"></use>
+                  </svg>
+                </div>
+              </div>
+            </h3>
+
+            <!-- Slider main container -->
+            <div class="swiper instructors__swiper">
+              <!-- Additional required wrapper -->
+              <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide">
+
+                  <div class="instructors__card teaching__card">
+                    <picture>
+                      <source type="image/webp" media="(max-width: 1440px)" srcset="./img/instructor-alex-desktop.webp 1x, ./img/instructor-alex-desktop@2x.webp 2x">
+                      <source type="image/webp" media="(max-width: 1199px)" srcset="./img/instructor-alex-tablet.webp 1x, ./img/instructor-alex-tablet@2x.webp 2x">
+                      <source type="image/webp" media="(max-width: 767px)" srcset="./img/instructor-alex-mobile.webp 1x, ./img/instructor-alex-mobile@2x.webp 2x">
+                      <source media="(max-width: 1440px)" srcset="./img/instructor-alex-desktop.png 1x, ./img/instructor-alex-desktop@2x.png 2x">
+                      <source media="(max-width: 1199px)" srcset="./img/instructor-alex-tablet.png 1x, ./img/instructor-alex-tablet@2x.png 2x">
+                      <source media="(max-width: 767px)" srcset="./img/instructor-alex-mobile.png 1x, ./img/instructor-alex-mobile@2x.png 2x">
+                      <img src="./img/instructor-alex-desktop.png" srcset="./img/instructor-alex-desktop@2x.png" width="238" height="212" alt="Горные вершины на фоне голубого неба">
+                    </picture>
+                    <h4>Александр<br>Прокофьев
+                      <a class="instructors__link" href="#">
+                        <svg width="16" height="9" viewBox="0 0 16 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <use href="./img/sprite.svg#vk"></use>
+                        </svg>
+                      </a>
+                    </h4>
+                    <p>Строгий и&nbsp;внимательный инструктор, веселый и&nbsp;общительный человек. Любит природу.</p>
+                  </div>
+                </div>
+
+
+                <div class="swiper-slide">
+                  <div class="instructors__card teaching__card">
+                    <picture>
+                      <source type="image/webp" media="(max-width: 1440px)" srcset="./img/instructor-sveta-desktop.webp 1x, ./img/instructor-sveta-desktop@2x.webp 2x">
+                      <source type="image/webp" media="(max-width: 1199px)" srcset="./img/instructor-sveta-tablet.webp 1x, ./img/instructor-sveta-tablet@2x.webp 2x">
+                      <source type="image/webp" media="(max-width: 767px)" srcset="./img/instructor-sveta-mobile.webp 1x, ./img/instructor-sveta-mobile@2x.webp 2x">
+                      <source media="(max-width: 1440px)" srcset="./img/instructor-sveta-desktop.png 1x, ./img/instructor-sveta-desktop@2x.png 2x">
+                      <source media="(max-width: 1199px)" srcset="./img/instructor-sveta-tablet.png 1x, ./img/instructor-sveta-tablet@2x.png 2x">
+                      <source media="(max-width: 767px)" srcset="./img/instructor-sveta-mobile.png 1x, ./img/instructor-sveta-mobile@2x.png 2x">
+                      <img src="./img/instructor-sveta-desktop.png" srcset="./img/instructor-sveta-desktop@2x.png" width="238" height="212" alt="Горные вершины на фоне голубого неба">
+                    </picture>
+                    <h4>Светлана<br>Афиногенова
+                      <a class="instructors__link" href="#">
+                        <svg width="16" height="9" viewBox="0 0 16 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <use href="./img/sprite.svg#vk"></use>
+                        </svg>
+                      </a>
+                    </h4>
+                    <p>Видеть мир вокруг, познавать его опасности, находить друг друга, становиться ближе, чувствовать&nbsp;&mdash; в&nbsp;этом назначение жизни.</p>
+                  </div>
+                </div>
+
+
+                <div class="swiper-slide">
+                  <div class="instructors__card teaching__card">
+                    <picture>
+                      <source type="image/webp" media="(max-width: 1440px)" srcset="./img/instructor-nadya-desktop.webp 1x, ./img/instructor-nadya-desktop@2x.webp 2x">
+                      <source type="image/webp" media="(max-width: 1199px)" srcset="./img/instructor-nadya-tablet.webp 1x, ./img/instructor-nadya-tablet@2x.webp 2x">
+                      <source type="image/webp" media="(max-width: 767px)" srcset="./img/instructor-nadya-mobile.webp 1x, ./img/instructor-nadya-mobile@2x.webp 2x">
+                      <source media="(max-width: 1440px)" srcset="./img/instructor-nadya-desktop.png 1x, ./img/instructor-nadya-desktop@2x.png 2x">
+                      <source media="(max-width: 1199px)" srcset="./img/instructor-nadya-tablet.png 1x, ./img/instructor-nadya-tablet@2x.png 2x">
+                      <source media="(max-width: 767px)" srcset="./img/instructor-nadya-mobile.png 1x, ./img/instructor-nadya-mobile@2x.png 2x">
+                      <img src="./img/instructor-nadya-desktop.png" srcset="./img/instructor-nadya-desktop@2x.png" width="238" height="212" alt="Горные вершины на фоне голубого неба">
+                    </picture>
+                    <h4>Надежда<br>Колесниченко
+                      <a class="instructors__link" href="#">
+                        <svg width="16" height="9" viewBox="0 0 16 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <use href="./img/sprite.svg#vk"></use>
+                        </svg>
+                      </a>
+                    </h4>
+                    <p>Участники говорят, что Надежда ответственная, приятная в&nbsp;общении, и&nbsp;в поездках с&nbsp;ней чувствуешь себя спокойно и&nbsp;уверенно.</p>
+                  </div>
+                </div>
+
+                <div class="swiper-slide">
+                  <div class="instructors__card teaching__card">
+                    <picture>
+                      <source type="image/webp" media="(max-width: 1440px)" srcset="./img/instructor-fedor-desktop.webp 1x, ./img/instructor-fedor-desktop@2x.webp 2x">
+                      <source type="image/webp" media="(max-width: 1199px)" srcset="./img/instructor-fedor-tablet.webp 1x, ./img/instructor-fedor-tablet@2x.webp 2x">
+                      <source type="image/webp" media="(max-width: 767px)" srcset="./img/instructor-fedor-mobile.webp 1x, ./img/instructor-fedor-mobile@2x.webp 2x">
+                      <source media="(max-width: 1440px)" srcset="./img/instructor-fedor-desktop.png 1x, ./img/instructor-fedor-desktop@2x.png 2x">
+                      <source media="(max-width: 1199px)" srcset="./img/instructor-fedor-tablet.png 1x, ./img/instructor-fedor-tablet@2x.png 2x">
+                      <source media="(max-width: 767px)" srcset="./img/instructor-fedor-mobile.png 1x, ./img/instructor-fedor-mobile@2x.png 2x">
+                      <img src="./img/instructor-fedor-desktop.png" srcset="./img/instructor-fedor-desktop@2x.png" width="238" height="212" alt="Горные вершины на фоне голубого неба">
+                    </picture>
+                    <h4>Федор<br>Кайгородов
+                      <a class="instructors__link" href="#">
+                        <svg width="16" height="9" viewBox="0 0 16 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                          <use href="./img/sprite.svg#vk"></use>
+                        </svg>
+                      </a>
+                    </h4>
+                    <p>Опыт походов: Ходит в&nbsp;походы с&nbsp;2001 года. В&nbsp;России побывал в&nbsp;горных районах Хибины, Архыз, много путешествует по&nbsp;Европе.</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        <div class="teaching__process teaching-process">
+          <div class="container">
+            <h3>Процесс обучения</h3>
+            <ul class="teaching-process__list">
+              <li class="teaching-process__item">
+                <svg width="25" height="25" viewBox="0 0 25 25" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <use href="./img/sprite.svg#map"></use>
+                </svg>
+                Изучение спортивного туристского движения
+              </li>
+              <li class="teaching-process__item teaching-process__item--vertical-line">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <use href="./img/sprite.svg#boots"></use>
+                </svg>
+                Подготовка и техническое снаряжение в походах
+              </li>
+              <li class="teaching-process__item teaching-process__item--marker-top teaching-process__item--right-column teaching-process__item--no-line">
+                <svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <use href="./img/sprite.svg#tree"></use>
+                </svg>
+                Лекции по окружающей среде, экологии и гигиене
+              </li>
+              <li class="teaching-process__item teaching-process__item--marker-top teaching-process__item--top-line teaching-process__item--left-column">
+                <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <use href="./img/sprite.svg#mountain"></use>
+                </svg>
+                Разъяснение сложности горных препятствий
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
     </main>
+
+
+
     <footer class="footer">
       <div class="container">
         <div class="footer__wrapper">

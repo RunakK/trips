@@ -1,0 +1,131 @@
+.teaching {
+  padding-top: 125px;
+
+  @include vp-1199 {
+    padding-top: 87px;
+  }
+
+  @include vp-767 {
+    padding-top: 67px;
+  }
+
+  & h2 {
+    font-size: 35px;
+    font-weight: 800;
+    line-height: 35px;
+    position: relative;
+    margin: 0;
+    margin-bottom: 32px;
+
+    @include vp-1199 {
+      font-size: 25px;
+      line-height: 25px;
+      margin-bottom: 21px;
+    }
+
+    @include vp-767 {
+      font-size: 22px;
+      line-height: 22px;
+      margin-bottom: 16px;
+    }
+
+    & span {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      font-size: 55px;
+      font-weight: 800;
+      line-height: 55px;
+      opacity: 0.03;
+
+      @include vp-1199 {
+        font-size: 40px;
+        font-weight: 800;
+        line-height: 40px;
+      }
+
+      @include vp-767 {
+        font-size: 22px;
+        font-weight: 800;
+        line-height: 22px;
+      }
+    }
+  }
+
+  & p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    color: $color-elephant;
+    margin: 0;
+    width: 69%;
+    letter-spacing: 1.3px;
+    word-spacing: -1px;
+    margin-bottom: 49px;
+
+    @include vp-1199 {
+      width: 80%;
+      margin-bottom: 57px;
+    }
+
+    @include vp-767 {
+      font-size: 14px;
+      line-height: 20px;
+      width: 100%;
+      margin-bottom: 39px;
+    }
+  }
+
+  &__card {
+    & p {
+      width: 100%;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 16px;
+      margin: 0;
+      letter-spacing: 1px;
+      word-spacing: -1.7px;
+
+      @include vp-1199 {
+        width: 100%;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 18px;
+      }
+
+      @include vp-767 {
+        width: 100%;
+      }
+    }
+  }
+
+  & h3 {
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 21px;
+    margin: 0;
+    letter-spacing: 1.5px;
+
+    @include vp-1199 {
+      font-size: 18px;
+      line-height: 18px;
+      margin-bottom: 0;
+    }
+
+    @include vp-767 {
+      font-size: 16px;
+      line-height: 16px;
+      margin-bottom: 9px;
+    }
+  }
+
+  &__process {
+    & h3 {
+      margin-bottom: 41px;
+
+      @include vp-767 {
+        margin-bottom: 29px;
+      }
+    }
+  }
+}
