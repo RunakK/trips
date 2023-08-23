@@ -1,0 +1,147 @@
+.instructors {
+  &__swiper {
+    padding-top: 35px;
+    padding-bottom: 25px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    @include vp-1199 {
+      padding-top: 24px;
+    }
+
+    @include vp-767 {
+      padding: 15px;
+      padding-bottom: 12px;
+    }
+  }
+
+  &__card {
+    box-shadow: 0px 0px 30px 0px rgba(28, 51, 116, 0.10);
+    padding: 19px;
+    min-height: 377px;
+    position: relative;
+
+    @include vp-1199 {
+      padding: 15px;
+      box-shadow: 0px 0px 30px 0px rgba(28, 51, 116, 0.10);
+      min-height: 411px;
+    }
+
+    @include vp-767 {
+      padding: 20px;
+    }
+
+    & img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+
+      @include vp-1199 {
+        width: 100%;
+        min-height: 27.6vw;
+        object-fit: cover;
+      }
+
+      @include vp-767 {
+        height: 66.4vw;
+      }
+    }
+
+    & p {
+      width: 100%;
+      letter-spacing: 1px;
+      word-spacing: -1.05px;
+
+      @include vp-1199 {
+        width: 100%;
+      }
+
+      @include vp-767 {
+        width: 100%;
+      }
+    }
+  }
+
+  & h3 {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 5px;
+    padding-left: 20px;
+
+    @include vp-1199 {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 16px;
+    }
+
+    @include vp-767 {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 16px;
+      padding-left: 16px;
+      letter-spacing: 1px;
+      margin-bottom: 9px;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 5px;
+    margin-left: auto;
+    padding-right: 20px;
+
+    @include vp-767 {
+      padding-right: 15px;
+    }
+  }
+
+  & h4 {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    margin-bottom: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16px;
+    letter-spacing: 1px;
+
+    @include vp-767 {
+      padding-right: 12px;
+    }
+  }
+
+  &__link {
+    width: 24px;
+    height: 25px;
+    border: 1px solid rgba(2, 102, 193, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include hover-focus {
+      border-color: $color-elephant;
+      border-radius: 0%;
+      outline: none;
+    }
+
+    @include active-no-hover {
+      background-color: $color-navy-blue;
+      border-color: $color-navy-blue;
+      outline: none;
+
+      svg {
+        color: $color-default-white;
+      }
+    }
+  }
+
+  & img {
+    margin-bottom: 15px;
+  }
+}
