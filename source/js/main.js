@@ -32,7 +32,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const tours = new Swiper('.tours__swiper', {
     // Optional parameters
     direction: 'horizontal',
-    loop: true,
+    loop: false,
     slidesPerView: 1,
     spaceBetween: 10,
 
@@ -71,7 +71,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const instructors = new Swiper('.instructors__swiper', {
     // Optional parameters
     direction: 'horizontal',
-    loop: true,
+    loop: false,
     slidesPerView: 1,
     spaceBetween: 10,
 
@@ -110,7 +110,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const reviews = new Swiper('.reviews__swiper', {
     // Optional parameters
     direction: 'horizontal',
-    loop: true,
+    loop: false,
     slidesPerView: 1,
     spaceBetween: 10,
 
@@ -140,6 +140,93 @@ window.addEventListener('DOMContentLoaded', () => {
     },
   });
 
+
+  // const width = window.innerWidth;
+  // if (width > 1200) {
+  //   const features = new Swiper('.features__swiper', {
+  //     // Optional parameters
+  //     direction: 'horizontal',
+  //     loop: true,
+  //     slidesPerView: 1,
+  //     spaceBetween: 10,
+  //     centeredSlides: true,
+  //     initialSlide: 2,
+
+  //     breakpoints: {
+  //       // when window width is >= 1200px
+  //       1200: {
+  //         slidesPerView: 3.5,
+  //         spaceBetween: 30,
+  //       },
+  //     },
+
+  //     navigation: {
+  //       nextEl: '.features__next',
+  //       prevEl: '.features__prev',
+
+  //     },
+  //   });
+  // }
+
+  let features = null;
+  const mediaQuerySize = 1200;
+
+  function featuresInit() {
+    if (!features) {
+      features = new Swiper('.features__swiper', {
+        // Optional parameters
+        direction: 'horizontal',
+        loop: true,
+        slidesPerView: 1,
+        spaceBetween: 10,
+        centeredSlides: true,
+        initialSlide: 2,
+
+        breakpoints: {
+          // when window width is >= 1200px
+          1200: {
+            slidesPerView: 3.5,
+            spaceBetween: 30,
+          },
+        },
+
+        navigation: {
+          nextEl: '.features__next',
+          prevEl: '.features__prev',
+
+        },
+      });
+    }
+  }
+
+  function featuresDestroy() {
+    if (features) {
+      features.destroy();
+      features = null;
+    }
+  }
+
+  const width = window.innerWidth;
+
+  if (width >= mediaQuerySize) {
+    featuresInit();
+  }
+
+  window.addEventListener('resize', function () {
+  // Берём текущую ширину экрана
+    const windowWidth = window.innerWidth;
+
+    // Если ширина экрана меньше или равна mediaQuerySize(1200)
+    if (windowWidth <= mediaQuerySize) {
+    // Уничтожить слайдер если он был инициализирован
+      featuresDestroy();
+    } else {
+    // Инициализировать слайдер если он ещё не был инициализирован
+      featuresInit();
+    }
+  });
+
+
   // Modules
 
   // video
@@ -159,6 +246,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     heroVideo.insertAdjacentHTML('afterbegin', '<iframe width="560" height="315" src="' + src + '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>');
   });
+
   // ---------------------------------
 
   // все скрипты должны быть в обработчике 'DOMContentLoaded', но не все в 'load'
