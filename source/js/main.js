@@ -106,6 +106,40 @@ window.addEventListener('DOMContentLoaded', () => {
     },
   });
 
+
+  const reviews = new Swiper('.reviews__swiper', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: true,
+    slidesPerView: 1,
+    spaceBetween: 10,
+
+    breakpoints: {
+      // when window width is >= 320px
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 0,
+      },
+      // when window width is >= 768px
+      768: {
+        slidesPerView: 1.25,
+        spaceBetween: 30,
+      },
+
+      // when window width is >= 1200px
+      1200: {
+        slidesPerView: 1.6,
+        spaceBetween: 20,
+      },
+    },
+
+    navigation: {
+      nextEl: '.reviews__next',
+      prevEl: '.reviews__prev',
+
+    },
+  });
+
   // Modules
 
   // video
