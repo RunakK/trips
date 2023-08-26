@@ -128,8 +128,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
       // when window width is >= 1200px
       1200: {
-        slidesPerView: 1.6,
-        spaceBetween: 20,
+        slidesPerView: 1.62,
+        spaceBetween: 30,
       },
     },
 
@@ -185,7 +185,7 @@ window.addEventListener('DOMContentLoaded', () => {
         breakpoints: {
           // when window width is >= 1200px
           1200: {
-            slidesPerView: 3.5,
+            slidesPerView: 3.6,
             spaceBetween: 30,
           },
         },

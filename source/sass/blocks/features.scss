@@ -1,5 +1,14 @@
 .features {
   padding-top: 122px;
+  position: relative;
+
+  @include vp-1199 {
+    padding-top: 73px;
+  }
+
+  @include vp-1199 {
+    padding-top: 32px;
+  }
 
   &__swiper {
     margin-bottom: 50px;
@@ -25,6 +34,7 @@
     @include vp-767 {
       padding: 0 15px;
       width: calc(100% - 30px);
+      gap: 15px;
     }
   }
 
@@ -34,7 +44,7 @@
     line-height: 35px;
     position: relative;
     margin: 0;
-    margin-bottom: 50px;
+    margin-bottom: 46px;
     display: flex;
     letter-spacing: -0.7px;
     justify-content: center;
@@ -47,6 +57,7 @@
     @include vp-767 {
       font-size: 22px;
       line-height: 22px;
+      margin-bottom: 29px;
     }
 
     & span {
@@ -82,6 +93,7 @@
     margin: 0;
     margin-bottom: 15px;
     text-align: center;
+    letter-spacing: 1px;
 
     @include vp-1199 {
       font-size: 16px;
@@ -93,6 +105,7 @@
       font-size: 14px;
       font-weight: 600;
       line-height: 14px;
+      letter-spacing: 0.7px;
     }
   }
 
@@ -103,23 +116,28 @@
     padding: 0;
     margin: 0;
     text-align: center;
+    letter-spacing: 1px;
 
     @include vp-1199 {
       font-size: 12px;
       font-weight: 400;
       line-height: 18px;
+      letter-spacing: 0.9px;
     }
 
     @include vp-767 {
       font-size: 12px;
       font-weight: 400;
       line-height: 18px;
+      letter-spacing: 0.8px;
     }
   }
 
   &__slide {
+    height: auto;
     @include vp-1199 {
-      width: 39%;
+      width: 42%;
+      height: auto;
     }
 
     @include vp-767 {
@@ -136,6 +154,22 @@
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
+    height: 100%;
+    min-height: 330px;
+
+    @include vp-1199 {
+      padding: 30px 20px;
+      padding-top: 103px;
+      padding-bottom: 28px;
+      min-height: 100%;
+    }
+
+    @include vp-767 {
+      padding-right: 10px;
+      padding-left: 10px;
+      padding-bottom: 19px;
+      padding-top: 86px;
+    }
 
     &::before {
       content: "";
@@ -149,6 +183,13 @@
       @include vp-1199 {
         width: 48px;
         height: 48px;
+        top: 29px;
+      }
+
+      @include vp-767 {
+        width: 42px;
+        height: 42px;
+        top: 19px;
       }
     }
 
@@ -165,6 +206,11 @@
       @include vp-1199 {
         width: 20px;
         height: 20px;
+        top: 43px;
+      }
+
+      @include vp-767 {
+        top: 30px;
       }
     }
 
@@ -177,6 +223,13 @@
     &--boots {
       &::after {
         background: url("../../img/svg/boots.svg") no-repeat center;
+      }
+
+      & .features__break-boots {
+        display: none;
+        @include vp-767 {
+          display: inline-block;
+        }
       }
     }
 
@@ -200,6 +253,28 @@
     display: flex;
     gap: 3px;
     justify-content: center;
+
+    @include vp-1199 {
+      display: none;
+    }
+  }
+
+  &__cloud-left {
+    position: absolute;
+    left: 0;
+    top: -119px;
+    width: 702px;
+
+    @include vp-1199 {
+      display: none;
+    }
+  }
+
+  &__cloud-right {
+    position: absolute;
+    right: 0;
+    top: 60px;
+    width: 608px;
 
     @include vp-1199 {
       display: none;

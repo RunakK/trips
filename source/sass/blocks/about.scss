@@ -39,7 +39,7 @@
     @include vp-1199 {
       height: 402px;
       width: auto;
-      top: 0;
+      top: 63px;
     }
 
     @include vp-767 {
@@ -126,6 +126,7 @@
     @include vp-767 {
       line-height: 20px;
       margin-bottom: 40px;
+      letter-spacing: 0.9px;
     }
   }
 }
