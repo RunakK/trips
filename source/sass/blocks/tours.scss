@@ -444,7 +444,7 @@
 
     & img {
       position: absolute;
-      top: 0;
+      top: -18px;
       right: 0;
       z-index: -3;
 
@@ -454,10 +454,22 @@
       }
 
       @include vp-767 {
-        width: 160px;
-        height: 540px;
-        top: 175px;
+        width: 175px;
+        height: 542px;
+        top: 182px;
       }
+    }
+  }
+
+  &__cloud-left {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    bottom: -88px;
+    width: 415px;
+
+    @include vp-1199 {
+      display: none;
     }
   }
 }
