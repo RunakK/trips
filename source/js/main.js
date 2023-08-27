@@ -140,34 +140,6 @@ window.addEventListener('DOMContentLoaded', () => {
     },
   });
 
-
-  // const width = window.innerWidth;
-  // if (width > 1200) {
-  //   const features = new Swiper('.features__swiper', {
-  //     // Optional parameters
-  //     direction: 'horizontal',
-  //     loop: true,
-  //     slidesPerView: 1,
-  //     spaceBetween: 10,
-  //     centeredSlides: true,
-  //     initialSlide: 2,
-
-  //     breakpoints: {
-  //       // when window width is >= 1200px
-  //       1200: {
-  //         slidesPerView: 3.5,
-  //         spaceBetween: 30,
-  //       },
-  //     },
-
-  //     navigation: {
-  //       nextEl: '.features__next',
-  //       prevEl: '.features__prev',
-
-  //     },
-  //   });
-  // }
-
   let features = null;
   const mediaQuerySize = 1200;
 
@@ -224,6 +196,39 @@ window.addEventListener('DOMContentLoaded', () => {
     // Инициализировать слайдер если он ещё не был инициализирован
       featuresInit();
     }
+  });
+
+  const gallery = new Swiper('.gallery__swiper', {
+    // Optional parameters
+    direction: 'horizontal',
+    loop: false,
+    slidesPerView: 1,
+    spaceBetween: 3,
+
+    breakpoints: {
+      // when window width is >= 320px
+      320: {
+        slidesPerView: 'auto',
+        spaceBetween: 3,
+      },
+      // when window width is >= 768px
+      768: {
+        slidesPerView: 'auto',
+        spaceBetween: 5,
+      },
+
+      // when window width is >= 1200px
+      1200: {
+        slidesPerView: 'auto',
+        spaceBetween: 5,
+      },
+    },
+
+    navigation: {
+      nextEl: '.gallery__next',
+      prevEl: '.gallery__prev',
+
+    },
   });
 
 
