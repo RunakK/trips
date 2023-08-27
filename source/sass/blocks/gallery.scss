@@ -59,10 +59,22 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+
+      @include vp-767 {
+        display: grid;
+        align-content: stretch;
+        gap: 3px;
+      }
     }
 
     & img {
       width: 100%;
+
+      @include vp-767 {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
   }
 
