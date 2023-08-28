@@ -2980,7 +2980,7 @@ button,
 }
 
 .features {
-  padding-top: 122px;
+  padding-top: 90px;
   position: relative;
 }
 @media (max-width: 1199px) {
@@ -3506,6 +3506,16 @@ button,
 }
 .footer__phone-link:disabled {
   opacity: 0.1;
+}
+.footer__confid {
+  letter-spacing: 0.9px;
+  margin-left: -64px;
+  margin-top: -7px;
+}
+@media (max-width: 1199px) {
+  .footer__confid {
+    margin: 0;
+  }
 }
 @media (hover: hover) {
   .footer__confid:hover:not(.focus-visible) {
@@ -5217,7 +5227,7 @@ button,
   .teaching-process__item {
     font-size: 14px;
     line-height: 22px;
-    padding-right: 42px;
+    padding-right: 60px;
   }
 }
 @media (max-width: 767px) {
@@ -5645,7 +5655,7 @@ button,
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  padding: 13px 20px 13px 40px;
+  padding: 13px 17px 13px 40px;
   border: 1px solid rgba(255, 255, 255, 0.5);
   margin-right: 9px;
   letter-spacing: 0.7px;
@@ -5675,7 +5685,7 @@ button,
   .hero__media {
     position: relative;
     top: 0;
-    width: 59.5vw;
+    width: 57.5vw;
     height: auto;
     aspect-ratio: 16/9;
     display: -webkit-box;
@@ -5716,6 +5726,17 @@ button,
        object-fit: cover;
     width: 100%;
     height: auto;
+  }
+}
+.hero__media--audio {
+  width: 28.5%;
+  height: 40%;
+}
+@media (max-width: 1199px) {
+  .hero__media--audio {
+    width: 50%;
+    top: 20px;
+    height: 28.5vw;
   }
 }
 .hero__media--photo {
@@ -6162,6 +6183,23 @@ button,
 @media (max-width: 767px) {
   .tours__options-item--day ::before {
     left: -14px;
+  }
+}
+.tours__options-item--night {
+  width: 39px;
+  margin-left: 21%;
+  padding-right: 0;
+}
+@media (max-width: 1199px) {
+  .tours__options-item--night {
+    width: 100%;
+    margin-left: 7%;
+    padding-right: 7%;
+  }
+}
+@media (max-width: 767px) {
+  .tours__options-item--night {
+    width: 36%;
   }
 }
 .tours__options-item--night ::before {

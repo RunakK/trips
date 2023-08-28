@@ -279,6 +279,20 @@
     }
 
     &--night {
+      width: 39px;
+      margin-left: 21%;
+      padding-right: 0;
+
+      @include vp-1199 {
+        width: 100%;
+        margin-left: 7%;
+        padding-right: 7%;
+      }
+
+      @include vp-767 {
+        width: 36%;
+      }
+
       & ::before {
         left: 0;
         background: url(../../img/svg/moon2.svg) no-repeat center;
