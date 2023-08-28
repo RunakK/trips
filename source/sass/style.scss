@@ -4,6 +4,7 @@
 @import "vendor/normalize";
 // Swiper 7.4.1
 @import "vendor/swiper";
+@import "vendor/leaflet";
 
 // Global
 // ---------------------------------
@@ -20,6 +21,7 @@
 
 @import "blocks/about";
 @import "blocks/btn";
+@import "blocks/contacts";
 @import "blocks/custom-input";
 @import "blocks/custom-toggle";
 @import "blocks/features";
