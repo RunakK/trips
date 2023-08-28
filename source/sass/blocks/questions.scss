@@ -1,12 +1,12 @@
 .questions {
   background: #D3D3D3;
   position: relative;
-  padding: 311px 16vw 307px;
+  padding: 311px 16vw 310px;
   z-index: 1;
 
   @include vp-1199 {
-    // padding: 195px 30.5vw 78px;
-    padding: 21.5vw 16vw 21.5vw;
+    padding: 25.5vw 30.5vw;
+    padding-bottom: 23vw;
   }
 
   @include vp-767 {
@@ -185,7 +185,9 @@
       }
     }
     .is-invalid {
-      border: 1px solid #ff121f;
+      & input {
+        border-color: #ff121f;
+      }
     }
   }
 
@@ -259,6 +261,7 @@
       margin-top: 8px;
       letter-spacing: 1px;
       align-self: auto;
+      padding: 21px;
     }
 
     @include vp-767 {
