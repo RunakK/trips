@@ -9,8 +9,6 @@
     padding-top: 17px;
   }
 
-  &__wrapper {}
-
   &__swiper {
     height: 31.2vw;
 
@@ -25,6 +23,7 @@
 
   &__swiper-slide {
     width: 19.05%;
+    height: auto;
 
     @include vp-1199 {
       width: 35.8%;
@@ -76,10 +75,6 @@
         object-fit: cover;
       }
     }
-  }
-
-  &__swiper-slide {
-    height: auto;
   }
 
   & h2 {

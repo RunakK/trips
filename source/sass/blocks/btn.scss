@@ -63,6 +63,7 @@
   & svg {
     transform: rotate(180deg);
   }
+
   &.swiper-button-disabled {
     background-color: $color-additional-blue;
     color: $color-default-white;
@@ -85,7 +86,6 @@
     height: 8px;
     border: solid $color-elephant;
     border-width: 0 1px 1px 0;
-    top: calc(50% - 1px);
     rotate: -50deg;
     right: 5px;
     top: 50%;
@@ -99,13 +99,15 @@
 
   @include hover-focus {
     outline: transparent;
+
     &::before {
       border-color: $color-resolution-blue;
     }
   }
 
-  @include active{
+  @include active {
     color: $color-navy-blue;
+
     &::before {
       border-color: $color-navy-blue;
     }

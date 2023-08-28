@@ -1,7 +1,6 @@
 .header-example {
   background-color: transparent;
   padding: 20px 0;
-  z-index: 1;
   transition: transform 0.3s ease, background-color 0.3s ease;
   position: absolute;
   width: 100%;
@@ -101,7 +100,7 @@
       content: "";
       position: absolute;
       display: none;
-      background: rgba(0, 0, 0, 0.50);
+      background: rgba(0, 0, 0, 0.5);
       width: 100vw;
       height: 100vh;
       left: 0;

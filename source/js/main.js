@@ -1,7 +1,7 @@
 import {iosVhFix} from './utils/ios-vh-fix';
 import {Form} from './modules/form-validate/form';
 import './modules/header';
-
+/* eslint-disable */
 // ---------------------------------
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -118,7 +118,7 @@ window.addEventListener('DOMContentLoaded', () => {
       // when window width is >= 320px
       320: {
         slidesPerView: 1,
-        spaceBetween: 0,
+        spaceBetween: 15,
       },
       // when window width is >= 768px
       768: {
