@@ -1,5 +1,5 @@
 .questions {
-  background: #D3D3D3;
+  background: #d3d3d3;
   position: relative;
   padding: 311px 16vw 310px;
   z-index: 1;
@@ -56,7 +56,7 @@
       padding: 22px 30px;
       width: 100%;
       letter-spacing: 1px;
-      border: 1px solid rgba(2, 102, 193, 0.10);
+      border: 1px solid rgba(2, 102, 193, 0.1);
 
       &::-webkit-input-placeholder {
         opacity: 0.5;
@@ -164,26 +164,27 @@
       }
 
       &:disabled {
-        border-color: rgba(2, 102, 193, 0.10);
+        border-color: rgba(2, 102, 193, 0.1);
         background: $color-default-white;
 
         &::-webkit-input-placeholder {
-          color: rgba(2, 102, 193, 0.10);
+          color: rgba(2, 102, 193, 0.1);
         }
 
         &::-moz-placeholder {
-          color: rgba(2, 102, 193, 0.10);
+          color: rgba(2, 102, 193, 0.1);
         }
 
         &:-moz-placeholder {
-          color: rgba(2, 102, 193, 0.10);
+          color: rgba(2, 102, 193, 0.1);
         }
 
         &:-ms-input-placeholder {
-          color: rgba(2, 102, 193, 0.10);
+          color: rgba(2, 102, 193, 0.1);
         }
       }
     }
+
     .is-invalid {
       & input {
         border-color: #ff121f;
