@@ -2303,11 +2303,31 @@ button,
   margin-bottom: 30px;
   letter-spacing: 1px;
 }
+@media (max-width: 1199px) {
+  .about p {
+    padding-right: 35px;
+    letter-spacing: 0.7px;
+  }
+}
 @media (max-width: 767px) {
   .about p {
     line-height: 20px;
     margin-bottom: 40px;
-    letter-spacing: 0.9px;
+    letter-spacing: 1px;
+    padding-right: 0;
+  }
+}
+.about__mobile-br {
+  display: none;
+}
+@media (max-width: 1199px) {
+  .about__mobile-br {
+    display: inline-block;
+  }
+}
+@media (max-width: 767px) {
+  .about__mobile-br {
+    display: none;
   }
 }
 
@@ -2977,7 +2997,7 @@ button,
 }
 
 .features {
-  padding-top: 90px;
+  padding-top: 120px;
   position: relative;
 }
 @media (max-width: 1199px) {
@@ -4446,15 +4466,23 @@ button,
   left: 0;
 }
 
+.instructors {
+  padding-top: 8px;
+}
+@media (max-width: 767px) {
+  .instructors {
+    padding-top: 10px;
+  }
+}
 .instructors__swiper {
-  padding-top: 35px;
+  padding-top: 42px;
   padding-bottom: 25px;
   padding-left: 20px;
   padding-right: 20px;
 }
 @media (max-width: 1199px) {
   .instructors__swiper {
-    padding-top: 24px;
+    padding-top: 33px;
   }
 }
 @media (max-width: 767px) {
@@ -4550,16 +4578,26 @@ button,
   }
 }
 .instructors__buttons {
+  position: absolute;
+  bottom: 0;
+  right: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 5px;
-  margin-left: auto;
-  padding-right: 20px;
+  gap: 4px;
+  top: 0;
+  right: 120px;
+}
+@media (max-width: 1199px) {
+  .instructors__buttons {
+    bottom: -5px;
+    right: 45px;
+  }
 }
 @media (max-width: 767px) {
   .instructors__buttons {
-    padding-right: 15px;
+    top: -1px;
+    right: 15px;
   }
 }
 .instructors h4 {
@@ -4990,6 +5028,7 @@ button,
   margin-left: 15px;
   margin-bottom: 13px;
   letter-spacing: -0.7px;
+  width: 60%;
 }
 @media (max-width: 1199px) {
   .reviews h2 {
@@ -5003,6 +5042,7 @@ button,
     line-height: 22px;
     margin-left: 0;
     padding: 0 15px;
+    margin-bottom: 17px;
   }
 }
 .reviews h2 span {
@@ -5070,24 +5110,27 @@ button,
   }
 }
 .reviews__buttons {
+  position: absolute;
+  bottom: 0;
+  right: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 5px;
-  margin-left: auto;
-  padding-right: 120px;
-  margin-top: -12px;
+  gap: 4px;
+  top: -13px;
+  right: 120px;
 }
 @media (max-width: 1199px) {
   .reviews__buttons {
-    padding-right: 45px;
-    margin-top: -15px;
+    bottom: -5px;
+    right: 45px;
+    top: -16px;
   }
 }
 @media (max-width: 767px) {
   .reviews__buttons {
-    padding-right: 0;
-    margin-top: -10px;
+    top: -10px;
+    right: 15px;
   }
 }
 .reviews p {
@@ -5488,7 +5531,7 @@ button,
   .teaching h3 {
     font-size: 16px;
     line-height: 16px;
-    margin-bottom: 9px;
+    margin-bottom: 18px;
   }
 }
 .teaching__process h3 {
@@ -5505,6 +5548,7 @@ button,
   margin-top: -19px;
   color: #ffffff;
   padding-bottom: 0;
+  background-color: #0266c1;
 }
 .hero__content-wrapper {
   padding-top: 199px;
@@ -5654,7 +5698,7 @@ button,
   left: 20px;
   background: url("../../img/svg/moon.svg") no-repeat center;
 }
-.hero__options span:last-child::before {
+.hero__options span.hero__level::before {
   background: url("../../img/svg/level.svg") no-repeat center;
 }
 .hero__media {
@@ -5746,32 +5790,32 @@ button,
   }
 }
 @media (max-width: 1199px) {
-  .hero__photo--left {
+  .hero__photo-left {
     position: relative;
     left: 18%;
     width: 100%;
   }
 }
-.hero__photo--left img {
+.hero__photo-left img {
   width: 308px;
   height: 407px;
   z-index: 1;
 }
 @media (max-width: 1199px) {
-  .hero__photo--left img {
+  .hero__photo-left img {
     width: 266px;
     height: 351px;
     left: -4px;
   }
 }
 @media (max-width: 1199px) {
-  .hero__photo--right {
+  .hero__photo-right {
     position: relative;
     right: 18%;
     width: 100%;
   }
 }
-.hero__photo--right img {
+.hero__photo-right img {
   width: 277px;
   height: 366px;
   z-index: 2;
@@ -5779,7 +5823,7 @@ button,
   bottom: 0;
 }
 @media (max-width: 1199px) {
-  .hero__photo--right img {
+  .hero__photo-right img {
     width: 236px;
     height: 312px;
     bottom: 16px;
@@ -6116,7 +6160,7 @@ button,
     -webkit-box-ordinal-group: 2;
         -ms-flex-order: 1;
             order: 1;
-    padding: 8px 10px;
+    padding: 8px 21px;
     width: 39%;
     min-width: -webkit-fit-content;
     min-width: -moz-fit-content;
@@ -6152,6 +6196,11 @@ button,
     left: -10px;
   }
 }
+@media (max-width: 767px) {
+  .tours__options-item--day {
+    padding-left: 12px;
+  }
+}
 .tours__options-item--day ::before {
   left: -4px;
   background: url("../../img/svg/sun.svg") no-repeat center;
@@ -6177,6 +6226,7 @@ button,
 @media (max-width: 767px) {
   .tours__options-item--night {
     width: 36%;
+    margin-left: 8%;
   }
 }
 .tours__options-item--night ::before {
@@ -6312,15 +6362,20 @@ button,
   display: -ms-flexbox;
   display: flex;
   gap: 4px;
+  top: 0;
+  right: 120px;
 }
 @media (max-width: 1199px) {
   .tours__buttons {
     bottom: -5px;
+    right: 45px;
+    top: -5px;
   }
 }
 @media (max-width: 767px) {
   .tours__buttons {
     top: 2px;
+    right: 15px;
   }
 }
 .tours__view-all {
