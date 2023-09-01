@@ -125,12 +125,12 @@
         height: 12px;
         align-self: center;
         left: 20px;
-        background: url("../../img/svg/moon.svg") no-repeat center;
+        background: url("../img/svg/moon.svg") no-repeat center;
       }
 
       &.hero__level {
         &::before {
-          background: url("../../img/svg/level.svg") no-repeat center;
+          background: url("../img/svg/level.svg") no-repeat center;
         }
       }
     }
