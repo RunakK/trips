@@ -2574,15 +2574,15 @@ button,
 }
 
 .contacts__item--phone::before {
-  background: url("../../img/svg/phone.svg") no-repeat center;
+  background: url("../img/svg/phone.svg") no-repeat center;
 }
 
 .contacts__item--email::before {
-  background: url("../../img/svg/mail.svg") no-repeat center;
+  background: url("../img/svg/mail.svg") no-repeat center;
 }
 
 .contacts__item--address::before {
-  background: url("../../img/svg/pin_stroke.svg") no-repeat center;
+  background: url("../img/svg/pin_stroke.svg") no-repeat center;
 }
 
 .contacts__item a {
@@ -2937,17 +2937,17 @@ button,
   display: flex;
   width: 22px;
   height: 22px;
-  background: url("../../img/svg/crown.svg") no-repeat center;
+  background: url("../img/svg/crown.svg") no-repeat center;
   top: 56px;
   background-size: 100%;
 }
 
 .features__item--safety::after {
-  background: url("../../img/svg/safety.svg") no-repeat center;
+  background: url("../img/svg/safety.svg") no-repeat center;
 }
 
 .features__item--boots::after {
-  background: url("../../img/svg/boots.svg") no-repeat center;
+  background: url("../img/svg/boots.svg") no-repeat center;
 }
 
 .features__item--boots .features__break-boots {
@@ -2955,12 +2955,12 @@ button,
 }
 
 .features__item--path::after {
-  background: url("../../img/svg/path.svg") no-repeat center;
+  background: url("../img/svg/path.svg") no-repeat center;
   background-size: contain;
 }
 
 .features__item--leaf::after {
-  background: url("../../img/svg/leaf.svg") no-repeat center;
+  background: url("../img/svg/leaf.svg") no-repeat center;
 }
 
 .features__buttons {
@@ -4362,11 +4362,11 @@ button,
   -ms-grid-row-align: center;
   align-self: center;
   left: 20px;
-  background: url("../../img/svg/moon.svg") no-repeat center;
+  background: url("../img/svg/moon.svg") no-repeat center;
 }
 
 .hero__options span.hero__level::before {
-  background: url("../../img/svg/level.svg") no-repeat center;
+  background: url("../img/svg/level.svg") no-repeat center;
 }
 
 .hero__media {
@@ -4656,13 +4656,13 @@ button,
 }
 
 .tours__options-item--location span::before {
-  background: url("../../img/svg/pin.svg") no-repeat center;
+  background: url("../img/svg/pin.svg") no-repeat center;
   left: 0;
 }
 
 .tours__options-item--day ::before {
   left: -4px;
-  background: url("../../img/svg/sun.svg") no-repeat center;
+  background: url("../img/svg/sun.svg") no-repeat center;
 }
 
 .tours__options-item--night {
@@ -4673,7 +4673,7 @@ button,
 
 .tours__options-item--night ::before {
   left: 0;
-  background: url("../../img/svg/moon2.svg") no-repeat center;
+  background: url("../img/svg/moon2.svg") no-repeat center;
 }
 
 .tours__description {
