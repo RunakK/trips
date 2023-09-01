@@ -3773,6 +3773,9 @@ button,
   width: 100%;
   letter-spacing: 1px;
   word-spacing: -1.05px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
 }
 
 .instructors h3 {
@@ -5280,6 +5283,9 @@ button,
 
   .instructors__card p {
     width: 100%;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
   }
 
   .instructors h3 {
@@ -5524,12 +5530,17 @@ button,
     font-size: 12px;
     font-weight: 400;
     line-height: 18px;
+    margin: 0;
   }
 
   .teaching h3 {
     font-size: 18px;
     line-height: 18px;
     margin-bottom: 0;
+  }
+
+  .teaching__process h3 {
+    margin-bottom: 41px;
   }
 
   .hero__content-wrapper {
@@ -6119,6 +6130,9 @@ button,
 
   .instructors__card p {
     width: 100%;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
   }
 
   .instructors h3 {
@@ -6324,6 +6338,7 @@ button,
 
   .teaching__card p {
     width: 100%;
+    margin: 0;
   }
 
   .teaching h3 {
