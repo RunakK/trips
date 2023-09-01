@@ -33,22 +33,22 @@
           <nav class="header-example__nav">
             <ul class="header-example__list">
               <li class="header-example__item">
-                <a href="#" class="header-example__link">Туры</a>
+                <a href="#tours" class="header-example__link">Туры</a>
               </li>
               <li class="header-example__item">
-                <a href="#" class="header-example__link">Обучение</a>
+                <a href="#teaching" class="header-example__link">Обучение</a>
               </li>
               <li class="header-example__item">
-                <a href="#" class="header-example__link">О нас</a>
+                <a href="#about" class="header-example__link">О нас</a>
               </li>
               <li class="header-example__item">
-                <a href="#" class="header-example__link">Отзывы</a>
+                <a href="#reviews" class="header-example__link">Отзывы</a>
               </li>
               <li class="header-example__item">
-                <a href="#" class="header-example__link">Фотографии</a>
+                <a href="#gallery" class="header-example__link">Фотографии</a>
               </li>
               <li class="header-example__item">
-                <a href="#" class="header-example__link">Контакты</a>
+                <a href="#contacts" class="header-example__link">Контакты</a>
               </li>
             </ul>
           </nav>
@@ -183,8 +183,7 @@
           <div class="swiper-scrollbar"></div>
         </div>
       </section>
-
-      <section class="tours">
+      <section class="tours" id="tours">
         <div class="tours__cloud-left">
           <picture>
             <source type="image/webp" media="(max-width: 1440px)" srcset="./img/cloud-small-desktop.webp 1x, ./img/cloud-small-desktop@2x.webp 2x">
@@ -264,7 +263,6 @@
                   </ul>
                 </div>
               </div>
-
               <div class="swiper-slide">
                 <div class="tours__card tours__card--beluh">
                   <picture>
@@ -306,7 +304,6 @@
                   </ul>
                 </div>
               </div>
-
               <div class="swiper-slide">
                 <div class="tours__card tours__card--fisht">
                   <picture>
@@ -348,7 +345,6 @@
                   </ul>
                 </div>
               </div>
-
               <div class="swiper-slide">
                 <div class="tours__card tours__card--elbrus">
                   <picture>
@@ -401,8 +397,7 @@
           </a>
         </div>
       </section>
-
-      <section class="teaching">
+      <section class="teaching" id="teaching">
         <div class="container">
           <h2>Обучение
             <span>Обучение</span>
@@ -568,7 +563,7 @@
           </div>
         </div>
       </section>
-      <section class="about">
+      <section class="about" id="about">
         <picture>
           <source type="image/webp" media="(max-width: 767px)" srcset="./img/about-mobile.webp 1x, ./img/about-mobile@2x.webp 2x">
           <source type="image/webp" media="(max-width: 1199px)" srcset="./img/about-tablet.webp 1x, ./img/about-tablet@2x.webp 2x">
@@ -592,20 +587,20 @@
           </div>
         </div>
       </section>
-      <section class="reviews">
+      <section class="reviews" id="reviews">
         <div class="container reviews__container">
           <div class="reviews__buttons">
-              <div class="btn btn--arrow-left reviews__prev">
-                <svg width="14" height="9" viewBox="0 0 14 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <use href="./img/sprite.svg#arrow-left"></use>
-                </svg>
-              </div>
-              <div class="btn btn--arrow-right reviews__next">
-                <svg width="14" height="9" viewBox="0 0 14 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                  <use href="./img/sprite.svg#arrow-left"></use>
-                </svg>
-              </div>
+            <div class="btn btn--arrow-left reviews__prev">
+              <svg width="14" height="9" viewBox="0 0 14 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <use href="./img/sprite.svg#arrow-left"></use>
+              </svg>
             </div>
+            <div class="btn btn--arrow-right reviews__next">
+              <svg width="14" height="9" viewBox="0 0 14 9" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <use href="./img/sprite.svg#arrow-left"></use>
+              </svg>
+            </div>
+          </div>
           <h2>
             Отзывы
             <span>Отзывы</span>
@@ -699,7 +694,7 @@
           </div>
         </div>
       </section>
-      <section class="features">
+      <section class="features" id="features">
         <div class="features__cloud-left">
           <picture>
             <source type="image/webp" media="(max-width: 1440px)" srcset="./img/features-cloud-left.webp 1x, ./img/features-cloud-left@2x.webp 2x">
@@ -770,7 +765,7 @@
           </div>
         </div>
       </section>
-      <section class="gallery">
+      <section class="gallery" id="gallery">
         <div class="container">
           <h2>Фотогалерея<span>Фотогалерея</span></h2>
           <div class="gallery__description-wrapper">
@@ -887,16 +882,7 @@
           </div>
         </div>
       </section>
-
-
-
-
-
-
-
-
-
-      <section class="questions">
+      <section class="questions" id="questions">
         <picture>
           <source type="image/webp" media="(max-width: 767px)" srcset="./img/question-mobile.webp 1x, ./img/question-mobile@2x.webp 2x">
           <source type="image/webp" media="(max-width: 1199px)" srcset="./img/question-tablet.webp 1x, ./img/question-tablet@2x.webp 2x">
@@ -926,12 +912,7 @@
           </div>
         </div>
       </section>
-
-
-
-
-
-      <div class="contacts">
+      <div class="contacts" id="contacts">
         <div class="container contacts__wrapper">
           <div class="contacts__text">
             <h2>Контакты<span>Контакты</span></h2>
@@ -945,23 +926,7 @@
           <div class="contacts__map" id="map"></div>
         </div>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
     </main>
-
-
-
     <footer class="footer">
       <div class="container">
         <div class="footer__wrapper">
