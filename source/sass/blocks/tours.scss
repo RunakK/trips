@@ -257,10 +257,10 @@
     }
 
     &--day {
-
       @include vp-767 {
         padding-left: 12px;
       }
+
       & ::before {
         left: -4px;
         background: url("../img/svg/sun.svg") no-repeat center;
@@ -405,7 +405,6 @@
   &__buttons {
     position: absolute;
     bottom: 0;
-    right: 0;
     display: flex;
     gap: 4px;
     top: 0;
