@@ -3,6 +3,7 @@
   margin-top: -19px;
   color: $color-default-white;
   padding-bottom: 0;
+  background-color: $color-navy-blue;
 
   &__content-wrapper {
     padding-top: 199px;
@@ -127,7 +128,7 @@
         background: url("../../img/svg/moon.svg") no-repeat center;
       }
 
-      &:last-child {
+      &.hero__level {
         &::before {
           background: url("../../img/svg/level.svg") no-repeat center;
         }
@@ -217,7 +218,7 @@
     }
   }
 
-  &__photo--left {
+  &__photo-left {
     @include vp-1199 {
       position: relative;
       left: 18%;
@@ -237,7 +238,7 @@
     }
   }
 
-  &__photo--right {
+  &__photo-right {
     @include vp-1199 {
       position: relative;
       right: 18%;
