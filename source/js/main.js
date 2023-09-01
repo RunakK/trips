@@ -239,7 +239,7 @@ window.addEventListener('DOMContentLoaded', () => {
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png?{foo}', {foo: 'bar', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
 
 var greenIcon = L.icon({
-  iconUrl: '../img/svg/pin_filled.svg',
+  iconUrl: './img/svg/pin_filled.svg',
   iconSize:     [48, 48], // size of the icon
 });
 
