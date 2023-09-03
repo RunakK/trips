@@ -190,6 +190,7 @@
     color: $color-default-white;
     letter-spacing: 0.7px;
     margin-left: auto;
+    position: relative;
 
     @include vp-1199 {
       color: $color-elephant;
@@ -204,8 +205,34 @@
       text-transform: uppercase;
     }
 
-    @include hover-focus {
-      color: $color-navy-blue;
+    &::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 1px;
+      background-color: $color-default-white;
+      display: none;
+      bottom: -3px;
+    }
+
+    @include hover {
+      &::before {
+        display: block;
+      }
+    }
+
+    @include focus {
+      outline: 1px solid $color-default-white;
+    }
+
+    @include active-no-hover {
+      &::before {
+        display: none;
+      }
+    }
+
+    &:disabled {
+      opacity: 0.5;
     }
   }
 
@@ -215,10 +242,13 @@
     color: $color-default-white;
     z-index: 21;
     margin-left: auto;
+    max-width: 160px;
+    outline: none;
 
     .is-open & {
       @include vp-1199 {
         color: $color-elephant;
+        outline: none;
       }
     }
 
@@ -259,6 +289,10 @@
 
     @include vp-767 {
       margin-top: -13px;
+
+      .is-open & {
+        width: 22px;
+      }
     }
 
     .is-open {
@@ -304,6 +338,42 @@
       pointer-events: all;
       transition: opacity 0.3s ease 0.2s;
       left: 0;
+    }
+  }
+}
+
+.is-open {
+  .header-example__link {
+    @include vp-1199 {
+      &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        background-color: $color-elephant;
+        display: none;
+        bottom: -3px;
+      }
+
+      @include hover {
+        &::before {
+          display: block;
+        }
+      }
+
+      @include focus {
+        outline: 1px solid $color-elephant;
+      }
+
+      @include active-no-hover {
+        &::before {
+          display: none;
+        }
+      }
+
+      &:disabled {
+        opacity: 0.5;
+      }
     }
   }
 }

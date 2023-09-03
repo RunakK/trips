@@ -252,21 +252,51 @@ L.marker([55.774836, 37.632664], {icon: greenIcon}).addTo(map);
 
   // video
 
+  // const video = document.querySelector('.hero__video-button');
+  // const heroVideo = document.querySelector('.hero__media--video');
+
+
+  // video.addEventListener('click', () => {
+  //   if (video.classList.contains('video-is-active')) {
+  //     return;
+  //   }
+
+  //   video.classList.add('video-is-active');
+
+  //   const src = heroVideo.dataset.src;
+
+  //   heroVideo.insertAdjacentHTML('afterbegin', '<iframe width="560" height="315" src="' + src + '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>');
+  // });
+
+  // const video = document.querySelector('.hero__video-button');
+  // const aboutVideo = document.querySelector('.hero__media--video');
+
+
+  // video.addEventListener('click', () => {
+  //   if (video.classList.contains('video-is-active')) {
+  //     return;
+  //   }
+
+  //   video.classList.add('video-is-active');
+
+  //   const src = aboutVideo.dataset.src;
+
+  //   aboutVideo.insertAdjacentHTML('afterbegin', '<iframe width="560" height="315" src="https://www.youtube.com/embed/9TZXsZItgdw?si=1MVZQrqQ3fx1Ot5N" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>');
+  // });
+
   const video = document.querySelector('.hero__video-button');
-  const heroVideo = document.querySelector('.hero__media--video');
+  const mediaBlock = document.querySelector('.hero__video');
 
+    video.addEventListener('click', function () {
 
-  video.addEventListener('click', () => {
-    if (video.classList.contains('video-is-active')) {
-      return;
-    }
+      if(video.classList.contains('is-active')) {
+          return;
+        }
 
-    video.classList.add('video-is-active');
+      video.classList.add('is-active');
 
-    const src = heroVideo.dataset.src;
-
-    heroVideo.insertAdjacentHTML('afterbegin', '<iframe width="560" height="315" src="' + src + '" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>');
-  });
+      mediaBlock.insertAdjacentHTML('afterbegin', '<iframe src="https://www.youtube.com/embed/9TZXsZItgdw?si=1MVZQrqQ3fx1Ot5N?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>')
+  })
 
   // ---------------------------------
 

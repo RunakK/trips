@@ -78,6 +78,7 @@
     color: $color-elephant;
     margin-bottom: 52px;
     position: relative;
+    padding-right: 95px;
 
     @include vp-1199 {
       font-size: 25px;
@@ -276,6 +277,10 @@
       width: 39px;
       margin-left: 21%;
       padding-right: 0;
+
+      @include vp-1279 {
+        margin-left: 10%;
+      }
 
       @include vp-1199 {
         width: 100%;
