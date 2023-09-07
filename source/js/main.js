@@ -21,7 +21,10 @@ window.addEventListener('DOMContentLoaded', () => {
     // If we need pagination
     pagination: {
       el: '.hero__pagination',
+      type: 'bullets',
+      clickable: true,
     },
+    centeredSlides: true,
 
     navigation: {
       nextEl: '.hero__next',
@@ -79,7 +82,7 @@ window.addEventListener('DOMContentLoaded', () => {
       // when window width is >= 320px
       320: {
         slidesPerView: 1,
-        spaceBetween: 0,
+        spaceBetween: 30,
       },
       // when window width is >= 768px
       768: {
@@ -295,7 +298,8 @@ L.marker([55.774836, 37.632664], {icon: greenIcon}).addTo(map);
 
       video.classList.add('is-active');
 
-      mediaBlock.insertAdjacentHTML('afterbegin', '<iframe src="https://www.youtube.com/embed/9TZXsZItgdw?si=1MVZQrqQ3fx1Ot5N?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>')
+      // mediaBlock.insertAdjacentHTML('afterbegin', '<iframe src="https://www.youtube.com/embed/9TZXsZItgdw?si=1MVZQrqQ3fx1Ot5N?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen allow="autoplay"></iframe>')
+      mediaBlock.insertAdjacentHTML('afterbegin', '<iframe width="560" height="315" src="https://www.youtube.com/embed/9TZXsZItgdw?autoplay=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>')
   })
 
   // ---------------------------------

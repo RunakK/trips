@@ -11,15 +11,24 @@
     padding-top: 67px;
   }
 
+  &__wrapper {
+    @include vp-767 {
+      min-height: 129vw;
+    }
+  }
+
+  & .swiper-slide {
+    height: auto;
+  }
+
+
   &__card {
     position: relative;
-    // width: 31.67%;
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    // padding: 17.3% 1.7% 3%;
     padding: 54.5% 5.3% 7%;
-    // padding-bottom: 2.4%;
 
     justify-content: flex-end;
     box-sizing: border-box;
@@ -35,11 +44,13 @@
       width: 100%;
       padding-bottom: 28px;
       padding-top: 27vw;
+      min-height: 53vw;
     }
 
     @include vp-767 {
       width: 100%;
-      padding-top: 193px;
+      padding-top: 60.3vw;
+      min-height: 110vw;
     }
 
     &::before {
@@ -49,7 +60,7 @@
       height: 100%;
       top: 0;
       left: 0;
-      background: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 61.9%, rgba(0, 0, 0, 0) 100%);
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.60) 22.3%, rgba(0, 0, 0, 0.00) 60.32%);
       z-index: 1;
     }
 

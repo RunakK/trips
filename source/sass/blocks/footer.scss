@@ -144,11 +144,17 @@
     }
   }
 
+  &__phone-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
   &__phone-link {
     font-size: 18px;
     font-weight: 600;
     text-align: right;
     grid-column: 3;
+    margin-left: auto;
 
     @include vp-1199 {
       display: none;
