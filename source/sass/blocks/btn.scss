@@ -20,7 +20,7 @@
     background-color: $color-default-white;
     color: $color-resolution-blue;
     outline: 1px solid $color-resolution-blue;
-    outline-offset: -2px;
+    outline-offset: -1px;
   }
 
   @include active-no-hover {

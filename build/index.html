@@ -23,6 +23,7 @@
 <body>
   <div class="wrapper">
     <header class="header-example" data-header>
+      <div class="header-example__overlay" data-close-menu></div>
       <div class="container">
         <div class="header-example__wrapper">
           <a href="./index.html" class="header-example__logo">
@@ -60,7 +61,9 @@
               <use href="./img/sprite.svg#cross"></use>
             </svg>
           </button>
-          <a class="header-example__phone-link" href="tel:8-800-725-32-32">8 800 725 32 32</a>
+          <div class="header-example__phone-wrapper">
+            <a class="header-example__phone-link" href="tel:8-800-725-32-32">8 800 725 32 32</a>
+          </div>
         </div>
       </div>
     </header>
@@ -88,7 +91,7 @@
                   <h3>Захватывающие вершины Кавказа</h3>
                   <p>В&nbsp;сопровождении опытных гидов вы&nbsp;пройдете через потрясающие ландшафты и&nbsp;совершите восход на&nbsp;вершину горы Чегет.</p>
                   <a class="btn hero__button" href="#">Смотреть тур</a>
-                  <div class="hero__media hero__media--video hero__video" data-src="https://www.youtube.com/embed/9TZXsZItgdw?autoplay=1">
+                  <div class="hero__media hero__media--video hero__video">
                     <button class="hero__video-button"></button>
                     <picture>
                       <source type="image/webp" media="(max-width: 1199px)" srcset="./img/hero-video-tablet.webp 1x, ./img/hero-video-tablet@2x.webp 2x">
@@ -154,13 +157,13 @@
             <div class="swiper-slide">
               <h2 class="visually-hidden">Наши туры в горы</h2>
               <picture>
-                <source type="image/webp" srcset="./img/hero-desktop-kavk.webp 1x, ./img/hero-desktop-kavk@2x.webp 2x">
-                <source type="image/webp" media="(max-width: 1199px)" srcset="./img/hero-kavk-tablet.webp 1x, ./img/hero-kavk-tablet@2x.webp 2x">
-                <source type="image/webp" media="(max-width: 767px)" srcset="./img/hero-kavk-mobile.webp 1x, ./img/hero-kavk-mobile@2x.webp 2x">
-                <source media="(max-width: 1440px)" srcset="./img/hero-desktop-kavk.png 1x, ./img/hero-desktop-kavk@2x.png 2x">
-                <source media="(max-width: 1199px)" srcset="./img/hero-kavk-tablet.png 1x, ./img/hero-kavk-tablet@2x.png 2x">
-                <source media="(max-width: 767px)" srcset="./img/hero-kavk-mobile.png 1x, ./img/hero-kavk-mobile@2x.png 2x">
-                <img loading="lazy" src="./img/hero-desktop-kavk.png" srcset="./img/hero-desktop-kavk@2x.png" alt="Горные вершины кавказа в тумане">
+                <source type="image/webp" media="(max-width: 767px)" srcset="./img/hero-altay-mobile.webp 1x, ./img/hero-altay-mobile@2x.webp 2x">
+                <source type="image/webp" media="(max-width: 1199px)" srcset="./img/hero-altay-tablet.webp 1x, ./img/hero-altay-tablet@2x.webp 2x">
+                <source type="image/webp" media="(max-width: 1440px)" srcset="./img/hero-altay-desktop.webp 1x, ./img/hero-altay-desktop@2x.webp 2x">
+                <source media="(max-width: 767px)" srcset="./img/hero-altay-mobile.png 1x, ./img/hero-altay-mobile@2x.png 2x">
+                <source media="(max-width: 1199px)" srcset="./img/hero-altay-tablet.png 1x, ./img/hero-altay-tablet@2x.png 2x">
+                <source media="(max-width: 1440px)" srcset="./img/hero-altay-desktop.png 1x, ./img/hero-altay-desktop@2x.png 2x">
+                <img loading="lazy" src="./img/hero-altay-desktop.png" srcset="./img/hero-altay-desktop@2x.png" alt="Горные вершины на фоне голубого неба">
               </picture>
               <div class="container container--hero">
                 <div class="hero__content-wrapper">
@@ -169,7 +172,7 @@
                   <a class="btn hero__button" href="#">Смотреть тур</a>
                   <div class="hero__media hero__media--video hero__media--audio">
                     <iframe lang="ru" loading="lazy" src="https://music.yandex.ru/iframe/#track/112912322/25474374">
-                      </iframe>
+                    </iframe>
                   </div>
                 </div>
                 <div class="hero__options">
@@ -181,8 +184,6 @@
           </div>
           <!-- If we need pagination -->
           <div class="swiper-pagination hero__pagination"></div>
-          <!-- If we need scrollbar -->
-          <div class="swiper-scrollbar"></div>
         </div>
       </section>
       <section class="tours" id="tours">
@@ -959,7 +960,9 @@
               </li>
             </ul>
           </nav>
-          <a class="footer__phone-link" href="tel:8-800-725-32-32">8 800 725 32 32</a>
+          <div class="footer__phone-wrapper">
+            <a class="footer__phone-link" href="tel:8-800-725-32-32">8 800 725 32 32</a>
+          </div>
           <ul class="footer__social">
             <li class="footer__social-item">
               <a href="#" class="footer__social-link">

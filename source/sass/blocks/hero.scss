@@ -192,6 +192,10 @@
         top: 20px;
         height: 28.5vw;
       }
+
+      & iframe {
+        border: none;
+      }
     }
 
     &--photo {
@@ -310,10 +314,17 @@
   }
 
   & .swiper-pagination {
-    bottom: 90px;
+    bottom: 97px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
+    padding-right: 116px;
     gap: 7px;
+
+    @include vp-1199 {
+      justify-content: center;
+      padding: 0;
+      bottom: 90px;
+    }
 
     @include vp-767 {
       gap: 4px;
@@ -324,5 +335,28 @@
   & .swiper-slide {
     height: auto;
     background-color: $color-navy-blue;
+
+    &::before {
+      content: "";
+      position: absolute;
+      background: linear-gradient(112deg, rgba(15, 20, 41, 0.33) 17.23%, rgba(15, 20, 41, 0.00) 94.93%);
+      width: 100%;
+      position: absolute;
+      height: 100%;
+      object-fit: cover;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+  }
+
+  .container--hero   {
+    display: none;
+  }
+
+  & .swiper-slide-active {
+    & .container--hero {
+      display: block;
+    }
   }
 }
