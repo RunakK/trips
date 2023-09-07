@@ -2,9 +2,9 @@
 <html lang="ru">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Организация походов в горы">
   <title>Путешествия</title>
   <link rel="preload" href="./fonts/montserrat-v25-latin-600.woff2" type="font/woff2" as="font" crossorigin="anonymous">
@@ -33,22 +33,22 @@
           <nav class="header-example__nav">
             <ul class="header-example__list">
               <li class="header-example__item">
-                <a href="#tours" class="header-example__link">Туры</a>
+                <a href="#tours" class="header-example__link" data-close-menu>Туры</a>
               </li>
               <li class="header-example__item">
-                <a href="#teaching" class="header-example__link">Обучение</a>
+                <a href="#teaching" class="header-example__link" data-close-menu>Обучение</a>
               </li>
               <li class="header-example__item">
-                <a href="#about" class="header-example__link">О нас</a>
+                <a href="#about" class="header-example__link" data-close-menu>О нас</a>
               </li>
               <li class="header-example__item">
-                <a href="#reviews" class="header-example__link">Отзывы</a>
+                <a href="#reviews" class="header-example__link" data-close-menu>Отзывы</a>
               </li>
               <li class="header-example__item">
-                <a href="#gallery" class="header-example__link">Фотографии</a>
+                <a href="#gallery" class="header-example__link" data-close-menu>Фотографии</a>
               </li>
               <li class="header-example__item">
-                <a href="#contacts" class="header-example__link">Контакты</a>
+                <a href="#contacts" class="header-example__link" data-close-menu>Контакты</a>
               </li>
             </ul>
           </nav>
@@ -66,6 +66,7 @@
     </header>
     <main>
       <section class="hero">
+        <h1 class="visually-hidden">Организация походов в горы"</h1>
         <!-- Slider main container -->
         <div class="swiper hero__swiper">
           <!-- Additional required wrapper -->
@@ -87,7 +88,7 @@
                   <h3>Захватывающие вершины Кавказа</h3>
                   <p>В&nbsp;сопровождении опытных гидов вы&nbsp;пройдете через потрясающие ландшафты и&nbsp;совершите восход на&nbsp;вершину горы Чегет.</p>
                   <a class="btn hero__button" href="#">Смотреть тур</a>
-                  <div class="hero__media hero__media--video" data-src="https://www.youtube.com/embed/9TZXsZItgdw?autoplay=1">
+                  <div class="hero__media hero__media--video hero__video" data-src="https://www.youtube.com/embed/9TZXsZItgdw?autoplay=1">
                     <button class="hero__video-button"></button>
                     <picture>
                       <source type="image/webp" media="(max-width: 1199px)" srcset="./img/hero-video-tablet.webp 1x, ./img/hero-video-tablet@2x.webp 2x">
@@ -95,7 +96,7 @@
                       <source media="(max-width: 767px)" srcset="./img/hero-video-mobile.png 1x, ./img/hero-video-mobile@2x.png 2x">
                       <source media="(max-width: 1199px)" srcset="./img/hero-kavk-tablet.png 1x, ./img/hero-kavk-tablet@2x.png 2x">
                       <source media="(max-width: 1440px)" srcset="./img/hero-video-desktop.png 1x, ./img/hero-video-desktop@2x.png 2x">
-                      <img loading="lazy" src="./img/hero-video-desktop.png" srcset="./img/hero-video-desktop@2x.png" alt="Горные вершины кавказа в тумане" width="482" height="317">
+                      <img src="./img/hero-video-desktop.png" srcset="./img/hero-video-desktop@2x.png" alt="Горные вершины кавказа в тумане" width="482" height="317">
                     </picture>
                   </div>
                 </div>
@@ -167,7 +168,8 @@
                   <p>Алтайский &nbsp;трекинг-тур&nbsp; &mdash; это захватывающее приключение с&nbsp;посещением магических и&nbsp;захватывающих дух ландшафтов Алтайских гор.</p>
                   <a class="btn hero__button" href="#">Смотреть тур</a>
                   <div class="hero__media hero__media--video hero__media--audio">
-                    <iframe loading="lazy" src="https://music.yandex.ru/iframe/#track/112912322/25474374">Слушайте <a href='https://music.yandex.ru/album/25474374/track/112912322'>001. Конец фронтенда, одинаковые фреймворки и логические свойства</a> на Яндекс Музыке</iframe>
+                    <iframe lang="ru" loading="lazy" src="https://music.yandex.ru/iframe/#track/112912322/25474374">
+                      </iframe>
                   </div>
                 </div>
                 <div class="hero__options">
