@@ -4308,13 +4308,13 @@ button,
         -ms-flex-align: start;
             align-items: flex-start;
     gap: 17px;
+    position: absolute;
   }
 }
 @media (max-width: 767px) {
   .header-example__list {
     margin: 0 0 62px 0;
     gap: 12px;
-    position: absolute;
   }
 }
 @media (max-width: 1199px) {
@@ -4543,8 +4543,10 @@ button,
   height: 100vh;
   left: 0;
   top: 0;
-  bottom: -100vh;
   display: none;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 @media (max-width: 1199px) {
   .is-open .header-example__overlay {
