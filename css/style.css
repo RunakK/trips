@@ -3789,8 +3789,10 @@ button,
   height: 100vh;
   left: 0;
   top: 0;
-  bottom: -100vh;
   display: none;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .instructors {
@@ -5318,6 +5320,7 @@ button,
     -ms-flex-align: start;
     align-items: flex-start;
     gap: 17px;
+    position: absolute;
   }
 
   .header-example__item {
@@ -6240,7 +6243,6 @@ button,
   .header-example__list {
     margin: 0 0 62px 0;
     gap: 12px;
-    position: absolute;
   }
 
   .header-example__link {
