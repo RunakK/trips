@@ -10,10 +10,18 @@
 
   @include vp-1199 {
     padding-top: 41px;
+
+    &.is-open {
+      background: $color-default-white;
+    }
   }
 
   @include vp-767 {
     padding-top: 20px;
+
+    &.is-open {
+      background: $color-default-white;
+    }
   }
 
   &--sticky {
@@ -39,6 +47,7 @@
 
     @include vp-1199 {
       justify-content: space-between;
+      align-items: start;
     }
 
     @include vp-767 {
@@ -140,6 +149,19 @@
       overflow-x: scroll;
       min-height: 76%;
 
+      @include vp-1199 {
+        min-height: 58%;
+        padding-top: 0;
+        margin-top: 94px;
+        padding-top: 31px;
+      }
+
+      @include vp-767 {
+        padding-top: 0;
+        margin-top: 94px;
+        min-height: 44%;
+      }
+
       // &::before {
       //   visibility: visible;
 
@@ -173,11 +195,13 @@
       align-items: flex-start;
       gap: 17px;
       position: absolute;
+      width: 50%;
     }
 
     @include vp-767 {
       margin: 0 0 62px 0;
       gap: 12px;
+      width: 50%;
     }
   }
 
@@ -249,6 +273,10 @@
 
     @include vp-1199 {
       align-items: flex-end;
+      flex-direction: row;
+      margin-left: auto;
+      gap: 10px;
+      padding-left: 2px
     }
 
     @include vp-767 {
@@ -311,14 +339,15 @@
       transition: opacity 0.3s ease;
       order: -1;
       margin-right: 99px;
-      margin-top: -12px;
+      margin-top: -2px;
     }
 
     @include vp-767 {
-      margin-top: -13px;
+      margin-top: -5px;
 
       .is-open & {
         width: 22px;
+        margin-top: -5px;
       }
     }
 
@@ -376,7 +405,7 @@
       width: 100vw;
       height: 100vh;
       left: 0;
-      top: 0;
+      top: 100px;
       display: none;
       right: 0;
       bottom: 0;
@@ -392,6 +421,25 @@
 }
 
 .is-open {
+
+  .header-example__phone-wrapper {
+    flex-direction: row;
+
+    @include vp-1199 {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      margin-left: auto;
+    }
+
+    @include vp-767 {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      margin-left: auto;
+    }
+  }
+
   .header-example__link {
     @include vp-1199 {
       &::before {
