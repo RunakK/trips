@@ -4880,6 +4880,10 @@ button,
   align-items: center;
   position: relative;
   gap: 12px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0 auto;
 }
 
 .tours__view-all.focus-visible:focus {
